@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('asseguradores', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->string('CIF')->primary();
+            $table->string('nom');
+            $table->boolean('habilitado')->default(true);
+            $table->string('adreça');
+            $table->float('preuCursa');
+            $table->timestamps(); 
         });
     }
 
