@@ -13,6 +13,7 @@ class CarreraController extends Controller
     {
          $carreras = [
             [
+                'id' => 1,
                 'nom' => 'Carrera de Montaña',
                 'descripció' => 'Una emocionante carrera a través de las montañas.',
                 'desnivell' => 500,
@@ -29,6 +30,7 @@ class CarreraController extends Controller
                 'preuInscripció' => 20,
             ],
             [
+                'id' => 2,
                 'nom' => 'Carrera de Ciclismo',
                 'descripció' => 'Una desafiante carrera de ciclismo por el campo.',
                 'desnivell' => 300,
