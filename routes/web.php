@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CarreraController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+
+//Route::get('/admin/carreras', [CarreraController::class, 'getCarreras']);
+
+Route::get('/admin/carreras', function () {
+    return app()->make(CarreraController::class)->getCarreras();
 });
