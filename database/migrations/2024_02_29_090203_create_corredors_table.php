@@ -22,6 +22,7 @@ return new class extends Migration
             $table->boolean('soci')->default(false);
             $table->integer('numeroFederat')->nullable();
             $table->integer('punts')->default(0);
+            $table->rememberToken();
             $table->timestamps();
         });
     }

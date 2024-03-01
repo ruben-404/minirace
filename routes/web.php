@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarreraController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,5 @@ Route::get('/', function () {
 Route::get('/admin/carreras', function () {
     return app()->make(CarreraController::class)->getCarreras();
 });
+Route::get('/admin', [AdminController::class, 'login']);
+Route::post('/ProcesarLogin', [AdminController::class, 'ProcesarLogin'])->name('ProcesarLogin');
