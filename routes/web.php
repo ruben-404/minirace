@@ -21,9 +21,17 @@ Route::get('/', function () {
 
 
 //Route::get('/admin/carreras', [CarreraController::class, 'getCarreras']);
-
+//ver tabla carreas
 Route::get('/admin/carreras', function () {
     return app()->make(CarreraController::class)->getCarreras();
 });
+//add carreras formulario
+Route::get('/admin/add-carreras', [CarreraController::class, 'addCarreras'])->name('addCarreras');
+// save  carreras
+Route::post('/admin/carreras/guardar', [CarreraController::class, 'guardar'])->name('guardarCarrera');
+
+
+
+//parte login admin
 Route::get('/admin', [AdminController::class, 'login']);
 Route::post('/ProcesarLogin', [AdminController::class, 'ProcesarLogin'])->name('ProcesarLogin');

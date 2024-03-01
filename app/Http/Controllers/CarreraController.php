@@ -11,43 +11,60 @@ class CarreraController extends Controller
 {
     public function getCarreras()
     {
-         $carreras = [
-            [
-                'id' => 1,
-                'nom' => 'Carrera de Montaña',
-                'descripció' => 'Una emocionante carrera a través de las montañas.',
-                'desnivell' => 500,
-                'imatgeMapa' => 'ruta-a-la-imagen-1.jpg',
-                'maximParticipants' => 100,
-                'habilitado' => true,
-                'km' => 10,
-                'data' => '2024-03-15',
-                'hora' => '09:00:00',
-                'puntSortida' => 'Plaza Mayor',
-                'cartellPromoció' => 'ruta-al-cartell-1.jpg',
-                'preuAsseguradora' => 10,
-                'preuPatrocini' => 500,
-                'preuInscripció' => 20,
-            ],
-            [
-                'id' => 2,
-                'nom' => 'Carrera de Ciclismo',
-                'descripció' => 'Una desafiante carrera de ciclismo por el campo.',
-                'desnivell' => 300,
-                'imatgeMapa' => 'ruta-a-la-imagen-2.jpg',
-                'maximParticipants' => 50,
-                'habilitado' => true,
-                'km' => 20,
-                'data' => '2024-04-10',
-                'hora' => '10:30:00',
-                'puntSortida' => 'Parque Central',
-                'cartellPromoció' => 'ruta-al-cartell-2.jpg',
-                'preuAsseguradora' => 15,
-                'preuPatrocini' => 600,
-                'preuInscripció' => 25,
-            ],
-        ];
-        // $carreras = Carrera::all();
+  
+        $carreras = Carrera::all();
         return view('admin.carreras.tablaCarreras', compact('carreras'));
     }
+
+    public function addCarreras()
+    {
+  
+        return view('admin.carreras.formularios.addCarreras');
+    }
+
+    public function guardar(Request $request)
+    {
+        // Validar los datos del formulario
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string',
+            'desnivell' => 'required|integer',
+            'imagen_mapa' => 'required|string',
+            'maxim_participants' => 'required|integer',
+            'habilitado' => 'required|boolean',
+            'km' => 'required|numeric',
+            'data' => 'required|date',
+            'hora' => 'required|date_format:H:i',
+            'punt_sortida' => 'required|string',
+            'cartell_promocio' => 'required|string',
+            'preu_asseguradora' => 'required|numeric',
+            'preu_patrocinio' => 'required|numeric',
+            'preu_inscripcio' => 'required|numeric',
+        ]);
+
+        // Crear una nueva instancia de Carrera y asignar los valores
+        $carrera = new Carrera();
+        $carrera->nom = $request->nombre;
+        $carrera->descripció = $request->descripcion;
+        $carrera->desnivell = $request->desnivell;
+        $carrera->imatgeMapa = $request->imagen_mapa;
+        $carrera->maximParticipants = $request->maxim_participants;
+        $carrera->habilitado = $request->habilitado;
+        $carrera->km = $request->km;
+        $carrera->data = $request->data;
+        $carrera->hora = $request->hora;
+        $carrera->puntSortida = $request->punt_sortida;
+        $carrera->cartellPromoció = $request->cartell_promocio;
+        $carrera->preuAsseguradora = $request->preu_asseguradora;
+        $carrera->preuPatrocini = $request->preu_patrocinio;
+        $carrera->preuInscripció = $request->preu_inscripcio;
+        // Asigna otros valores a los otros campos si es necesario
+
+        // Guardar la carrera en la base de datos
+        $carrera->save();
+
+        // Redirigir a la página de lista de carreras u otra página según sea necesario
+        return redirect('/admin/carreras');
+    }
+
 }
