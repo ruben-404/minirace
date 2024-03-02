@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarreraController;
+use App\Http\Controllers\AsseguradoraController;
 use App\Http\Controllers\AdminController;
 
 /*
@@ -34,6 +35,19 @@ Route::get('/admin/carreras/{id}', [CarreraController::class, 'editar'])->name('
 //save edit carrera
 Route::put('/admin/carreras/{id}', [CarreraController::class, 'actualizar'])->name('actualizarCarrera');
 
+
+//ver tabla asseguradoras
+Route::get('/admin/asseguradoras', function () {
+    return app()->make(AsseguradoraController::class)->getAsseguradoras();
+});
+//add aseguradora formulario
+Route::get('/admin/add-aseguradoras', [AsseguradoraController::class, 'addAseguradora'])->name('addAseguradora');
+// save  aseguradoras
+Route::post('/admin/asseguradoras/guardar', [AsseguradoraController::class, 'guardar'])->name('guardarAseguradora');
+//editar aseguradoras
+Route::get('/admin/asseguradoras/{cif}', [AsseguradoraController::class, 'editar'])->name('editarAsseguradora');
+//save edit aseguradoras
+Route::put('/admin/asseguradoras/{cif}', [AsseguradoraController::class, 'actualizar'])->name('actualizarAsseguradora');
 
 
 //parte login admin
