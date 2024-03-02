@@ -33,7 +33,7 @@
                             <th>Precio Aseguradora</th>
                             <th>Precio Patrocinio</th>
                             <th>Precio Inscripción</th>
-                            <th>Acciones</th>
+                            <th colspan="2" class="text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,7 +51,7 @@
                             <td>{{ $carrera['preuInscripció'] }}€</td>
                             <td>
                                 <button type="button" class="btn btn-primary btn-ver-detalles" data-desnivel="{{ $carrera['desnivell'] }}" data-imagen-mapa="{{ $carrera['imatgeMapa'] }}" data-km="{{ $carrera['km'] }}" data-punto-salida="{{ $carrera['puntSortida'] }}" data-cartel-promocion="{{ $carrera['cartellPromoció'] }}">
-                                    Ver Detalles
+                                    Detalles
                                 </button>
                             </td>
                             <td>
