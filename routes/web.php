@@ -29,6 +29,10 @@ Route::get('/admin/carreras', function () {
 Route::get('/admin/add-carreras', [CarreraController::class, 'addCarreras'])->name('addCarreras');
 // save  carreras
 Route::post('/admin/carreras/guardar', [CarreraController::class, 'guardar'])->name('guardarCarrera');
+//editar carreras
+Route::get('/admin/carreras/{id}', [CarreraController::class, 'editar'])->name('editar');
+//save edit carrera
+Route::put('/admin/carreras/{id}', [CarreraController::class, 'actualizar'])->name('actualizarCarrera');
 
 
 

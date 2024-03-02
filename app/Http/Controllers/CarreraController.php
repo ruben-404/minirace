@@ -67,4 +67,37 @@ class CarreraController extends Controller
         return redirect('/admin/carreras');
     }
 
+    public function editar($id)
+    {
+        // Obtener la carrera por su ID
+        $carrera = Carrera::findOrFail($id);
+
+        // Devolver la vista de edición con los datos de la carrera
+        return view('admin.carreras.formularios.editarCarreras', compact('carrera'));
+    }
+
+    public function actualizar(Request $request, $id)
+    {
+        $carrera = Carrera::findOrFail($id);
+
+        $carrera->update([
+            'nom' => $request->input('nom'),
+            'descripció' => $request->input('descripció'),
+            'desnivell' => $request->input('desnivell'),
+            'imatgeMapa' => $request->input('imatgeMapa'),
+            'maximParticipants' => $request->input('maximParticipants'),
+            'habilitado' => $request->input('habilitado'),
+            'km' => $request->input('km'),
+            'data' => $request->input('data'),
+            'hora' => $request->input('hora'),
+            'puntSortida' => $request->input('puntSortida'),
+            'cartellPromoció' => $request->input('cartellPromoció'),
+            'preuAsseguradora' => $request->input('preuAsseguradora'),
+            'preuPatrocini' => $request->input('preuPatrocini'),
+            'preuInscripció' => $request->input('preuInscripció'),
+        ]);
+
+        return redirect('/admin/carreras');
+    }
+
 }

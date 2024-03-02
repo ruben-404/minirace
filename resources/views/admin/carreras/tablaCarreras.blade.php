@@ -39,7 +39,7 @@
                     <tbody>
                         @foreach($carreras as $carrera)
                         <tr>
-                            <td>{{ $carrera['id'] }}</td>
+                            <td>{{ $carrera['idCarrera'] }}</td>
                             <td>{{ $carrera['nom'] }}</td>
                             <td>{{ $carrera['descripció'] }}</td>
                             <td>{{ $carrera['maximParticipants'] }}</td>
@@ -53,6 +53,12 @@
                                 <button type="button" class="btn btn-primary btn-ver-detalles" data-desnivel="{{ $carrera['desnivell'] }}" data-imagen-mapa="{{ $carrera['imatgeMapa'] }}" data-km="{{ $carrera['km'] }}" data-punto-salida="{{ $carrera['puntSortida'] }}" data-cartel-promocion="{{ $carrera['cartellPromoció'] }}">
                                     Ver Detalles
                                 </button>
+                            </td>
+                            <td>
+                            <form method="GET" action="{{ route('editar', $carrera['idCarrera']) }}">
+                                @csrf
+                                <button type="submit" class="btn btn-info btn-editar">Editar</button>
+                            </form>
                             </td>
                         </tr>
                         @endforeach
