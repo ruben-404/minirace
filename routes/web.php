@@ -34,6 +34,8 @@ Route::post('/admin/carreras/guardar', [CarreraController::class, 'guardar'])->n
 Route::get('/admin/carreras/{id}', [CarreraController::class, 'editar'])->name('editar');
 //save edit carrera
 Route::put('/admin/carreras/{id}', [CarreraController::class, 'actualizar'])->name('actualizarCarrera');
+//activar/desacctivar carreras
+Route::put('/admin/carreras/{id}/toggle', [CarreraController::class, 'toggleHabilitado'])->name('toggleHabilitado');
 
 
 //ver tabla asseguradoras

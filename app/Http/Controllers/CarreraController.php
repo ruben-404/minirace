@@ -29,36 +29,52 @@ class CarreraController extends Controller
             'nombre' => 'required|string|max:255',
             'descripcion' => 'required|string',
             'desnivell' => 'required|integer',
-            'imagen_mapa' => 'required|string',
+            'imagen_mapa' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'maxim_participants' => 'required|integer',
             'habilitado' => 'required|boolean',
             'km' => 'required|numeric',
             'data' => 'required|date',
             'hora' => 'required|date_format:H:i',
             'punt_sortida' => 'required|string',
-            'cartell_promocio' => 'required|string',
+            'cartell_promocio' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'preu_asseguradora' => 'required|numeric',
             'preu_patrocinio' => 'required|numeric',
             'preu_inscripcio' => 'required|numeric',
         ]);
+
+
+        //fotos
+        $imagenMapa = $request->file('imagen_mapa');
+        $nombreCIF = $request->input('nom');
+        $extension = $imagenMapa->getClientOriginalExtension();
+        $imgMapa = 'mapa_' . $nombreCIF . '.' . $extension;
+
+
+        $imagenCartel = $request->file('cartell_promocio');
+        $extension = $imagenCartel->getClientOriginalExtension();
+        $imgCartel = 'cartel_' . $nombreCIF . '.' . $extension;
+
+        // Guardar la imagen en la carpeta 'public'
+        $imagenMapa->move(public_path('storage/carrerasImages'), $imgMapa);
+        $imagenCartel->move(public_path('storage/carrerasImages'), $imgCartel);
+
 
         // Crear una nueva instancia de Carrera y asignar los valores
         $carrera = new Carrera();
         $carrera->nom = $request->nombre;
         $carrera->descripció = $request->descripcion;
         $carrera->desnivell = $request->desnivell;
-        $carrera->imatgeMapa = $request->imagen_mapa;
+        $carrera->imatgeMapa = $imgMapa;
         $carrera->maximParticipants = $request->maxim_participants;
         $carrera->habilitado = $request->habilitado;
         $carrera->km = $request->km;
         $carrera->data = $request->data;
         $carrera->hora = $request->hora;
         $carrera->puntSortida = $request->punt_sortida;
-        $carrera->cartellPromoció = $request->cartell_promocio;
+        $carrera->cartellPromoció = $imgCartel;
         $carrera->preuAsseguradora = $request->preu_asseguradora;
         $carrera->preuPatrocini = $request->preu_patrocinio;
         $carrera->preuInscripció = $request->preu_inscripcio;
-        // Asigna otros valores a los otros campos si es necesario
 
         // Guardar la carrera en la base de datos
         $carrera->save();
@@ -80,24 +96,49 @@ class CarreraController extends Controller
     {
         $carrera = Carrera::findOrFail($id);
 
+        //fotos
+        $imagenMapa = $request->file('imatgeMapa');
+        $nombreCIF = $request->input('nom');
+        $extension = $imagenMapa->getClientOriginalExtension();
+        $imgMapa = 'mapa_' . $nombreCIF . '.' . $extension;
+
+
+        $imagenCartel = $request->file('cartellPromoció');
+        $extension = $imagenCartel->getClientOriginalExtension();
+        $imgCartel = 'cartel_' . $nombreCIF . '.' . $extension;
+
+        // Guardar la imagen en la carpeta 'public'
+        $imagenMapa->move(public_path('storage/carrerasImages'), $imgMapa);
+        $imagenCartel->move(public_path('storage/carrerasImages'), $imgCartel);
+
         $carrera->update([
             'nom' => $request->input('nom'),
             'descripció' => $request->input('descripció'),
             'desnivell' => $request->input('desnivell'),
-            'imatgeMapa' => $request->input('imatgeMapa'),
+            'imatgeMapa' => $imgMapa,
             'maximParticipants' => $request->input('maximParticipants'),
             'habilitado' => $request->input('habilitado'),
             'km' => $request->input('km'),
             'data' => $request->input('data'),
             'hora' => $request->input('hora'),
             'puntSortida' => $request->input('puntSortida'),
-            'cartellPromoció' => $request->input('cartellPromoció'),
+            'cartellPromoció' => $imgCartel,
             'preuAsseguradora' => $request->input('preuAsseguradora'),
             'preuPatrocini' => $request->input('preuPatrocini'),
             'preuInscripció' => $request->input('preuInscripció'),
         ]);
 
         return redirect('/admin/carreras');
+    }
+
+    public function toggleHabilitado(Request $request, $id)
+    {
+        $carrera = Carrera::findOrFail($id);
+        $carrera->habilitado = !$carrera->habilitado; // Cambia el estado
+        $carrera->save();
+
+        return redirect('/admin/carreras');
+
     }
 
 }

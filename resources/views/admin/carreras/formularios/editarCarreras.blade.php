@@ -7,7 +7,7 @@
                 <div class="card-header">Editar Carrera</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('actualizarCarrera', $carrera->idCarrera) }}">
+                    <form method="POST" action="{{ route('actualizarCarrera', $carrera->idCarrera) }}"  enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="row">
@@ -28,11 +28,6 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="imagen_mapa">Imagen Mapa</label>
-                                <input id="imagen_mapa" type="text" class="form-control" name="imatgeMapa" value="{{ $carrera->imatgeMapa }}" required>
-                            </div>
-
-                            <div class="form-group">
                                 <label for="maxim_participants">Máximo Participantes</label>
                                 <input id="maxim_participants" type="number" class="form-control" name="maximParticipants" value="{{ $carrera->maximParticipants }}" required>
                             </div>
@@ -50,6 +45,10 @@
                             <label for="km">Kilómetros</label>
                             <input id="km" type="number" class="form-control" name="km" value="{{ $carrera->km }}" required>
                         </div>
+                        <div class="form-group">
+                            <label for="punt_sortida">Punto de Salida</label>
+                            <input id="punt_sortida" type="text" class="form-control" name="puntSortida" value="{{ $carrera->puntSortida }}" required>
+                        </div>
 
                         </div>
                         
@@ -66,16 +65,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="punt_sortida">Punto de Salida</label>
-                            <input id="punt_sortida" type="text" class="form-control" name="puntSortida" value="{{ $carrera->puntSortida }}" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="cartell_promocio">Cartel de Promoción</label>
-                            <input id="cartell_promocio" type="text" class="form-control" name="cartellPromoció" value="{{ $carrera->cartellPromoció }}" required>
-                        </div>
-
-                        <div class="form-group">
                             <label for="preu_asseguradora">Precio Aseguradora</label>
                             <input id="preu_asseguradora" type="number" class="form-control" name="preuAsseguradora" value="{{ $carrera->preuAsseguradora }}" required>
                         </div>
@@ -88,6 +77,16 @@
                         <div class="form-group">
                             <label for="preu_inscripcio">Precio Inscripción</label>
                             <input id="preu_inscripcio" type="number" class="form-control" name="preuInscripció" value="{{ $carrera->preuInscripció }}" required>
+                        </div>
+
+                        <div class="form-group">
+                                <label for="imagen_mapa">Imagen Mapa</label>
+                                <input id="imagen_mapa" type="file" class="form-control-file" name="imatgeMapa" value="{{ $carrera->imatgeMapa }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cartell_promocio">Cartel de Promoción</label>
+                            <input id="cartell_promocio" type="file" class="form-control-file" name="cartellPromoció" value="{{ $carrera->cartellPromoció }}" required>
                         </div>
 
                         <div class="form-group mb-0">

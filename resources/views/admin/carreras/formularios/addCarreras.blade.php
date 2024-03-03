@@ -7,7 +7,7 @@
                 <div class="card-header">Nueva Carrera</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('guardarCarrera') }}">
+                    <form method="POST" action="{{ route('guardarCarrera') }}"  enctype="multipart/form-data">
                         @csrf
 
                         <div class="row">
@@ -27,10 +27,6 @@
                                     <input id="desnivell" type="number" class="form-control" name="desnivell" required>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="imagen_mapa">Imagen Mapa</label>
-                                    <input id="imagen_mapa" type="text" class="form-control" name="imagen_mapa" required>
-                                </div>
 
                                 <div class="form-group">
                                     <label for="maxim_participants">Máximo Participantes</label>
@@ -49,6 +45,10 @@
                                     <label for="km">Kilómetros</label>
                                     <input id="km" type="number" class="form-control" name="km" required>
                                 </div>
+                                <div class="form-group">
+                                    <label for="punt_sortida">Punto de Salida</label>
+                                    <input id="punt_sortida" type="text" class="form-control" name="punt_sortida" required>
+                                </div>
 
                             </div>
 
@@ -66,16 +66,6 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="punt_sortida">Punto de Salida</label>
-                                    <input id="punt_sortida" type="text" class="form-control" name="punt_sortida" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="cartell_promocio">Cartel de Promoción</label>
-                                    <input id="cartell_promocio" type="text" class="form-control" name="cartell_promocio" required>
-                                </div>
-
-                                <div class="form-group">
                                     <label for="preu_asseguradora">Precio Asseguradora</label>
                                     <input id="preu_asseguradora" type="number" class="form-control" name="preu_asseguradora" required>
                                 </div>
@@ -88,6 +78,15 @@
                                 <div class="form-group">
                                     <label for="preu_inscripcio">Precio Inscripción</label>
                                     <input id="preu_inscripcio" type="number" class="form-control" name="preu_inscripcio" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="imagen_mapa">Imagen Mapa</label>
+                                    <input id="imagen_mapa" type="file" class="form-control-file" name="imagen_mapa" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cartell_promocio">Cartel de Promoción</label>
+                                    <input id="cartell_promocio" type="file" class="form-control-file" name="cartell_promocio" required>
                                 </div>
                             </div>
                         </div>
