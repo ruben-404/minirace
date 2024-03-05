@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('logo');
             $table->string('adreça');
             $table->boolean('destacat')->default(false); // Valor por defecto 0
+            $table->timestamps();
         });
     }
 

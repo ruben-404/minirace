@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('asseguradores', function (Blueprint $table) {
             $table->string('CIF')->primary();
             $table->string('nom');
+            $table->string('logo');
             $table->boolean('habilitado')->default(true);
             $table->string('adreça');
             $table->float('preuCursa');

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('email');
             $table->float('preuPlanaPrincipal');
             $table->float('preuSociAnual');
+            $table->timestamps();
         });
     }
 

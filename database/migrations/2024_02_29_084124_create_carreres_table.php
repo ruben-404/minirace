@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('maximParticipants');
             $table->float('km');
             $table->date('data');
-            $table->integer('hora');
+            $table->time('hora');
             $table->string('puntSortida');
             $table->string('cartellPromoció')->nullable();
             $table->float('preuAsseguradora');
