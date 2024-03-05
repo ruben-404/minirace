@@ -14,14 +14,28 @@ body{
     height: 50px;
 }
 
+.carrerasTable{
+    width: 121%;
+
+}
+
+.modalCarrera{
+    display: block;
+}
+
+.titulo{
+    padding-bottom: 15px;
+}
+
 /* barra lateral */
 .row{
     background-color: #E0E0E0;
     border-radius: 10px;
     padding: 30px;
-    width: 121%;
 
 }
+
+
 
 /* Estilo para el div de los botones verticales */
 .vertical-buttons {
