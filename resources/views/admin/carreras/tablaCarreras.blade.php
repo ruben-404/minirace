@@ -1,40 +1,34 @@
 @include('layouts.adminHeader')
 <script src="{{ asset('js/carreras.js') }}"></script>
 
-
-
-<!-- datos carrera : imagen mapa, punto salida , km , desnivel, catel proocion -->
-
-       <!-- Columna adicional con los botones -->
-       <!-- <div class="d-flex flex-column bg-dark align-self-start mb-30 justify-content-end">
-
-            <div class="mb-30">
-
-                <div class="btn-group-vertical">
-                    <button type="button" class="btn btn-primary mb-2">Carreras</button>
-                    <button type="button" class="btn btn-primary mb-2">Aseguradores</button>
-                    <button type="button" class="btn btn-primary mb-2">Sponsors</button>
-                </div>
+<div class="container mt-4 flex-row">
+    <div class="flex-column bg-dark align-self-start mb-30 justify-content-end vertical-buttons">
+        <div class="mb-30">
+            <div class="btn-group-vertical">
+                <a href="#" class="btn-link mb-2">Carreras</a>
+                <a href="#" class="btn-link mb-2">Aseguradores</a>
+                <a href="#" class="btn-link mb-2">Sponsors</a>
             </div>
-        </div> -->
-<div class="container mt-4 d-flex flex-row">
-    <div class="row">
+        </div>
+    </div>
+
+    <div class="row mr-5">
         <div class="col">
             <h2>Carreras</h2>
-            <div style="max-height: 800px; overflow-y: auto;">
+            <div class="tbodyCont" style="max-height: 700px; overflow-y: auto;">
                 <table class="table">
                     <thead>
-                        <tr>
+                        <tr class="table-row">
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Máximo Participantes</th>
-                            <th>Habilitado</th>
                             <th>Fecha</th>
                             <th>Hora</th>
                             <th>Precio Aseguradora</th>
                             <th>Precio Patrocinio</th>
                             <th>Precio Inscripción</th>
+                            <th>Habilitado</th>
                             <th colspan="2" class="text-center">Acciones</th>
                         </tr>
                     </thead>
@@ -45,30 +39,29 @@
                             <td>{{ $carrera['nom'] }}</td>
                             <td>{{ $carrera['descripció'] }}</td>
                             <td>{{ $carrera['maximParticipants'] }}</td>
-                            <td>
-                                <form method="POST" action="{{ route('toggleHabilitado', $carrera->idCarrera) }}">
-                                    @csrf
-                                    @method('PUT')
-                                    <button type="submit" class="btn btn-{{ $carrera->habilitado ? 'success' : 'danger' }}">
-                                        {{ $carrera->habilitado ? 'SÍ' : 'NO' }}
-                                    </button>
-                                </form>
-                            </td>
-                            
                             <td>{{ $carrera['data'] }}</td>
                             <td>{{ $carrera['hora'] }}</td>
                             <td>{{ $carrera['preuAsseguradora'] }}€</td>
                             <td>{{ $carrera['preuPatrocini'] }}€</td>
                             <td>{{ $carrera['preuInscripció'] }}€</td>
                             <td>
-                                <button type="button" class="btn btn-primary btn-ver-detalles" data-desnivel="{{ $carrera['desnivell'] }}" data-imagen-mapa="{{ $carrera['imatgeMapa'] }}" data-km="{{ $carrera['km'] }}" data-punto-salida="{{ $carrera['puntSortida'] }}" data-cartel-promocion="{{ $carrera['cartellPromoció'] }}">
+                                <form method="POST" action="{{ route('toggleHabilitado', $carrera->idCarrera) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="activarBtn btn btn-{{ $carrera->habilitado ? 'success' : 'danger' }} ">
+                                        {{ $carrera->habilitado ? ' SÍ ' : 'NO' }}
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <button type="button" class="accionesBtn btn btn-primary btn-ver-detalles" data-desnivel="{{ $carrera['desnivell'] }}" data-imagen-mapa="{{ $carrera['imatgeMapa'] }}" data-km="{{ $carrera['km'] }}" data-punto-salida="{{ $carrera['puntSortida'] }}" data-cartel-promocion="{{ $carrera['cartellPromoció'] }}">
                                     Detalles
                                 </button>
                             </td>
                             <td>
                             <form method="GET" action="{{ route('editar', $carrera['idCarrera']) }}">
                                 @csrf
-                                <button type="submit" class="btn btn-info btn-editar">Editar</button>
+                                <button type="submit" class="accionesBtn btn btn-info btn-editar">Editar</button>
                             </form>
                             </td>
                         </tr>
