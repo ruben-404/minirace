@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('idCarrera');
             $table->string('CIFasseguradora');
             $table->primary(['idCarrera', 'CIFasseguradora']);
+            $table->timestamps();
             
             $table->foreign('idCarrera')->references('idCarrera')->on('carreres')->onDelete('cascade');
             $table->foreign('CIFasseguradora')->references('CIF')->on('asseguradores')->onDelete('cascade');

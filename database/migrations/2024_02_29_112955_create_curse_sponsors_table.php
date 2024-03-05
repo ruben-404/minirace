@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('cifSponsor');
             $table->unsignedBigInteger('idCarrera');
             $table->primary(['cifSponsor', 'idCarrera']);
+            $table->timestamps();
 
             // Claves foráneas
             $table->foreign('cifSponsor')->references('CIF')->on('sponsors');

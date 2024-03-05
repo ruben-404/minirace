@@ -21,6 +21,7 @@ return new class extends Migration
 
             // Otros campos
             $table->string('ruta');
+            $table->timestamps();
         });
     }
 
