@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\AsseguradoraController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SponsorController;
 
 /*
 |--------------------------------------------------------------------------

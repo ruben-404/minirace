@@ -1,0 +1,68 @@
+body{
+    background-color: #212529;
+}
+/* tabla carreras */
+.activarBtn{
+    width: 60px;
+}
+
+.accionesBtn{
+    width: 80px;
+}
+
+.table-row{
+    height: 50px;
+}
+
+.carrerasTable{
+    width: 121%;
+
+}
+
+.modalCarrera{
+    display: block;
+}
+
+.titulo{
+    padding-bottom: 15px;
+}
+
+/* barra lateral */
+.row{
+    background-color: #E0E0E0;
+    border-radius: 10px;
+    padding: 30px;
+
+}
+
+
+
+/* Estilo para el div de los botones verticales */
+.vertical-buttons {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    /* width: 200px;  */
+    background-color: #343a40; 
+    padding: 20px; 
+    height: 100%;
+}
+
+/* Estilo para los botones dentro del div vertical */
+.vertical-buttons .btn {
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Estilo para el div con la clase mb-30 */
+.mb-30 {
+    margin-top: 56px;
+}
+
+.tbodyCont{
+    background-color: #F3F3F3;
+    border-radius: 10px;
+    padding: 30px;
+}
+
