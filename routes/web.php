@@ -59,4 +59,19 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::get('/admin/asseguradoras/{cif}', [AsseguradoraController::class, 'editar'])->name('editarAsseguradora');
     //save edit aseguradoras
     Route::put('/admin/asseguradoras/{cif}', [AsseguradoraController::class, 'actualizar'])->name('actualizarAsseguradora');
+
+    
+    //Ver tabla sponsors
+    Route::get('/admin/sponsors', function () {
+        return app()->make(SponsorController::class)->getSponsors();
+    });
+    //Formulario añadir sponsor
+    Route::get('/admin/add-sponsors', [SponsorController::class, 'addSponsor'])->name('addSponsor');
+    //Guardar sponsor
+    Route::post('/admin/sponsors/guardar', [SponsorController::class, 'guardar'])->name('guardarSponsor');
+    //Editar sponsor
+    Route::get('/admin/sponsors/{cif}', [SponsorController::class, 'editar'])->name('editarSponsor');
+    //Actualizar sponsor
+    Route::put('/admin/sponsors/{cif}', [SponsorController::class, 'actualizar'])->name('actualizarSponsor');
+
 });
