@@ -17,7 +17,7 @@
             <a class="navbar-brand" href="#">Panel de Administración</a>
             <nav>
                 <ul>
-                    <li><a href="#">Salir</a></li>
+                    <li><a href="{{ route('admin.logout') }}">Salir</a></li>
                 </ul>
             </nav>
         </div>
