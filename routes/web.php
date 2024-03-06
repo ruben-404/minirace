@@ -68,3 +68,11 @@ Route::put('/admin/sponsors/{cif}', [SponsorController::class, 'actualizar'])->n
 //parte login admin
 Route::get('/admin', [AdminController::class, 'login']);
 Route::post('/ProcesarLogin', [AdminController::class, 'ProcesarLogin'])->name('ProcesarLogin');
+
+
+
+
+
+//navegacion
+Route::get('/admin/carreras', [CarreraController::class, 'getCarreras'])->name('carreras');
+Route::get('/admin/asseguradoras', [AsseguradoraController::class, 'getAsseguradoras'])->name('sponsors');

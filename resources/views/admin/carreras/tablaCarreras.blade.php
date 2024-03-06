@@ -5,8 +5,8 @@
     <div class="flex-column bg-dark align-self-start mb-30 justify-content-end vertical-buttons">
         <div class="mb-30">
             <div class="btn-group-vertical">
-                <a href="#" class="btn-link mb-2">Carreras</a>
-                <a href="#" class="btn-link mb-2">Aseguradores</a>
+                <a href="{{ route('carreras') }}" class="btn-link mb-2">Carreras</a>
+                <a href="{{ route('sponsors') }}" class="btn-link mb-2">Sponsors</a>
                 <a href="#" class="btn-link mb-2">Sponsors</a>
             </div>
         </div>
