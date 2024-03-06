@@ -17,24 +17,25 @@ class AdminController extends Controller
             "email" => $request->email,
             "password" => $request->password
         ];
-
+        $admins = Admin::all();
         // Crear usuario admin si es necesario:
 
-        // $admin = new Admin();
-        // $admin->email = $request->email;
-        // $admin->password = Hash::make($request->password);
+        /* $admin = new Admin();
+         $admin->email = $request->email;
+         $admin->password = Hash::make($request->password);
 
-        // $admin->save();
+         $admin->save(); */
 
         if (Auth::guard('admin')->attempt($credentials)) {
 
-            $request->session()->regenerate();
+            $request->session()->put('email', $credentials['email']);
+            $request->session()->put('rol', 'admin');
 
-            return app()->make(CarreraController::class)->getCarreras();
+            return redirect('/admin/carreras');
 
         } else {
 
-            return view('admin.loginAdmin');
+            return redirect('/admin');
 
         }
         
@@ -48,11 +49,9 @@ class AdminController extends Controller
         }*/
     }
     public function logOut(Request $request) {
-        Auth::logout();
+        
+        $request->session()->flush();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return view('admin.loginAdmin');
+        return redirect('/admin');
     }
 }

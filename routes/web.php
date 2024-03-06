@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AdminAuthMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\AsseguradoraController;
@@ -22,21 +23,28 @@ Route::get('/', function () {
 });
 
 
-//Route::get('/admin/carreras', [CarreraController::class, 'getCarreras']);
+//Parte login admin
+Route::get('/admin', [AdminController::class, 'login'])->name('admin.login');
+//Comprobacion login
+Route::post('/admin/ProcesarLogin', [AdminController::class, 'ProcesarLogin'])->name('ProcesarLogin');
+//logout admin
+Route::get('/admin/logOut', [AdminController::class, 'logOut'])->name('admin.logout');
+
 //ver tabla carreas
-Route::get('/admin/carreras', function () {
-    return app()->make(CarreraController::class)->getCarreras();
-});
-//add carreras formulario
-Route::get('/admin/add-carreras', [CarreraController::class, 'addCarreras'])->name('addCarreras');
-// save  carreras
-Route::post('/admin/carreras/guardar', [CarreraController::class, 'guardar'])->name('guardarCarrera');
-//editar carreras
-Route::get('/admin/carreras/{id}', [CarreraController::class, 'editar'])->name('editar');
-//save edit carrera
-Route::put('/admin/carreras/{id}', [CarreraController::class, 'actualizar'])->name('actualizarCarrera');
-//activar/desacctivar carreras
-Route::put('/admin/carreras/{id}/toggle', [CarreraController::class, 'toggleHabilitado'])->name('toggleHabilitado');
+Route::middleware([AdminAuthMiddleware::class])->group(function () {
+    Route::get('/admin/carreras', function () {
+        return app()->make(CarreraController::class)->getCarreras();
+    });
+    //add carreras formulario
+    Route::get('/admin/add-carreras', [CarreraController::class, 'addCarreras'])->name('addCarreras');
+    // save  carreras
+    Route::post('/admin/carreras/guardar', [CarreraController::class, 'guardar'])->name('guardarCarrera');
+    //editar carreras
+    Route::get('/admin/carreras/{id}', [CarreraController::class, 'editar'])->name('editar');
+    //save edit carrera
+    Route::put('/admin/carreras/{id}', [CarreraController::class, 'actualizar'])->name('actualizarCarrera');
+    //activar/desacctivar carreras
+    Route::put('/admin/carreras/{id}/toggle', [CarreraController::class, 'toggleHabilitado'])->name('toggleHabilitado');
 
 
 //ver tabla asseguradoras
@@ -75,4 +83,4 @@ Route::post('/ProcesarLogin', [AdminController::class, 'ProcesarLogin'])->name('
 
 //navegacion
 Route::get('/admin/carreras', [CarreraController::class, 'getCarreras'])->name('carreras');
-Route::get('/admin/asseguradoras', [AsseguradoraController::class, 'getAsseguradoras'])->name('asseguradoras');
+Route::get('/admin/asseguradoras', [AsseguradoraController::class, 'getAsseguradoras'])->name('sponsors');
