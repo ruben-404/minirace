@@ -47,40 +47,35 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::put('/admin/carreras/{id}/toggle', [CarreraController::class, 'toggleHabilitado'])->name('toggleHabilitado');
 
 
-//ver tabla asseguradoras
-Route::get('/admin/asseguradoras', function () {
-    return app()->make(AsseguradoraController::class)->getAsseguradoras();
+    //ver tabla asseguradoras
+    Route::get('/admin/asseguradoras', function () {
+        return app()->make(AsseguradoraController::class)->getAsseguradoras();
+    });
+    //add aseguradora formulario
+    Route::get('/admin/add-aseguradoras', [AsseguradoraController::class, 'addAseguradora'])->name('addAseguradora');
+    // save  aseguradoras
+    Route::post('/admin/asseguradoras/guardar', [AsseguradoraController::class, 'guardar'])->name('guardarAseguradora');
+    //editar aseguradoras
+    Route::get('/admin/asseguradoras/{cif}', [AsseguradoraController::class, 'editar'])->name('editarAsseguradora');
+    //save edit aseguradoras
+    Route::put('/admin/asseguradoras/{cif}', [AsseguradoraController::class, 'actualizar'])->name('actualizarAsseguradora');
+
+    
+    //Ver tabla sponsors
+    Route::get('/admin/sponsors', function () {
+        return app()->make(SponsorController::class)->getSponsors();
+    });
+    //Formulario añadir sponsor
+    Route::get('/admin/add-sponsors', [SponsorController::class, 'addSponsor'])->name('addSponsor');
+    //Guardar sponsor
+    Route::post('/admin/sponsors/guardar', [SponsorController::class, 'guardar'])->name('guardarSponsor');
+    //Editar sponsor
+    Route::get('/admin/sponsors/{cif}', [SponsorController::class, 'editar'])->name('editarSponsor');
+    //Actualizar sponsor
+    Route::put('/admin/sponsors/{cif}', [SponsorController::class, 'actualizar'])->name('actualizarSponsor');
+
+    //navegacion
+    Route::get('/admin/carreras', [CarreraController::class, 'getCarreras'])->name('carreras');
+    Route::get('/admin/asseguradoras', [AsseguradoraController::class, 'getAsseguradoras'])->name('asseguradoras');
+
 });
-//add aseguradora formulario
-Route::get('/admin/add-aseguradoras', [AsseguradoraController::class, 'addAseguradora'])->name('addAseguradora');
-// save  aseguradoras
-Route::post('/admin/asseguradoras/guardar', [AsseguradoraController::class, 'guardar'])->name('guardarAseguradora');
-//editar aseguradoras
-Route::get('/admin/asseguradoras/{cif}', [AsseguradoraController::class, 'editar'])->name('editarAsseguradora');
-//save edit aseguradoras
-Route::put('/admin/asseguradoras/{cif}', [AsseguradoraController::class, 'actualizar'])->name('actualizarAsseguradora');
-
-//Ver tabla sponsors
-Route::get('/admin/sponsors', function () {
-    return app()->make(SponsorController::class)->getSponsors();
-});
-//Formulario añadir sponsor
-Route::get('/admin/add-sponsors', [SponsorController::class, 'addSponsor'])->name('addSponsor');
-//Guardar sponsor
-Route::post('/admin/sponsors/guardar', [SponsorController::class, 'guardar'])->name('guardarSponsor');
-//Editar sponsor
-Route::get('/admin/sponsors/{cif}', [SponsorController::class, 'editar'])->name('editarSponsor');
-//Actualizar sponsor
-Route::put('/admin/sponsors/{cif}', [SponsorController::class, 'actualizar'])->name('actualizarSponsor');
-
-//parte login admin
-Route::get('/admin', [AdminController::class, 'login']);
-Route::post('/ProcesarLogin', [AdminController::class, 'ProcesarLogin'])->name('ProcesarLogin');
-
-
-
-
-
-//navegacion
-Route::get('/admin/carreras', [CarreraController::class, 'getCarreras'])->name('carreras');
-Route::get('/admin/asseguradoras', [AsseguradoraController::class, 'getAsseguradoras'])->name('sponsors');
