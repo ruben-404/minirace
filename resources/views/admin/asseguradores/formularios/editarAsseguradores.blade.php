@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-group">
                                     <label for="logo">Editar logo</label>
-                                    <input id="logo" type="file" class="form-control-file" name="logo" required>
+                                    <input id="logo" type="file" class="form-control-file" name="logo">
                             </div>
                         <div class="form-group">
                             <label for="habilitado">Habilitado</label>
