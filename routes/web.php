@@ -75,4 +75,4 @@ Route::post('/ProcesarLogin', [AdminController::class, 'ProcesarLogin'])->name('
 
 //navegacion
 Route::get('/admin/carreras', [CarreraController::class, 'getCarreras'])->name('carreras');
-Route::get('/admin/asseguradoras', [AsseguradoraController::class, 'getAsseguradoras'])->name('sponsors');
+Route::get('/admin/asseguradoras', [AsseguradoraController::class, 'getAsseguradoras'])->name('asseguradoras');
