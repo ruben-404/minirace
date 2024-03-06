@@ -7,6 +7,11 @@
                 <div class="card-header">Editar Carrera</div>
 
                 <div class="card-body">
+                    @if ($errors->any())
+                        @foreach($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                    @endif
                     <form method="POST" action="{{ route('actualizarCarrera', $carrera->idCarrera) }}"  enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -61,7 +66,7 @@
 
                         <div class="form-group">
                             <label for="hora">Hora</label>
-                            <input id="hora" type="time" class="form-control" name="hora" value="{{ $carrera->hora }}" required>
+                            <input id="hora" type="time" class="form-control" name="hora" value="{{ old('hora', date('H:i', strtotime($carrera->hora))) }}" required>
                         </div>
 
                         <div class="form-group">
@@ -81,12 +86,12 @@
 
                         <div class="form-group">
                                 <label for="imagen_mapa">Imagen Mapa</label>
-                                <input id="imagen_mapa" type="file" class="form-control-file" name="imatgeMapa" value="{{ $carrera->imatgeMapa }}" required>
+                                <input id="imagen_mapa" type="file" class="form-control-file" name="imatgeMapa" value="{{ $carrera->imatgeMapa }}">
                         </div>
 
                         <div class="form-group">
                             <label for="cartell_promocio">Cartel de Promoción</label>
-                            <input id="cartell_promocio" type="file" class="form-control-file" name="cartellPromoció" value="{{ $carrera->cartellPromoció }}" required>
+                            <input id="cartell_promocio" type="file" class="form-control-file" name="cartellPromoció" value="{{ $carrera->cartellPromoció }}">
                         </div>
 
                         <div class="form-group mb-0">
