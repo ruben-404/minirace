@@ -24,8 +24,8 @@ class AdminController extends Controller
          $admin->email = $request->email;
          $admin->password = Hash::make($request->password);
 
-         $admin->save(); */
-
+         $admin->save(); 
+        */
         if (Auth::guard('admin')->attempt($credentials)) {
 
             $request->session()->put('email', $credentials['email']);
