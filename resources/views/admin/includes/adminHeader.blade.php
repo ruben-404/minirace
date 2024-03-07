@@ -9,6 +9,11 @@
         <nav>
             <ul>
                 <li><a href="#">Salir</a></li>
+                <li</li>
+
+                <button id="toggleSidebar" class="btn btn-link mb-2">
+                <i class="fas fa-bars"></i> <!-- Icono de barras -->
+            </button>
             </ul>
         </nav>
     </header>

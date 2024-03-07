@@ -45,6 +45,9 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::put('/admin/carreras/{id}', [CarreraController::class, 'actualizar'])->name('actualizarCarrera');
     //activar/desacctivar carreras
     Route::put('/admin/carreras/{id}/toggle', [CarreraController::class, 'toggleHabilitado'])->name('toggleHabilitado');
+    //corredores
+    Route::get('/admin/carreras/{id}/corredores', [CarreraController::class, 'getCorredoresInscritos'])->name('corredores.inscritos');
+
 
 
     //ver tabla asseguradoras

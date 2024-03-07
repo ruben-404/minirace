@@ -27,5 +27,10 @@ class Carrera extends Model
         'preuPatrocini',
         'preuInscripció'
     ];
+    public function inscritos()
+    {
+        return $this->hasMany(Inscrito::class, 'idCarrera');
+    }
+
 
 }
