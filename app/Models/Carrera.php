@@ -33,4 +33,5 @@ class Carrera extends Model
     }
 
 
+
 }

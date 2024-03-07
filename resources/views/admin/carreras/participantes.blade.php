@@ -36,7 +36,9 @@
                     @foreach ($inscritos as $inscrito)
                         <tr>
 
-                        <td>{{ $inscrito->corredor->nombre }}</td>
+                        <td>{{ $inscrito->corredor->nom }}</td>
+                        <td>{{ $inscrito->carrera->nom }}</td>
+
 
 
                             

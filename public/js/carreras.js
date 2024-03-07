@@ -16,8 +16,21 @@ $(document).ready(function() {
 
         //fotos
         $('#cartel').html('<img src="../storage/carrerasImages/' + cartelPromocion + '" alt="Cartel de Paaromoción" class="img-fluid mx-auto d-block" style="max-width: 500px; height: 200px;">');
-        $('#mapa').html('<img src="../storage/carrerasImages/' + imagenMapa + '" alt="Cartel de Paaromoción" class="img-fluid mx-auto d-block" style="max-width: 270px; height: 200px;">');
-        
+        //$('#mapa').html('<img src="../storage/carrerasImages/' + imagenMapa + '" alt="Cartel de Paaromoción" class="img-fluid mx-auto d-block" style="max-width: 270px; height: 200px;">');
+        $('#mapa').html(`
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        Mapa
+                    </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <img src="../storage/carrerasImages/${imagenMapa}" alt="Mapa" class="img-fluid mx-auto d-block" style="max-width: 270px; height: 200px;">
+                    </div>
+                </div>
+            </div>
+        `);
         //descripcion
         $('#descripcion').html(`
             <div class="accordion-item">
@@ -47,9 +60,13 @@ $(document).ready(function() {
 
 document.addEventListener('DOMContentLoaded', function() {
     const toggleSidebarButton = document.getElementById('toggleSidebar');
+    const toggleSidebarButton1 = document.getElementById('toggleSidebar1');
     const sidebar = document.querySelector('.flex-column');
 
     toggleSidebarButton.addEventListener('click', function() {
+        sidebar.classList.toggle('d-none');
+    });
+    toggleSidebarButton1.addEventListener('click', function() {
         sidebar.classList.toggle('d-none');
     });
 });
