@@ -27,8 +27,6 @@
         </div>
     </div>
 
-
-
     <div class="row mr-5 carrerasTable">
         <div class="col">
         <div class="d-flex justify-content-between titulo">

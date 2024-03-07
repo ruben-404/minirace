@@ -65,21 +65,27 @@ class AsseguradoraController extends Controller
     public function actualizar(Request $request, $cif)
     {
         $asseguradora = Asseguradora::findOrFail($cif);
-        
-        $imagen = $request->file('logo');
-        $extension = $imagen->getClientOriginalExtension();
-        $nombreArchivo = $cif . '.' . $extension;
+        if ($request->hasFile('logo')) {
+            $imagen = $request->file('logo');
+            $extension = $imagen->getClientOriginalExtension();
+            $nombreArchivo = $cif . '.' . $extension;
 
-        $imagen->move(public_path('storage/asseguradoresImages'), $nombreArchivo);
-
-        $asseguradora->update([
-            'nom' => $request->input('nom'),
-            'adreça' => $request->input('direccion'),
-            'preuCursa' => $request->input('precio'),
-            'habilitado' => $request->input('habilitado'),
-            'logo' => $nombreArchivo
-        ]);
-
+            $imagen->move(public_path('storage/asseguradoresImages'), $nombreArchivo);
+            $asseguradora->update([
+                'nom' => $request->input('nom'),
+                'adreça' => $request->input('direccion'),
+                'preuCursa' => $request->input('precio'),
+                'habilitado' => $request->input('habilitado'),
+                'logo' => $nombreArchivo
+            ]);
+        } else {
+            $asseguradora->update([
+                'nom' => $request->input('nom'),
+                'adreça' => $request->input('direccion'),
+                'preuCursa' => $request->input('precio'),
+                'habilitado' => $request->input('habilitado')
+            ]);
+        }
         return redirect('/admin/asseguradoras');
     }
 }

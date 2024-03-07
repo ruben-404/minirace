@@ -66,3 +66,35 @@ body{
     padding: 30px;
 }
 
+.bodyLogin{
+    background-image: url('../resources/fondoLogin.png');
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat; 
+    height: 93vh;
+}
+
+.loginForm{
+    background-color: white;
+    width: 20%;
+}
+.input-line {
+    border: none;
+    border-bottom: 1px solid black; /* Agregamos una línea en la parte inferior */
+    border-radius: 0; /* Removemos cualquier radio de borde */
+    box-shadow: none; /* Removemos cualquier sombra */
+    outline: none; /* Removemos el contorno al hacer foco en el input */
+    padding: 0; /* Removemos cualquier relleno */
+    margin: 0; /* Removemos cualquier margen */
+    background-color: transparent; /* Hacemos el fondo transparente */
+}
+.loginButtonAdmin {
+    border-radius: 20px;
+    width: 75%;
+    background-color: #E14658;
+    padding: 15px;
+    border: none;
+}
+.loginButtonAdmin:hover {
+    background-color: #F54958;
+}

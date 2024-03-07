@@ -5,7 +5,7 @@
     <div class="mb-30">
         <div class="btn-group-vertical">
             <a href="{{ route('carreras') }}" class="btn btn-link mb-2">Carreras</a>
-            <a href="{{ route('asseguradoras') }}" class="btn btn-link mb-2">asseguradoras</a>
+            <a href="{{ route('asseguradoras') }}" class="btn btn-link mb-2">Aseguradoras</a>
             <a href="#" class="btn btn-link mb-2 d-none d-lg-block">Sponsors</a>
         </div>
     </div>
