@@ -18,4 +18,7 @@ class Asseguradora extends Model
         'preuCursa',
         'logo'
     ];
+    protected $casts = [
+        'CIF' => 'string',
+    ];
 }
