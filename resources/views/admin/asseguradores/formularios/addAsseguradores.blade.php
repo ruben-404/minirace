@@ -7,6 +7,11 @@
                 <div class="card-header">Nueva Aseguradora</div>
 
                 <div class="card-body">
+                    @if ($errors->any())
+                        @foreach($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                    @endif
                     <form method="POST" enctype="multipart/form-data" action="{{ route('guardarAseguradora') }}">
                         @csrf
 

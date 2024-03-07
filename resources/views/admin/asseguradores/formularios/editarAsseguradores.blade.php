@@ -7,6 +7,11 @@
                 <div class="card-header">Editar Aseguradora</div>
 
                 <div class="card-body">
+                    @if ($errors->any())
+                        @foreach($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                    @endif
                     <form method="POST" enctype="multipart/form-data" action="{{ route('actualizarAsseguradora', $asseguradora->CIF) }}">
                         @csrf
                         @method('PUT')
@@ -14,7 +19,7 @@
                             <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
-                                <input id="nombre" type="text" class="form-control" name="nom" value="{{ $asseguradora->nom }}" required autofocus>
+                                <input id="nombre" type="text" class="form-control" name="nombre" value="{{ $asseguradora->nom }}" required autofocus>
                             </div>
 
                             <div class="form-group">
