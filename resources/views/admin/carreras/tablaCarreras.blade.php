@@ -2,15 +2,6 @@
 <script src="{{ asset('js/carreras.js') }}"></script>
 
 <div class="container mt-4 flex-row">
-    <!-- <div class="flex-column bg-dark align-self-start justify-content-end vertical-buttons">
-        <div class="mb-30">
-            <div class="btn-group-vertical">
-                <a href="{{ route('carreras') }}" class="btn btn-link mb-2">Carreras</a>
-                <a href="{{ route('asseguradoras') }}" class="btn btn-link mb-2">asseguradoras</a>
-                <a href="#" class="btn btn-link mb-2 d-none d-lg-block">Sponsors</a>
-            </div>
-        </div>
-    </div> -->
     <!-- Botón para alternar la barra lateral -->
     <button id="toggleSidebar" class="btn btn-link mb-2">
         <i class="fas fa-bars"></i> <!-- Icono de barras -->
@@ -22,7 +13,7 @@
             <div class="btn-group-vertical">
                 <a href="{{ route('carreras') }}" class="btn btn-link mb-2">Carreras</a>
                 <a href="{{ route('asseguradoras') }}" class="btn btn-link mb-2">Asseguradoras</a>
-                <a href="#" class="btn btn-link mb-2 d-none d-lg-block">Sponsors</a>
+                <a href="{{ route('sponsors') }}" class="btn btn-link mb-2 d-none d-lg-block">Sponsors</a>
             </div>
         </div>
     </div>

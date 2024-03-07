@@ -80,5 +80,7 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     //navegacion
     Route::get('/admin/carreras', [CarreraController::class, 'getCarreras'])->name('carreras');
     Route::get('/admin/asseguradoras', [AsseguradoraController::class, 'getAsseguradoras'])->name('asseguradoras');
+    Route::get('/admin/sponsors', [SponsorController::class, 'getSponsors'])->name('sponsors');
+
 
 });
