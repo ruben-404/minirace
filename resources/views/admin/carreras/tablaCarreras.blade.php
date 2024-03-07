@@ -2,30 +2,9 @@
 <script src="{{ asset('js/carreras.js') }}"></script>
 
 <div class="container mt-4 flex-row">
-    <!-- <div class="flex-column bg-dark align-self-start justify-content-end vertical-buttons">
-        <div class="mb-30">
-            <div class="btn-group-vertical">
-                <a href="{{ route('carreras') }}" class="btn btn-link mb-2">Carreras</a>
-                <a href="{{ route('asseguradoras') }}" class="btn btn-link mb-2">asseguradoras</a>
-                <a href="#" class="btn btn-link mb-2 d-none d-lg-block">Sponsors</a>
-            </div>
-        </div>
-    </div> -->
-    <!-- Botón para alternar la barra lateral -->
-    <button id="toggleSidebar" class="btn btn-link mb-2">
-        <i class="fas fa-bars"></i> <!-- Icono de barras -->
-    </button>
+    @include('layouts.adminBarra')
 
-    <!-- Contenedor de la barra lateral -->
-    <div class="flex-column bg-dark align-self-start justify-content-end vertical-buttons">
-        <div class="mb-30">
-            <div class="btn-group-vertical">
-                <a href="{{ route('carreras') }}" class="btn btn-link mb-2">Carreras</a>
-                <a href="{{ route('asseguradoras') }}" class="btn btn-link mb-2">Asseguradoras</a>
-                <a href="#" class="btn btn-link mb-2 d-none d-lg-block">Sponsors</a>
-            </div>
-        </div>
-    </div>
+   
 
     <div class="row mr-5 carrerasTable">
         <div class="col">
@@ -110,7 +89,6 @@
             </div>
             <h5 class="modal-title text-center">Mapa</h5>
             <div class="modal-body">
-            <div id="mapa"></div>
                 <table class="table mx-auto">
                     <thead>
                         <tr class="table-row">
@@ -120,9 +98,12 @@
                             <th>Participantes</th>
                         </tr>
                     </thead>
+
                     <tbody id="detallesCarreraBody">
                     </tbody>
                 </table>
+                <div class="accordion accordion-flush" id="mapa"></div>
+
                 <div class="accordion accordion-flush" id="descripcion"></div>
 
                 

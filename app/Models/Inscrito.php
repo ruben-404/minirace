@@ -22,4 +22,9 @@ class Inscrito extends Model
         return $this->belongsTo(Corredor::class, 'DNIcorredor', 'DNI');
     }
 
+    public function carrera()
+    {
+        return $this->belongsTo(Carrera::class, 'idCarrera');
+    }
+
 }

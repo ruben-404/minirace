@@ -15,11 +15,15 @@
 <body>
     <!-- Aquí puedes agregar el encabezado del panel de administración -->
     <header class="navbar navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">Panel de Administración</a>
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand" href="#"><div class="container d-flex justify-content-between align-items-center">
+            <button id="toggleSidebar" class="btn btn-link mb-2 text-white">
+                <i class="fas fa-bars"></i> <!-- Icono de barras -->
+            </button>  Panel de Administración</a>
             <nav>
                 <ul>
-                    <li><a href="{{ route('admin.logout') }}">Salir</a></li>
+                    <li><a class="text-white text-decoration-none" href="{{ route('admin.logout') }}">Salir</a></li>
                 </ul>
             </nav>
         </div>
