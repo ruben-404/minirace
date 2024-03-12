@@ -34,8 +34,16 @@ body{
     padding: 30px;
 
 }
+.px-4{
+    padding: 15px;
+}
+.logo{
+    width: 200px;
+    height: 70px;
+    align-self: flex-start;
+    margin-top: -60px;
 
-
+}
 
 /* Estilo para el div de los botones verticales */
 .vertical-buttons {

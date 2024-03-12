@@ -11,17 +11,14 @@
         <div class="col">
         <div class="d-flex justify-content-between titulo">
             <h2>Participantes</h2>
-            <form method="GET" action="{{ route('addCarreras') }}">
-                @csrf
-                <button id="btn-add" type="submit" class="btn btn-primary btn-lg rounded-circle">
-                    <i class="fas fa-plus"></i>
-                </button>
-            </form>
+            <a href="{{ route('corredores.inscritosPDF', ['id' => request()->route()->parameter('id')]) }}" class="btn btn-primary">
+                Descargar Lista de Corredores
+            </a>
+            
         </div>
 
 
             <div class="tbodyCont" style="max-height: 700px; overflow-y: auto;">
-                <a href="{{ route('corredores.inscritosPDF', ['id' => request()->route()->parameter('id')]) }}" class="btn btn-primary">Descargar Lista de Corredores</a>
 
                 <table class="table">
                     <thead>

@@ -20,6 +20,7 @@ $html = '<style>
             .table th, .table td {
                 border: 1px solid #999;
                 padding: 8px;
+                text-align: center; /* Centra el contenido de las celdas */
             }
             .table th {
                 background-color: #f2f2f2;
@@ -31,24 +32,33 @@ $html = '<style>
             .table tr:nth-child(odd) td {
                 background-color: #e6e6e6;
             }
+            .form-check-input {
+                width: 20px; /* Ajusta el tamaño del checkbox */
+                height: 20px;
+                transform: scale(1.5);
+                
+            }
         </style>';
 
-$html .= '<h1>Lista de Personas</h1>';
+$html .= '<h1>Lista de Participantes de ' . $inscritos[0]->carrera->nom .'</h1>';
 $html .= '<table class="table">';
 $html .= '<thead>';
 $html .= '<tr>';
+$html .= '<th>Dorsal</th>';
 $html .= '<th>Nombre</th>';
 $html .= '<th>Apellido</th>';
-$html .= '<th>Seleccionar</th>';
+$html .= '<th>Assistencia</th>';
 $html .= '</tr>';
 $html .= '</thead>';
 $html .= '<tbody>';
 
 foreach ($inscritos as $inscrito) {
+    //$inscrito = json_decode($inscrito); // Decodificamos el JSON
     $html .= '<tr>';
-    $html .= '<td>' . $inscrito->corredor->nombre . '</td>';
-    $html .= '<td>' . $inscrito->corredor->apellido . '</td>';
-    $html .= '<td><input type="checkbox"></td>';
+    $html .= '<td>' . $inscrito->numDorsal . '</td>'; // Accedemos a los valores después de decodificar
+    $html .= '<td>' . $inscrito->corredor->nom . '</td>'; // Accedemos a los valores después de decodificar
+    $html .= '<td>' . $inscrito->corredor->cognoms . '</td>';
+    $html .= '<td><input type="checkbox" class="form-check-input"></td>';
     $html .= '</tr>';
 }
 $html .= '</tbody>';
