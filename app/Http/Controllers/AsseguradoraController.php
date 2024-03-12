@@ -17,6 +17,15 @@ class AsseguradoraController extends Controller
     {
         return view('admin.asseguradores.formularios.addAsseguradores');
     }
+    public function toggleHabilitado(Request $request, $cif)
+    {
+        $asseguradora = Asseguradora::findOrFail($cif);
+        $asseguradora->habilitado = !$asseguradora->habilitado;
+        $asseguradora->save();
+
+        return redirect('/admin/asseguradoras');
+
+    }
 
     public function guardar(Request $request)
     {
