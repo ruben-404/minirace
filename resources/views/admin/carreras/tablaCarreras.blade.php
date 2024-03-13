@@ -1,4 +1,4 @@
-<div id="tabla-carreras">
+<div id="">
     @include('layouts.adminHeader')
 <script src="{{ asset('js/carreras.js') }}"></script>
 
@@ -11,13 +11,17 @@
         <div class="col">
         <div class="d-flex justify-content-between titulo">
             <h2>Carreras</h2>
-            <div id="buscar-carreras-url" data-url="{{ route('buscar-carreras') }}"></div>
-
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <input type="text" id="busqueda" class="form-control" placeholder="Buscar carrera...">
+            <div class="row justify-content-center col-md-7">
+                <div class="col-md-10">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="busqueda" placeholder="Buscar carrera...">
+                    </div>
                 </div>
             </div>
+            <div id="buscar-carreras-url" data-url="{{ route('buscar-carreras') }}"></div>
+
+           
+            
             
             <form method="GET" action="{{ route('addCarreras') }}">
                 @csrf

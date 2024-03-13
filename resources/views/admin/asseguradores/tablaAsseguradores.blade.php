@@ -11,6 +11,15 @@
         <div class="col">
         <div class="d-flex justify-content-between titulo">
             <h2>Aseguradoras</h2> 
+            <div class="row justify-content-center col-md-7">
+                <div class="col-md-10">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="busquedaA" placeholder="Buscar asseguradores...">
+                    </div>
+                </div>
+            </div>
+            <div id="buscar-asseguradores-url" data-url="{{ route('buscar-asseguradoras') }}"></div>
+
                 <form method="GET" action="{{ route('addAseguradora') }}">
                     @csrf
                     <button id="btn-add" type="submit" class="btn btn-primary btn-lg rounded-circle">

@@ -91,6 +91,8 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     //buscadores 
     //-Carrera
     Route::get('/buscar-carreras', [CarreraController::class, 'buscarCarreras'])->name('buscar-carreras');
+    Route::get('/buscar-asseguradoras', [AsseguradoraController::class, 'buscarAsseguradores'])->name('buscar-asseguradoras');
+    Route::get('/buscar-sponsors', [CarreraController::class, 'buscarSponsors'])->name('buscar-sponsors');
 
 
 

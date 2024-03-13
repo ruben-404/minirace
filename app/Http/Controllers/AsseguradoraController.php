@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Asseguradora;
+use Illuminate\Support\Facades\View;
+
 
 class AsseguradoraController extends Controller
 {
@@ -13,6 +15,7 @@ class AsseguradoraController extends Controller
         $asseguradoras = Asseguradora::all();
         return view('admin.asseguradores.tablaAsseguradores', compact('asseguradoras'));
     }
+
     public function addAseguradora()
     {
         return view('admin.asseguradores.formularios.addAsseguradores');
@@ -117,5 +120,19 @@ class AsseguradoraController extends Controller
             // Manejar la excepción y proporcionar una respuesta adecuada
             return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
+    }
+
+    public function buscarAsseguradores(Request $request)
+    {
+        $query = $request->input('query');
+        $asseguradoras = Asseguradora::where('nom', 'like', "%$query%")->get();
+        $tbodyHtml = View::make('admin.asseguradores.tablaAsseguradores', ['asseguradoras' => $asseguradoras])->render();
+        
+        // Buscar el contenido del div con clase .tbodyCont usando expresiones regulares
+        preg_match('/<div class="tbodyCont"[^>]*>(.*?)<\/div>/s', $tbodyHtml, $matches);
+        $tbodyContHtml = $matches[0] ?? '';
+
+        return $tbodyContHtml;
+       
     }
 }

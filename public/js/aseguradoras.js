@@ -42,3 +42,21 @@ document.addEventListener('DOMContentLoaded', function() {
         sidebar.classList.toggle('d-none');
     });
 });
+$(document).ready(function() {
+    $('#busquedaA').on('keyup', function() {
+        var query = $(this).val();
+        var url = $('#buscar-asseguradores-url').data('url');
+        $.ajax({
+            url: url,
+            method: 'GET',
+            data: {query: query},
+            success: function(response) {
+                // Reemplazar el contenido del div tbodyCont con los resultados de la búsqueda
+                $('.tbodyCont').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr);
+            }
+        });
+    });
+});
