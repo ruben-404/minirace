@@ -11,16 +11,15 @@
         <div class="col">
         <div class="d-flex justify-content-between titulo">
             <h2>Participantes</h2>
-            <form method="GET" action="{{ route('addCarreras') }}">
-                @csrf
-                <button id="btn-add" type="submit" class="btn btn-primary btn-lg rounded-circle">
-                    <i class="fas fa-plus"></i>
-                </button>
-            </form>
+            <a href="{{ route('corredores.inscritosPDF', ['id' => request()->route()->parameter('id')]) }}" class="btn btn-primary">
+                Descargar Lista de Corredores
+            </a>
+            
         </div>
 
 
             <div class="tbodyCont" style="max-height: 700px; overflow-y: auto;">
+
                 <table class="table">
                     <thead>
                         <tr class="table-row">
@@ -32,16 +31,9 @@
                     <tbody>
                     @foreach ($inscritos as $inscrito)
                         <tr>
-
                         <td>{{ $inscrito->corredor->nom }}</td>
-                        <td>{{ $inscrito->carrera->nom }}</td>
+                        <td>{{ $inscrito->carrera->nom}}</td>
                         <td>{{ $inscrito->numDorsal }}</td>
-
-                        
-
-
-
-                            
                         </tr>
                         @endforeach
                     </tbody>

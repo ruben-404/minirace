@@ -47,6 +47,8 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::put('/admin/carreras/{id}/toggle', [CarreraController::class, 'toggleHabilitado'])->name('toggleHabilitado');
     //corredores
     Route::get('/admin/carreras/{id}/corredores', [CarreraController::class, 'getCorredoresInscritos'])->name('corredores.inscritos');
+    //PDF corredores
+    Route::get('/admin/carreras/{id}/corredorespdf', [CarreraController::class, 'getCorredoresInscritospdf'])->name('corredores.inscritosPDF');
 
 
 
@@ -85,6 +87,8 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::get('/admin/carreras', [CarreraController::class, 'getCarreras'])->name('carreras');
     Route::get('/admin/asseguradoras', [AsseguradoraController::class, 'getAsseguradoras'])->name('asseguradoras');
     Route::get('/admin/sponsors', [SponsorController::class, 'getSponsors'])->name('sponsors');
+
+
 
 
 });

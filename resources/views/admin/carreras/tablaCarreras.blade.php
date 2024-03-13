@@ -18,7 +18,9 @@
             </form>
         </div>
 
-
+            @if (session()->has('success'))
+                <li>{{session()->get('success')}}</li>
+            @endif
             <div class="tbodyCont" style="max-height: 700px; overflow-y: auto;">
                 <table class="table">
                     <thead>

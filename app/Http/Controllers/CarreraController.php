@@ -244,9 +244,26 @@ class CarreraController extends Controller
     public function getCorredoresInscritos($idCarrera)
     {
         // Buscar los inscritos para la carrera específica con la relación corredor cargada
+        
         $inscritos = Inscrito::with('corredor')->where('idCarrera', $idCarrera)->get();
+        // $inscritos = Inscrito::with('corredor')
+        // ->where('idCarrera', '!=', $idCarrera)
+        // ->orWhereNull('idCarrera')
+        // ->get();
+
+
 
         return view('admin.carreras.participantes', compact('inscritos'));
+    }
+
+    public function getCorredoresInscritospdf($idCarrera)
+    {
+        // Buscar los inscritos para la carrera específica con la relación corredor cargada
+        
+        $inscritos = Inscrito::with('corredor')->where('idCarrera', $idCarrera)->get();
+
+
+        return view('admin.carreras.participantesPDF', compact('inscritos'));
     }
 
 
