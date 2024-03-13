@@ -32,6 +32,9 @@ class Carrera extends Model
         return $this->hasMany(Inscrito::class, 'idCarrera');
     }
 
-
+    public function carreres_assegurades()
+    {
+        return $this->hasMany(CarreraAssegurada::class, 'idCarrera');
+    }
 
 }
