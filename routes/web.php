@@ -64,6 +64,8 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::put('/admin/asseguradoras/{cif}', [AsseguradoraController::class, 'actualizar'])->name('actualizarAsseguradora');
     //activar/desacctivar aseguradoras
     Route::put('/admin/asseguradoras/{cif}/toggle', [AsseguradoraController::class, 'toggleHabilitado'])->name('toggleHabilitado');
+    //Carreras aseguradas 
+    Route::get('/admin/asseguradoras/{cif}/carreras', [AsseguradoraController::class, 'getCarrerasAseguradas'])->name('carreras.aseguradas');
 
     
     //Ver tabla sponsors

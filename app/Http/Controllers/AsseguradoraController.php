@@ -26,6 +26,13 @@ class AsseguradoraController extends Controller
         return redirect('/admin/asseguradoras');
 
     }
+    public function getCarrerasAseguradas($cif)
+    {
+        // Buscar los inscritos para la carrera específica con la relación corredor cargada
+        //$inscritos = Inscrito::with('corredor')->where('idCarrera', $cif)->get();
+
+        //return view('admin.carreras.participantes', compact('inscritos'));
+    }
 
     public function guardar(Request $request)
     {
