@@ -42,7 +42,7 @@
                             <td class="text-center align-middle">{{ $asseguradora->adreça }}</td>
                             <td class="text-center align-middle">{{ $asseguradora->preuCursa }}€</td>
                             <td class="text-center align-middle">
-                                <form method="POST" action="{{ route('toggleHabilitado', $asseguradora->CIF) }}">
+                                <form method="POST" action="{{ route('toggleHabilitadoAseguradora', $asseguradora->CIF) }}">
                                     @csrf
                                     @method('PUT')
                                     <button type="submit" class="activarBtn btn btn-{{ $asseguradora->habilitado ? 'success' : 'danger' }} ">

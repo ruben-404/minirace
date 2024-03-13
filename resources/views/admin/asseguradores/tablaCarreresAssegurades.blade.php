@@ -11,7 +11,7 @@
         <div class="col">
         <div class="d-flex justify-content-between titulo">
             <h2>Carreras aseguradas de {{ $Caseguradas[0]->CIFasseguradora }}</h2> 
-                <form method="GET" action="{{ route('mostrarAseguracionCarreras') }}">
+                <form method="GET" action="{{ route('mostrarAseguracionCarreras', $Caseguradas[0]->CIFasseguradora) }}">
                     @csrf
                     <button id="btn-add" type="submit" class="btn btn-primary btn-lg rounded-circle">
                         <i class="fas fa-plus"></i>

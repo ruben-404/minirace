@@ -6,6 +6,7 @@ use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\AsseguradoraController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SponsorController;
+use App\Http\Controllers\CarreraAsseguradaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,12 +66,12 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     //save edit aseguradoras
     Route::put('/admin/asseguradoras/{cif}', [AsseguradoraController::class, 'actualizar'])->name('actualizarAsseguradora');
     //activar/desacctivar aseguradoras
-    Route::put('/admin/asseguradoras/{cif}/toggle', [AsseguradoraController::class, 'toggleHabilitado'])->name('toggleHabilitado');
+    Route::put('/admin/asseguradoras/{cif}/toggle', [AsseguradoraController::class, 'toggleHabilitado'])->name('toggleHabilitadoAseguradora');
     //Carreras aseguradas 
-    Route::get('/admin/asseguradoras/{cif}/carreras', [AsseguradoraController::class, 'getCarrerasAseguradas'])->name('carreras.aseguradas');
+    Route::get('/admin/asseguradoras/{cif}/carreras/aseguradas', [AsseguradoraController::class, 'getCarrerasAseguradas'])->name('carreras.aseguradas');
 
     //Mostrar carreras para añadir
-
+    Route::get('/admin/asseguradoras/{cif}/carreras/asegurar', [CarreraAsseguradaController::class, 'getMyCarrerasSinAsegurar'])->name('mostrarAseguracionCarreras');
 
     
     //Ver tabla sponsors
