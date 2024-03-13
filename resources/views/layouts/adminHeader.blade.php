@@ -21,6 +21,7 @@
             <button id="toggleSidebar" class="btn btn-link mb-2 text-white">
                 <i class="fas fa-bars"></i> <!-- Icono de barras -->
             </button>  Panel de Administración</a>
+            
             <nav>
                 <ul>
                     <li><a class="text-white text-decoration-none" href="{{ route('admin.logout') }}">Salir</a></li>

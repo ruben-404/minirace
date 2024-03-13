@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Carrera;
 use App\Models\Inscrito;
-
+use Illuminate\Support\Facades\View;
 
 
 class CarreraController extends Controller
@@ -17,6 +17,21 @@ class CarreraController extends Controller
         $carreras = Carrera::all();
         return view('admin.carreras.tablaCarreras', compact('carreras'));
     }
+
+    public function buscarCarreras(Request $request)
+    {
+        $query = $request->input('query');
+        $carreras = Carrera::where('nom', 'like', "%$query%")->get();
+        $tbodyHtml = View::make('admin.carreras.tablaCarreras', ['carreras' => $carreras])->render();
+        
+        // Buscar el contenido del div con clase .tbodyCont usando expresiones regulares
+        preg_match('/<div class="tbodyCont"[^>]*>(.*?)<\/div>/s', $tbodyHtml, $matches);
+        $tbodyContHtml = $matches[0] ?? '';
+
+        return $tbodyContHtml;
+    }
+
+
 
     public function addCarreras()
     {
