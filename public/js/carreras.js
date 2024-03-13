@@ -70,3 +70,45 @@ document.addEventListener('DOMContentLoaded', function() {
         sidebar.classList.toggle('d-none');
     });
 });
+
+// $(document).ready(function() {
+//     $('#busqueda').on('keyup', function() {
+//         var query = $(this).val();
+//         var url = $('#buscar-carreras-url').data('url');
+
+//         $.ajax({
+//             url: url,
+//             method: 'GET',
+//             data: {query: query},
+//             success: function(response) {
+//                 // Reemplazar el contenido del tbody
+//                 $('#tabla-carreras tbody').html(response);
+//             },
+//             error: function(xhr, status, error) {
+//                 console.error(error);
+//             }
+//         });
+//     });
+// });
+
+$(document).ready(function() {
+    $('#busqueda').on('keyup', function() {
+        var query = $(this).val();
+        var url = $('#buscar-carreras-url').data('url');
+
+        $.ajax({
+            url: url,
+            method: 'GET',
+            data: {query: query},
+            success: function(response) {
+                // Reemplazar el contenido del div tbodyCont con los resultados de la búsqueda
+                $('.tbodyCont').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr);
+            }
+        });
+    });
+});
+
+
