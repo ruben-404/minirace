@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Asseguradora;
+use App\Models\CarreraAssegurada;
 
 class AsseguradoraController extends Controller
 {
@@ -29,9 +30,16 @@ class AsseguradoraController extends Controller
     public function getCarrerasAseguradas($cif)
     {
         // Buscar los inscritos para la carrera específica con la relación corredor cargada
-        //$inscritos = Inscrito::with('corredor')->where('idCarrera', $cif)->get();
+        
+        $Caseguradas = CarreraAssegurada::with('carrera')->where('CIFasseguradora', $cif)->get();
+        // $inscritos = Inscrito::with('corredor')
+        // ->where('idCarrera', '!=', $idCarrera)
+        // ->orWhereNull('idCarrera')
+        // ->get();
 
-        //return view('admin.carreras.participantes', compact('inscritos'));
+
+        //echo $Caseguradas[0]->carrera->data;
+        return view('admin.asseguradores.tablaCarreresAssegurades', compact('Caseguradas'));
     }
 
     public function guardar(Request $request)

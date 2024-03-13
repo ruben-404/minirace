@@ -21,4 +21,8 @@ class Asseguradora extends Model
     protected $casts = [
         'CIF' => 'string',
     ];
+    public function carreres_assegurades()
+    {
+        return $this->hasMany(CarreraAssegurada::class, 'CIF', 'CIFasseguradora');
+    }
 }
