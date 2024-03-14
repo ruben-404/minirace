@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Asseguradora;
+use App\Models\CarreraAssegurada;
 use Illuminate\Support\Facades\View;
 
 
