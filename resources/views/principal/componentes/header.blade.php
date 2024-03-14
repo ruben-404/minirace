@@ -38,7 +38,7 @@
                         <a class="nav-link text-white btn btn-primary btn-no-socio">Iniciar sesión</a>
                     </li>
                     <li class="nav-item iniciarSesionNav">
-                        <a class="nav-link text-white btn btn-socio">No eres socio?</a>
+                        <a class="nav-link text-white btn-danger btn btn-socio">No eres socio?</a>
                     </li>
                 </ul>
             </nav>

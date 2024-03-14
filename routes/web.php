@@ -33,7 +33,10 @@ Route::post('/admin/ProcesarLogin', [AdminController::class, 'ProcesarLogin'])->
 //logout admin
 Route::get('/admin/logOut', [AdminController::class, 'logOut'])->name('admin.logout');
 //Navegacion pagina princiapl
-Route::get('/home/carreras', [CorredorController::class, 'paginaCarreras'])->name('paginaCarreras');
+//Route::get('/home/carreras', [CarreraController::class, 'paginaCarreras'])->name('paginaCarreras');
+Route::get('/home/carreras', function () {
+    return app()->make(CarreraController::class)->getCarrerasClient();
+});
 
 
 //ver tabla carreas

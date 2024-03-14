@@ -20,7 +20,7 @@ body{
 
 .btn-socio{
     color: white;
-    background-color: #E14658 !important;
+    /* background-color: #E14658 !important; */
     border-radius: 0; /* Sin border-radius */
 }
 

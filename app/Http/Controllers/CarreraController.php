@@ -13,7 +13,6 @@ class CarreraController extends Controller
 {
     public function getCarreras()
     {
-  
         $carreras = Carrera::all();
         return view('admin.carreras.tablaCarreras', compact('carreras'));
     }
@@ -109,71 +108,7 @@ class CarreraController extends Controller
         return view('admin.carreras.formularios.editarCarreras', compact('carrera'));
     }
 
-    // public function actualizar(Request $request, $id)
-    // {
-    //     //validar
-    //     $request->validate([
-    //         'nom' => 'required|string|max:255',
-    //         'descripció' => 'required|string',
-    //         'desnivell' => 'required|integer',
-    //         'imatgeMapa' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //         'maximParticipants' => 'required|integer',
-    //         'habilitado' => 'required|boolean',
-    //         'km' => 'required|numeric',
-    //         'data' => 'required|date',
-    //         'hora' => 'required|date_format:H:i',
-    //         'puntSortida' => 'required|string',
-    //         'cartellPromoció' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //         'preuAsseguradora' => 'required|numeric',
-    //         'preuPatrocini' => 'required|numeric',
-    //         'preuInscripció' => 'required|numeric',
-    //     ]);
-
-    //     $carrera = Carrera::findOrFail($id);
-
-    //     //fotos
-    //     // Procesar la imagen del mapa si se proporcionó en el formulario
-    //     if ($request->hasFile('imatgeMapa')) {
-    //         $imagenMapa = $request->file('imatgeMapa');
-    //         $imgMapa = 'mapa_' . $request->input('nom') . '.' . $imagenMapa->getClientOriginalExtension();
-    //         $imagenMapa->move(public_path('storage/carrerasImages'), $imgMapa);
-    //     } else {
-    //         // Si no se proporcionó una nueva imagen, mantener la imagen existente
-    //         $imgMapa = $carrera->imatgeMapa;
-    //     }
-
-    //     // Procesar la imagen del cartel si se proporcionó en el formulario
-    //     if ($request->hasFile('cartellPromoció')) {
-    //         $imagenCartel = $request->file('cartellPromoció');
-    //         $imgCartel = 'cartel_' . $request->input('nom') . '.' . $imagenCartel->getClientOriginalExtension();
-    //         $imagenCartel->move(public_path('storage/carrerasImages'), $imgCartel);
-    //     } else {
-    //         // Si no se proporcionó una nueva imagen, mantener la imagen existente
-    //         $imgCartel = $carrera->cartellPromoció;
-    //     }
-
-    //     $carrera->update([
-    //         'nom' => $request->input('nom'),
-    //         'descripció' => $request->input('descripció'),
-    //         'desnivell' => $request->input('desnivell'),
-    //         'imatgeMapa' => $imgMapa,
-    //         'maximParticipants' => $request->input('maximParticipants'),
-    //         'habilitado' => $request->input('habilitado'),
-    //         'km' => $request->input('km'),
-    //         'data' => $request->input('data'),
-    //         'hora' => $request->input('hora'),
-    //         'puntSortida' => $request->input('puntSortida'),
-    //         'cartellPromoció' => $imgCartel,
-    //         'preuAsseguradora' => $request->input('preuAsseguradora'),
-    //         'preuPatrocini' => $request->input('preuPatrocini'),
-    //         'preuInscripció' => $request->input('preuInscripció'),
-    //     ]);
-
-    //     //dd($carrera);
-
-    //     return redirect('/admin/carreras');
-    // }
-
+   
     public function actualizar(Request $request, $id)
     {
         
@@ -279,6 +214,14 @@ class CarreraController extends Controller
 
 
         return view('admin.carreras.participantesPDF', compact('inscritos'));
+    }
+
+    //carreras cliente
+
+    public function getCarrerasClient()
+    {
+        $carreras = Carrera::all();
+        return view('principal.paginas.paginaCarreras', compact('carreras'));
     }
 
 
