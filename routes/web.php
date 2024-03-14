@@ -4,9 +4,11 @@ use App\Http\Middleware\AdminAuthMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\AsseguradoraController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SponsorController;
+use App\Http\Controllers\CarreraAsseguradaController;
+use App\Http\Controllers\CorredorController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -97,6 +99,13 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::get('/admin/carreras', [CarreraController::class, 'getCarreras'])->name('carreras');
     Route::get('/admin/asseguradoras', [AsseguradoraController::class, 'getAsseguradoras'])->name('asseguradoras');
     Route::get('/admin/sponsors', [SponsorController::class, 'getSponsors'])->name('sponsors');
+
+    //buscadores 
+    //-Carrera
+    Route::get('/buscar-carreras', [CarreraController::class, 'buscarCarreras'])->name('buscar-carreras');
+    Route::get('/buscar-asseguradoras', [AsseguradoraController::class, 'buscarAsseguradores'])->name('buscar-asseguradoras');
+    Route::get('/buscar-sponsors', [CarreraController::class, 'buscarSponsors'])->name('buscar-sponsors');
+
 
 
 });
