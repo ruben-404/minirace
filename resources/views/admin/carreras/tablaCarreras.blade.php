@@ -1,7 +1,8 @@
-@include('layouts.adminHeader')
+<div id="">
+    @include('layouts.adminHeader')
 <script src="{{ asset('js/carreras.js') }}"></script>
 
-<div class="container mt-4 flex-row">
+<div class="container mt-4 flex-row" >
     @include('layouts.adminBarra')
 
    
@@ -10,6 +11,18 @@
         <div class="col">
         <div class="d-flex justify-content-between titulo">
             <h2>Carreras</h2>
+            <div class="row justify-content-center col-md-7">
+                <div class="col-md-10">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="busqueda" placeholder="Buscar carrera...">
+                    </div>
+                </div>
+            </div>
+            <div id="buscar-carreras-url" data-url="{{ route('buscar-carreras') }}"></div>
+
+           
+            
+            
             <form method="GET" action="{{ route('addCarreras') }}">
                 @csrf
                 <button id="btn-add" type="submit" class="btn btn-primary btn-lg rounded-circle">
@@ -18,9 +31,15 @@
             </form>
         </div>
 
-
+            @if (session()->has('success'))
+                <li>{{session()->get('success')}}</li>
+            @endif
             <div class="tbodyCont" style="max-height: 700px; overflow-y: auto;">
-                <table class="table">
+                @yield('tbodyCont')
+                <script src="{{ asset('js/carreras.js') }}"></script>
+
+
+                <table class="table" id="tablaCarreras">
                     <thead>
                         <tr class="table-row">
                             <th>ID</th>
@@ -113,4 +132,6 @@
             </div>
         </div>
     </div>
+</div>
+
 </div>

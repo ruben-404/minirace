@@ -4,6 +4,7 @@ $(document).ready(function() {
     });
     // Evento de clic en el botón que carga los detalles de la carrera en el modal
     $('.btn-ver-detalles').click(function() {
+        console.log("hola");
         // Obtener los datos de la carrera del botón que fue clicado
         var id = $(this).data('id');
         var desnivel = $(this).data('desnivel');
@@ -70,3 +71,45 @@ document.addEventListener('DOMContentLoaded', function() {
         sidebar.classList.toggle('d-none');
     });
 });
+
+// $(document).ready(function() {
+//     $('#busqueda').on('keyup', function() {
+//         var query = $(this).val();
+//         var url = $('#buscar-carreras-url').data('url');
+
+//         $.ajax({
+//             url: url,
+//             method: 'GET',
+//             data: {query: query},
+//             success: function(response) {
+//                 // Reemplazar el contenido del tbody
+//                 $('#tabla-carreras tbody').html(response);
+//             },
+//             error: function(xhr, status, error) {
+//                 console.error(error);
+//             }
+//         });
+//     });
+// });
+
+$(document).ready(function() {
+    $('#busqueda').on('keyup', function() {
+        var query = $(this).val();
+        var url = $('#buscar-carreras-url').data('url');
+
+        $.ajax({
+            url: url,
+            method: 'GET',
+            data: {query: query},
+            success: function(response) {
+                // Reemplazar el contenido del div tbodyCont con los resultados de la búsqueda
+                $('.tbodyCont').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr);
+            }
+        });
+    });
+});
+
+

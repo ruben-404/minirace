@@ -1,5 +1,5 @@
 @include('layouts.adminHeader')
-<script src="{{ asset('js/carreras.js') }}"></script>
+<script src="{{ asset('js/aseguradoras.js') }}"></script>
 
 
 <div class="container mt-4 d-flex flex-row">
@@ -11,6 +11,15 @@
         <div class="col">
         <div class="d-flex justify-content-between titulo">
             <h2>Aseguradoras</h2> 
+            <div class="row justify-content-center col-md-7">
+                <div class="col-md-10">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="busquedaA" placeholder="Buscar asseguradores...">
+                    </div>
+                </div>
+            </div>
+            <div id="buscar-asseguradores-url" data-url="{{ route('buscar-asseguradoras') }}"></div>
+
                 <form method="GET" action="{{ route('addAseguradora') }}">
                     @csrf
                     <button id="btn-add" type="submit" class="btn btn-primary btn-lg rounded-circle">
@@ -19,6 +28,8 @@
                 </form>
             </div>
             <div class="tbodyCont" style="max-height: 700px; overflow-y: auto;">
+                <script src="{{ asset('js/aseguradoras.js') }}"></script>
+
                 <table class="table">
                     <thead>
                         <tr>
@@ -28,7 +39,9 @@
                             <th class="text-center">Dirección</th>
                             <th class="text-center">Precio</th>
                             <th class="text-center">Habilitado</th>
-                            <th colspan="2" class="text-center">Acciones</th>
+                            <th class="text-center">Edición</th>
+                            <th class="text-center">Detalles</th>
+                            <th class="text-center">Carreras Aseguradas</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,7 +53,7 @@
                             <td class="text-center align-middle">{{ $asseguradora->adreça }}</td>
                             <td class="text-center align-middle">{{ $asseguradora->preuCursa }}€</td>
                             <td class="text-center align-middle">
-                                <form method="POST" action="{{ route('toggleHabilitado', $asseguradora->CIF) }}">
+                                <form method="POST" action="{{ route('toggleHabilitadoAseguradora', $asseguradora->CIF) }}">
                                     @csrf
                                     @method('PUT')
                                     <button type="submit" class="activarBtn btn btn-{{ $asseguradora->habilitado ? 'success' : 'danger' }} ">
@@ -54,6 +67,17 @@
                                     <button type="submit" class="btn btn-info btn-editar">Editar</button>
                                 </form>
                             </td>
+                            <td class="text-center align-middle">
+                                <button type="button" class="accionesBtn btn btn-primary btn-ver-detalles-aseguradora" data-cif="{{$asseguradora->CIF}}" data-nom="{{$asseguradora->nom}}" data-direccion="{{ $asseguradora->adreça }}" data-preucursa="{{ $asseguradora->preuCursa }}" data-logo="{{ $asseguradora->logo }}">
+                                    Detalles
+                                </button>
+                            </td>
+                            <td class="text-center align-middle">
+                                <form method="GET" action="{{ route('carreras.aseguradas', $asseguradora->CIF) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-info btn-aseguradas">Carreras</button>
+                                </form>
+                            </td>
                         </tr>
                         
                         @endforeach
@@ -65,27 +89,13 @@
 </div>
 
 <!-- Modal -->
+<div class="modal fade" id="tablaModalAseguradora" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header modalAseguradora" id="modalAseguradora">
+            </div>
+            <div id="carrerasAseguradas"></div> 
+        </div>
+    </div>
+</div>
 
-<script>
-    /*$(document).ready(function() {
-        document.getElementById('btn-add').addEventListener('click', function() {
-            window.location.href = "{{ route('addCarreras') }}";
-        });
-        // Evento de clic en el botón que carga los detalles de la carrera en el modal
-        $('.btn-ver-detalles').click(function() {
-            // Obtener los datos de la carrera del botón que fue clicado
-            var desnivel = $(this).data('desnivel');
-            var imagenMapa = $(this).data('imagen-mapa');
-            var km = $(this).data('km');
-            var puntoSalida = $(this).data('punto-salida');
-            var cartelPromocion = $(this).data('cartel-promocion');
-
-            // Llenar la tabla del modal con los datos de la carrera
-            $('#detallesCarreraBody').html('');
-            $('#detallesCarreraBody').append('<tr><td>' + desnivel + '</td><td>' + imagenMapa + '</td><td>' + km + '</td><td>' + puntoSalida + '</td><td>' + cartelPromocion + '</td></tr>');
-
-            // Mostrar el modal
-            $('#tablaModal').modal('show');
-        });
-    });*/
-</script>

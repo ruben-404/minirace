@@ -22,7 +22,9 @@ class Corredor extends Model
         'numeroFederat',
         'punts'
     ];
-    
+    protected $casts = [
+        'DNI' => 'string',
+    ];
 
     public function inscritos()
     {

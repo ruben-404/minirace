@@ -4,9 +4,9 @@ use App\Http\Middleware\AdminAuthMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\AsseguradoraController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SponsorController;
-use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +30,12 @@ Route::get('/admin', [AdminController::class, 'login'])->name('admin.login');
 Route::post('/admin/ProcesarLogin', [AdminController::class, 'ProcesarLogin'])->name('ProcesarLogin');
 //logout admin
 Route::get('/admin/logOut', [AdminController::class, 'logOut'])->name('admin.logout');
+//Navegacion pagina princiapl
+//Route::get('/home/carreras', [CarreraController::class, 'paginaCarreras'])->name('paginaCarreras');
+Route::get('/home/carreras', function () {
+    return app()->make(CarreraController::class)->getCarrerasClient();
+});
+
 
 //ver tabla carreas
 Route::middleware([AdminAuthMiddleware::class])->group(function () {
@@ -48,6 +54,8 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::put('/admin/carreras/{id}/toggle', [CarreraController::class, 'toggleHabilitado'])->name('toggleHabilitado');
     //corredores
     Route::get('/admin/carreras/{id}/corredores', [CarreraController::class, 'getCorredoresInscritos'])->name('corredores.inscritos');
+    //PDF corredores
+    Route::get('/admin/carreras/{id}/corredorespdf', [CarreraController::class, 'getCorredoresInscritospdf'])->name('corredores.inscritosPDF');
 
 
 
@@ -64,7 +72,12 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     //save edit aseguradoras
     Route::put('/admin/asseguradoras/{cif}', [AsseguradoraController::class, 'actualizar'])->name('actualizarAsseguradora');
     //activar/desacctivar aseguradoras
-    Route::put('/admin/asseguradoras/{cif}/toggle', [AsseguradoraController::class, 'toggleHabilitado'])->name('toggleHabilitado');
+    Route::put('/admin/asseguradoras/{cif}/toggle', [AsseguradoraController::class, 'toggleHabilitado'])->name('toggleHabilitadoAseguradora');
+    //Carreras aseguradas 
+    Route::get('/admin/asseguradoras/{cif}/carreras/aseguradas', [AsseguradoraController::class, 'getCarrerasAseguradas'])->name('carreras.aseguradas');
+
+    //Mostrar carreras para añadir
+    Route::get('/admin/asseguradoras/{cif}/carreras/asegurar', [CarreraAsseguradaController::class, 'getMyCarrerasSinAsegurar'])->name('mostrarAseguracionCarreras');
 
     
     //Ver tabla sponsors
@@ -85,9 +98,5 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::get('/admin/asseguradoras', [AsseguradoraController::class, 'getAsseguradoras'])->name('asseguradoras');
     Route::get('/admin/sponsors', [SponsorController::class, 'getSponsors'])->name('sponsors');
 
-    //Home
-
-    Route::get('/home', 'HomeController@myHome');
-    Route::get('/detalles', 'HomeController@myDetalles');
 
 });

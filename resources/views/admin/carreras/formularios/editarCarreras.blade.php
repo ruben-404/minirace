@@ -12,6 +12,7 @@
                             <li>{{$error}}</li>
                         @endforeach
                     @endif
+             
                     <form method="POST" action="{{ route('actualizarCarrera', $carrera->idCarrera) }}"  enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
