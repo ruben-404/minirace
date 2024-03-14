@@ -4,6 +4,7 @@ $(document).ready(function() {
     });
     // Evento de clic en el botón que carga los detalles de la carrera en el modal
     $('.btn-ver-detalles').click(function() {
+        console.log("hola");
         // Obtener los datos de la carrera del botón que fue clicado
         var id = $(this).data('id');
         var desnivel = $(this).data('desnivel');

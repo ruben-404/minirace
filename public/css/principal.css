@@ -1,0 +1,36 @@
+body{
+    background-color: #212529;
+}
+
+.logo{
+    width: 200px;
+    height: 70px;
+    padding-top: 10px;
+    margin-left: 7%;
+}
+
+.headerNav{
+    margin-right: 15%;
+}
+
+.headerNav2{
+    margin-right: 35%;
+}
+
+
+.btn-socio{
+    color: white;
+    background-color: #E14658 !important;
+    border-radius: 0; /* Sin border-radius */
+}
+
+.btn-no-socio {
+    color: white;
+    background-color: transparent;
+    border: 1px solid white; /* Borde blanco */
+    border-radius: 0;
+}
+
+.iniciarSesionNav{
+    padding-left: 30px;
+}

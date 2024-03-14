@@ -36,6 +36,8 @@
             @endif
             <div class="tbodyCont" style="max-height: 700px; overflow-y: auto;">
                 @yield('tbodyCont')
+                <script src="{{ asset('js/carreras.js') }}"></script>
+
 
                 <table class="table" id="tablaCarreras">
                     <thead>

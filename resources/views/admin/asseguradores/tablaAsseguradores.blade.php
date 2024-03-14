@@ -28,6 +28,8 @@
                 </form>
             </div>
             <div class="tbodyCont" style="max-height: 700px; overflow-y: auto;">
+                <script src="{{ asset('js/aseguradoras.js') }}"></script>
+
                 <table class="table">
                     <thead>
                         <tr>

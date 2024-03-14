@@ -7,6 +7,8 @@ use App\Http\Controllers\AsseguradoraController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\CarreraAsseguradaController;
+use App\Http\Controllers\CorredorController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,9 @@ Route::get('/admin', [AdminController::class, 'login'])->name('admin.login');
 Route::post('/admin/ProcesarLogin', [AdminController::class, 'ProcesarLogin'])->name('ProcesarLogin');
 //logout admin
 Route::get('/admin/logOut', [AdminController::class, 'logOut'])->name('admin.logout');
+//Navegacion pagina princiapl
+Route::get('/home/carreras', [CorredorController::class, 'paginaCarreras'])->name('paginaCarreras');
+
 
 //ver tabla carreas
 Route::middleware([AdminAuthMiddleware::class])->group(function () {
