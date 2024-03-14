@@ -24,9 +24,9 @@ class SponsorController extends Controller
     {
         // Validar los datos del formulario
         $request->validate([
-            'cif' => 'required|string|max:255',
-            'nombre' => 'required|string',
-            'direccion' => 'required|string',
+            'cif' => 'required|string|max:9',
+            'nombre' => 'required|string|max:255',
+            'direccion' => 'required|string|max:255',
             'destacado' => 'required|boolean',
             'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);

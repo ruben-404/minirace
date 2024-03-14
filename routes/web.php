@@ -6,6 +6,7 @@ use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\AsseguradoraController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SponsorController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,5 +85,9 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::get('/admin/asseguradoras', [AsseguradoraController::class, 'getAsseguradoras'])->name('asseguradoras');
     Route::get('/admin/sponsors', [SponsorController::class, 'getSponsors'])->name('sponsors');
 
+    //Home
+
+    Route::get('/home', 'HomeController@myHome');
+    Route::get('/detalles', 'HomeController@myDetalles');
 
 });
