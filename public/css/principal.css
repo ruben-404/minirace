@@ -4,9 +4,7 @@ body{
 
 .logo{
     width: 200px;
-    height: 70px;
-    padding-top: 10px;
-    margin-left: 7%;
+    margin-left: 15%;
 }
 
 .headerNav{
@@ -33,4 +31,32 @@ body{
 
 .iniciarSesionNav{
     padding-left: 30px;
+}
+
+.card{
+    border:none;
+}
+
+
+
+
+
+/* Estilo para la barra de desplazamiento */
+::-webkit-scrollbar {
+    width: 10px; /* Ancho de la barra de desplazamiento */
+}
+
+/* Estilo para el "track" de la barra de desplazamiento (la parte gris) */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color de fondo */
+}
+
+/* Estilo para el "thumb" de la barra de desplazamiento (el botón) */
+::-webkit-scrollbar-thumb {
+    background: #888; /* Color del botón */
+}
+
+/* Hover sobre el "thumb" de la barra de desplazamiento */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color del botón al pasar el mouse */
 }

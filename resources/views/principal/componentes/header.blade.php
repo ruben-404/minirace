@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/principal.css') }}">
 </head>
 <body>
-    <header class="navbar navbar-dark bg-dark">
+    <header class="navbar navbar-dark bg-black py-3">
         <div class="container-fluid d-flex justify-content-between align-items-center">
     
             <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
