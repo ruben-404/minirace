@@ -41,7 +41,7 @@ return [
             'provider' => 'admins',
         ],
     
-        'corredor' => [
+        'web' => [
             'driver' => 'session',
             'provider' => 'racers',
         ],

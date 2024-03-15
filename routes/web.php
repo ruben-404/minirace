@@ -22,7 +22,7 @@ use App\Http\Controllers\CorredorController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('principal.paginas.home');
 });
 
 
@@ -37,6 +37,10 @@ Route::get('/admin/logOut', [AdminController::class, 'logOut'])->name('admin.log
 Route::get('/home/carreras', function () {
     return app()->make(CarreraController::class)->getCarrerasClient();
 });
+//login Usuario
+Route::get('/home/login', [CorredorController::class, 'paginaLogin'])->name('login');
+Route::post('/home/ProcesarLogin', [CorredorController::class, 'ProcesarLogin'])->name('HomeLogin');
+
 
 
 //ver tabla carreas

@@ -1,7 +1,7 @@
 @include('principal.componentes.header')
 
 <div class="container pt-5">
-    <div class="row row-cols-1 row-cols-md-4 g-4 overflow-auto" style="max-height: 800px; overflow-y: auto;">
+    <div class="row row-cols-1 row-cols-md-4 g-4 overflow-auto contCards">
         @foreach($carreras as $carrera)
         <div class="col">
             <div class="card">

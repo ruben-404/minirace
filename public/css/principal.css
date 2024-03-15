@@ -37,6 +37,11 @@ body{
     border:none;
 }
 
+.contCards{
+    max-height: 800px;
+    overflow-y: auto;
+}
+
 
 
 
