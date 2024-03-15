@@ -40,6 +40,7 @@ Route::get('/home/carreras', function () {
 //login Usuario
 Route::get('/home/login', [CorredorController::class, 'paginaLogin'])->name('login');
 Route::post('/home/ProcesarLogin', [CorredorController::class, 'ProcesarLogin'])->name('HomeLogin');
+Route::post('/home/logOut', [CorredorController::class, 'logOut'])->name('logout');
 
 
 

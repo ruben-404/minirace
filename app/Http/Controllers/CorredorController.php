@@ -18,6 +18,13 @@ class CorredorController extends Controller
         return view('principal.formularios.login');
     }
 
+    public function logOut(Request $request) {
+        
+        $request->session()->flush();
+
+        return redirect('/home/login');
+    }
+
     public function ProcesarLogin(Request $request) {
         $credentials = [
             "DNI" => $request->email,
