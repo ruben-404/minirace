@@ -130,3 +130,18 @@ body{
 ::-webkit-scrollbar-thumb:hover {
     background: #555; /* Color del botón al pasar el mouse */
 }
+
+.btn-custom {
+    margin-top: 5px;
+    color: #333; /* Color del texto */
+    background-color: #ccc; /* Color de fondo gris */
+    border-color: #ccc; /* Color del borde gris */
+}
+
+.btn-custom:hover,
+.btn-custom:focus,
+.btn-custom:active {
+    color: #333; /* Cambia el color del texto al pasar el cursor, enfocar o hacer clic */
+    background-color: #bbb; /* Cambia el color de fondo al pasar el cursor, enfocar o hacer clic */
+    border-color: #bbb; /* Cambia el color del borde al pasar el cursor, enfocar o hacer clic */
+}

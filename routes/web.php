@@ -84,8 +84,11 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::get('/admin/asseguradoras/{cif}/carreras/aseguradas', [AsseguradoraController::class, 'getCarrerasAseguradas'])->name('carreras.aseguradas');
 
     //Mostrar carreras para añadir
-    Route::get('/admin/asseguradoras/{cif}/carreras/asegurar', [CarreraAsseguradaController::class, 'getMyCarrerasSinAsegurar'])->name('mostrarAseguracionCarreras');
-
+    Route::get('/admin/asseguradoras/{cif}/carreras/asegurar', [CarreraAsseguradaController::class, 'getCarrerasSinAsegurar'])->name('mostrarAseguracionCarreras');
+    //Guardar carrera asegurada
+    Route::post('/admin/asseguradoras/carreras/guardarAseguración', [CarreraAsseguradaController::class, 'saveCarreraAsegurada'])->name('guardarCarreraAsegurada');
+    //Carreras aseguradas PDF:
+    Route::post('/admin/asseguradoras/carreras/facturaAseguración', [CarreraAsseguradaController::class, 'mostrarFacturaAseguradasPDF'])->name('carreras.aseguradasPDF');
     
     //Ver tabla sponsors
     Route::get('/admin/sponsors', function () {
