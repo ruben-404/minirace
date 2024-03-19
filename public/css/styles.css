@@ -134,7 +134,7 @@ body{
   
 .footer {
     display: flex;
-    justify-content: space-around; /* Distribuye las columnas uniformemente */
+    justify-content: space-between; /* Alinea las columnas a los extremos */
     align-items: center; /* Alinea verticalmente el contenido */
     position: absolute;
     bottom: 0;
@@ -146,12 +146,30 @@ body{
     box-sizing: border-box;
 }
 
-.footer-column {
+.footer-column-left,
+.footer-column-right {
     flex: 1; /* Distribuye el espacio entre las columnas */
 }
 
 .footerelement {
     text-align: center;
+}
+
+/* Ajusta el display de los span dentro de footerelement */
+.footerelement span {
+    display: block; /* o inline-block según tus necesidades */
+    margin: 0 auto;
+    width: 200px;
+}
+
+.logofooter {
+    width: 200px;
+}
+.titlefooter {
+    width: fit-content;
+    margin: 0 auto;
+    border-bottom: 1px solid red;
+    font-weight: bold;
 }
 
   

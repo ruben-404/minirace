@@ -8,18 +8,23 @@
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 </head>
 <body>
-  <footer class="footer">
-    <div class="container footer-column">
-      <div class="footerelement">
-        <img src="{{ asset('resources/icons/Logo.png') }}" class="logo img-fluid" alt="Logo Sponsor">
-        <span>Columna 1</span>
-      </div>
+<footer class="footer">
+  <div class="footer-column-left">
+    <div class="footerelement">
+      <img src="{{ asset('resources/icons/Logo.png') }}" class="logofooter img-fluid" alt="Logo Sponsor">
+      <span>Tu destino para experimentar la emoción de las carreras de coches teledirigidos a otro nivel</span>
     </div>
-    <div class="container footer-column">
-      <div class="footerelement">
-        <img src="{{ asset('resources/icons/Logo.png') }}" class="logo img-fluid" alt="Logo Sponsor">
-        <span>Columna 1</span>
-      </div>
+  </div>
+  <div class="footer-column-right">
+    <div class="footerelement">
+      <p class='titlefooter'>CONTÁCTANOS</p>
+      <span>A108 Adam Street</span>
+      <span>New York, NY 535022</span>
+      <span>United States</span>
+      <span>Phone: +1 5589 55488 55</span>
+      <span>Email: info@example.com</span>
     </div>
-  </footer>
+  </div>
+</footer>
+
 </body>
