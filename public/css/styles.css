@@ -30,12 +30,6 @@ body{
     padding-bottom: 15px;
 }
 
-.row{
-    background-color: #E0E0E0;
-    border-radius: 10px;
-    padding: 30px;
-
-}
 .px-4{
     padding: 15px;
 }
@@ -104,10 +98,6 @@ body{
 .loginButtonAdmin:hover {
     background-color: #F54958;
 }
-
-
-
-
 
 ::-webkit-scrollbar {
     width: 10px;  

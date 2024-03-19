@@ -33,7 +33,11 @@ body{
 }
 
 .card{
-    border:none;
+    border:none !important;
+}
+
+#busquedaPrincipal{
+    margin-bottom: 15px !important;
 }
 
 .contCards{
