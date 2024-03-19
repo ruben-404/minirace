@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Asseguradora;
 use App\Models\CarreraAssegurada;
+use App\Models\Carrera;
 use Illuminate\Support\Facades\View;
 
 
@@ -39,12 +40,13 @@ class AsseguradoraController extends Controller
         // ->where('idCarrera', '!=', $idCarrera)
         // ->orWhereNull('idCarrera')
         // ->get();
-
-
-        //echo $Caseguradas[0]->carrera->data;
-        return view('admin.asseguradores.tablaCarreresAssegurades', compact('Caseguradas'));
+        if(!empty($Caseguradas[0])) {
+            return view('admin.asseguradores.tablaCarreresAssegurades', ['Caseguradas' => $Caseguradas, 'cif' => $cif]);
+        } else {
+            $Carreras = Carrera::all();
+            return view('admin.asseguradores.formularios.addCarrerasAseguradas', ['Carreras' => $Carreras, 'cif' => $cif]);
+        }
     }
-
     public function guardar(Request $request)
     {
         // Validar los datos del formulario
