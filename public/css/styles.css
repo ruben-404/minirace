@@ -77,6 +77,8 @@ body{
 .loginForm{
     background-color: white;
     width: 20%;
+    border-radius: 15px;
+    padding: 30px;
 }
 .input-line {
     border: none;
