@@ -9,22 +9,31 @@
 </head>
 <body>
 <footer class="footer">
-  <div class="footer-column-left">
+  <div class="container footer-column-left footercolumn">
     <div class="footerelement">
       <img src="{{ asset('resources/icons/Logo.png') }}" class="logofooter img-fluid" alt="Logo Sponsor">
-      <span>Tu destino para experimentar la emoción de las carreras de coches teledirigidos a otro nivel</span>
+      <p class="d-lg-none info">Tu destino para experimentar la emoción de las carreras de coches teledirigidos a otro nivel</p>
+      <p class="d-none d-lg-block infoblock">Tu destino para experimentar la emoción de las carreras de coches teledirigidos a otro nivel</p>
     </div>
   </div>
-  <div class="footer-column-right">
+  <div class="container footer-column-right footercolumn">
     <div class="footerelement">
       <p class='titlefooter'>CONTÁCTANOS</p>
-      <span>A108 Adam Street</span>
-      <span>New York, NY 535022</span>
-      <span>United States</span>
-      <span>Phone: +1 5589 55488 55</span>
-      <span>Email: info@example.com</span>
+      <address class="d-lg-none address-footer-mini">
+        <strong>A108 Adam Street</strong><br>
+        New York, NY 535022<br>
+        United States<br>
+        <abbr title="Phone">Phone:</abbr> +1 5589 55488 55<br>
+        <abbr title="Email">Email:</abbr> info@example.com
+      </address>
+      <address class="d-none d-lg-block address-footer">
+        <strong>A108 Adam Street</strong><br>
+        New York, NY 535022<br>
+        United States<br>
+        Phone: +1 5589 55488 55<br>
+        Email: info@example.com
+      </address>
     </div>
   </div>
 </footer>
-
 </body>
