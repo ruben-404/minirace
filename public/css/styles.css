@@ -146,10 +146,7 @@ body{
     box-sizing: border-box;
 }
 
-.footer-column-left,
-.footer-column-right {
-    flex: 1; /* Distribuye el espacio entre las columnas */
-}
+
 
 .footerelement {
     text-align: center;
@@ -170,6 +167,33 @@ body{
     margin: 0 auto;
     border-bottom: 1px solid red;
     font-weight: bold;
+}
+.infoblock {
+    width: 200px;
+    margin: 0 auto;
+}
+
+/* Footer pequeño */
+
+.info {
+    width: 140px;
+    font-size: 13px;
+    margin: 0 auto;
+}
+.address-footer-mini {
+    font-size: 13px;;
+}
+.footercolumn {
+    padding: 10px;
+}
+@media (max-width: 991.98px) {
+    .footer {
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .logofooter {
+        width: 140px;
+    }
 }
 
   
