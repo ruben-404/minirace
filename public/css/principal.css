@@ -62,3 +62,17 @@ body{
 ::-webkit-scrollbar-thumb:hover {
     background: #555; 
 }
+
+
+.bodyLogin{
+    background-image: url('../resources/fondoLogin.png');
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat; 
+    height: 93vh;
+}
+
+.loginForm{
+    background-color: white;
+    width: 20%;
+}
