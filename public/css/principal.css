@@ -18,14 +18,13 @@ body{
 
 .btn-socio{
     color: white;
-    /* background-color: #E14658 !important; */
-    border-radius: 0; /* Sin border-radius */
+    border-radius: 0; 
 }
 
 .btn-no-socio {
     color: white;
     background-color: transparent;
-    border: 1px solid white; /* Borde blanco */
+    border: 1px solid white; 
     border-radius: 0;
 }
 
@@ -41,27 +40,21 @@ body{
     max-height: 1000px;
     overflow-y: auto;
 }
-
-
-
-
-
-/* Estilo para la barra de desplazamiento */
 ::-webkit-scrollbar {
-    width: 10px; /* Ancho de la barra de desplazamiento */
+    width: 10px; 
 }
 
-/* Estilo para el "track" de la barra de desplazamiento (la parte gris) */
+
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Color de fondo */
+    background: #f1f1f1;
 }
 
-/* Estilo para el "thumb" de la barra de desplazamiento (el botón) */
+
 ::-webkit-scrollbar-thumb {
-    background: #888; /* Color del botón */
+    background: #888; 
 }
 
-/* Hover sobre el "thumb" de la barra de desplazamiento */
+
 ::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Color del botón al pasar el mouse */
+    background: #555; 
 }

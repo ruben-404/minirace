@@ -1,4 +1,7 @@
 @include('principal.componentes.header')
-
-
-<h1>Hola</h1>
+<div class="container">
+  <div class="content">
+    <!-- Contenido de tu página aquí -->
+  </div>
+</div>
+@include('principal.componentes.footer')

@@ -1,7 +1,10 @@
 body{
     background-color: #212529;
+    margin: 0;
+    padding-bottom: 100px;  
+    min-height: 100vh;
+    position: relative;
 }
-/* tabla carreras */
 .activarBtn{
     width: 60px;
 }
@@ -27,7 +30,6 @@ body{
     padding-bottom: 15px;
 }
 
-/* barra lateral */
 .row{
     background-color: #E0E0E0;
     border-radius: 10px;
@@ -41,29 +43,25 @@ body{
     width: 200px;
     height: 70px;
     align-self: flex-start;
-    margin-top: -60px;
 
 }
 
-/* Estilo para el div de los botones verticales */
 .vertical-buttons {
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
-    /* width: 200px;  */
+     width: 200px;  
     background-color: #343a40; 
     padding: 20px; 
     height: 100%;
 }
 
-/* Estilo para los botones dentro del div vertical */
 .vertical-buttons .btn {
     display: block;
     margin-bottom: 10px;
 }
 
-/* Estilo para el div con la clase mb-30 */
 .mb-30 {
     margin-top: 56px;
 }
@@ -88,13 +86,13 @@ body{
 }
 .input-line {
     border: none;
-    border-bottom: 1px solid black; /* Agregamos una línea en la parte inferior */
-    border-radius: 0; /* Removemos cualquier radio de borde */
-    box-shadow: none; /* Removemos cualquier sombra */
-    outline: none; /* Removemos el contorno al hacer foco en el input */
-    padding: 0; /* Removemos cualquier relleno */
-    margin: 0; /* Removemos cualquier margen */
-    background-color: transparent; /* Hacemos el fondo transparente */
+    border-bottom: 1px solid black; 
+    border-radius: 0; 
+    box-shadow: none; 
+    outline: none;  
+    padding: 0;  
+    margin: 0;  
+    background-color: transparent;  
 }
 .loginButtonAdmin {
     border-radius: 20px;
@@ -111,37 +109,57 @@ body{
 
 
 
-/* Estilo para la barra de desplazamiento */
 ::-webkit-scrollbar {
-    width: 10px; /* Ancho de la barra de desplazamiento */
+    width: 10px;  
 }
 
-/* Estilo para el "track" de la barra de desplazamiento (la parte gris) */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Color de fondo */
+    background: #f1f1f1;
 }
 
-/* Estilo para el "thumb" de la barra de desplazamiento (el botón) */
 ::-webkit-scrollbar-thumb {
-    background: #888; /* Color del botón */
+    background: #888; 
 }
 
-/* Hover sobre el "thumb" de la barra de desplazamiento */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Color del botón al pasar el mouse */
+    background: #555; 
 }
 
 .btn-custom {
     margin-top: 5px;
-    color: #333; /* Color del texto */
-    background-color: #ccc; /* Color de fondo gris */
-    border-color: #ccc; /* Color del borde gris */
+    color: #333; 
+    background-color: #ccc;  
+    border-color: #ccc;  
 }
 
 .btn-custom:hover,
 .btn-custom:focus,
 .btn-custom:active {
-    color: #333; /* Cambia el color del texto al pasar el cursor, enfocar o hacer clic */
-    background-color: #bbb; /* Cambia el color de fondo al pasar el cursor, enfocar o hacer clic */
-    border-color: #bbb; /* Cambia el color del borde al pasar el cursor, enfocar o hacer clic */
+    color: #333;  
+    background-color: #bbb; 
+    border-color: #bbb;  
 }
+  
+.footer {
+    display: flex;
+    justify-content: space-around; /* Distribuye las columnas uniformemente */
+    align-items: center; /* Alinea verticalmente el contenido */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    padding: 20px 0;
+    box-sizing: border-box;
+}
+
+.footer-column {
+    flex: 1; /* Distribuye el espacio entre las columnas */
+}
+
+.footerelement {
+    text-align: center;
+}
+
+  

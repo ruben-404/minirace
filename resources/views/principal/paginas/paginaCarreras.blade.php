@@ -15,3 +15,4 @@
         @endforeach
     </div>
 </div>
+@include('principal.componentes.footer')
