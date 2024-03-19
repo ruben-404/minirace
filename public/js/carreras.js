@@ -93,15 +93,17 @@ document.addEventListener('DOMContentLoaded', function() {
 // });
 
 $(document).ready(function() {
-    $('#busqueda').on('keyup', function() {
+    $('#busqueda').on('input', function(event) {
+        event.preventDefault();
         var query = $(this).val();
         var url = $('#buscar-carreras-url').data('url');
-
         $.ajax({
             url: url,
             method: 'GET',
             data: {query: query},
             success: function(response) {
+                console.log("ok");
+
                 // Reemplazar el contenido del div tbodyCont con los resultados de la búsqueda
                 $('.tbodyCont').html(response);
             },
@@ -110,6 +112,32 @@ $(document).ready(function() {
             }
         });
     });
+
+
+    $('#busquedaPrincipal').on('keyup', function() {
+        var query = $(this).val();
+        var url = $('#buscar-carreras-url-principal').data('url');
+        $.ajax({
+            url: url,
+            method: 'GET',
+            data: {query: query},
+            success: function(response) {
+                console.log(response);
+                // Reemplazar el contenido del div tbodyCont con los resultados de la búsqueda
+                $('.cardsContanier').html(response);
+
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr);
+            }
+        });
+    });
 });
+
+
+
+
+
+
 
 
