@@ -13,6 +13,8 @@ class CorredorController extends Controller
         return view('principal.paginas.paginaCarreras');
     }
 
+    // SECCIÓN LOGIN
+
     public function paginaLogin()
     {
         return view('principal.formularios.login');
@@ -44,5 +46,11 @@ class CorredorController extends Controller
 
         }
 
+    }
+
+    // SECCION REGISTER
+    public function paginaRegister()
+    {
+        return view('principal.formularios.register');
     }
 }

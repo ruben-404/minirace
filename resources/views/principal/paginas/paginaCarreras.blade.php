@@ -1,17 +1,13 @@
 @include('principal.componentes.header')
+<script src="{{ asset('js/carreras.js') }}"></script>
 
-<div class="container pt-5">
-    <div class="row row-cols-1 row-cols-md-4 g-4 overflow-auto contCards">
-        @foreach($carreras as $carrera)
-        <div class="col">
-            <div class="card">
-                <img src="{{ asset('storage/carrerasImages/' . $carrera['cartellPromoció']) }}" class="card-img-top" alt="Cartel de la carrera">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $carrera['nom'] }}</h5>
-                    <a href="#" class="btn btn-primary">Más información</a>
-                </div>
-            </div>
-        </div>
-        @endforeach
+<div class="container pt-5 contPca">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" id="busquedaPrincipal" placeholder="Buscar carrera...">
     </div>
+    <div id="buscar-carreras-url-principal" data-url="{{ route('buscar-carreras-principal') }}"></div>
+    @include('principal.componentes.carreras')
+
+    
 </div>
+@include('principal.componentes.footer')

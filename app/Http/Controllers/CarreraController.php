@@ -30,6 +30,20 @@ class CarreraController extends Controller
         return $tbodyContHtml;
     }
 
+    public function buscarCarrerasPrincipal(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Obtener las carreras filtradas por el nombre
+        $carreras = Carrera::where('nom', 'like', "%$query%")->get();
+
+        // Renderizar la vista de las carreras utilizando Blade y pasarle los datos directamente
+        $tbodyHtml = view('principal.componentes.carreras', ['carreras' => $carreras])->render();
+
+        return $tbodyHtml;
+    }
+
+
 
 
     public function addCarreras()
@@ -222,6 +236,15 @@ class CarreraController extends Controller
     {
         $carreras = Carrera::all();
         return view('principal.paginas.paginaCarreras', compact('carreras'));
+    }
+
+
+    public function infoCarrera($idCarrera)
+    {
+        $carrera = Carrera::findOrFail($idCarrera);
+
+        return view('principal.paginas.infoCarreras', compact('carrera'));
+
     }
 
 
