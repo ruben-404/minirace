@@ -30,22 +30,6 @@ class CarreraController extends Controller
         return $tbodyContHtml;
     }
 
-    // public function buscarCarrerasPrincipal(Request $request)
-    // {
-    //     $query = $request->input('query');
-
-    //     $carreras = Carrera::where('nom', 'like', "%$query%")->get();
-
-    //     $tbodyHtml = View::make('principal.paginas.paginaCarreras', ['carreras' => $carreras])->render();
-        
-    //     // Buscar el contenido del div con clase .tbodyCont usando expresiones regulares
-    //     preg_match('/<div class="cardsContanier">(.*?)<\/div>/s', $tbodyHtml, $matches);
-
-    //     $tbodyContHtml = $matches[0] ?? '';
-
-    //     return $tbodyContHtml;
-    // }
-
     public function buscarCarrerasPrincipal(Request $request)
     {
         $query = $request->input('query');
@@ -252,6 +236,15 @@ class CarreraController extends Controller
     {
         $carreras = Carrera::all();
         return view('principal.paginas.paginaCarreras', compact('carreras'));
+    }
+
+
+    public function infoCarrera($idCarrera)
+    {
+        $carrera = Carrera::findOrFail($idCarrera);
+
+        return view('principal.paginas.infoCarreras', compact('carrera'));
+
     }
 
 

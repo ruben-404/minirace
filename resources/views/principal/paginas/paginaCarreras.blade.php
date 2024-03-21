@@ -1,7 +1,7 @@
 @include('principal.componentes.header')
 <script src="{{ asset('js/carreras.js') }}"></script>
 
-<div class="container pt-5">
+<div class="container pt-5 contPca">
     <div class="input-group mb-3">
         <input type="text" class="form-control" id="busquedaPrincipal" placeholder="Buscar carrera...">
     </div>

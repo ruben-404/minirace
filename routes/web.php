@@ -41,7 +41,9 @@ Route::get('/home/carreras', function () {
 Route::get('/home/login', [CorredorController::class, 'paginaLogin'])->name('login');
 Route::post('/home/ProcesarLogin', [CorredorController::class, 'ProcesarLogin'])->name('HomeLogin');
 Route::post('/home/logOut', [CorredorController::class, 'logOut'])->name('logout');
+//pagina principal
 Route::get('/buscar-carreras-principal', [CarreraController::class, 'buscarCarrerasPrincipal'])->name('buscar-carreras-principal');
+Route::get('/home/carreras/{id}', [CarreraController::class, 'infoCarrera'])->name('infoCarrera');
 
 //register Usuario socio
 Route::get('/home/register', [CorredorController::class, 'paginaRegister'])->name('register');

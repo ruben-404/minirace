@@ -99,3 +99,7 @@ body{
 .loginButtonAdmin:hover {
     background-color: #F54958;
 }
+
+.contPca{
+    padding-bottom: 10%;
+}
