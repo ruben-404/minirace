@@ -15,6 +15,10 @@ body{
     margin-right: 35%;
 }
 
+.descricioCont{
+    font-size: 20px;
+    width: 45%;
+}
 
 .btn-socio{
     color: white;
@@ -195,3 +199,61 @@ body{
 .contPca{
     padding-bottom: 10%;
 }
+
+.contInfo{
+    padding-bottom: 30%;
+}
+
+/* #desplegable */
+.accordion-item{
+    background-color: #212529 !important;
+}
+
+#accordionExample{
+    transform: scale(1.12);
+}
+
+.accordion-header{
+    background-color: #212529 !important;
+}
+
+.desplegableInfo{
+    background-color: #212529 !important;
+    border-radius: 0% !important;
+
+}
+
+.accordion-button::after {
+    color: white;
+    background-color: white;
+}
+
+.accordion-button:not(.collapsed){
+    background-color:  #212529!important;
+    color: white !important;
+}
+
+.desplegableCont{
+    border-radius: 0% !important;
+    border: none !important;
+    border-bottom: 1px solid white !important;
+}
+
+.accordion-button:focus {
+    border: none !important;
+}
+
+.accordion-button:focus {
+    box-shadow: none !important;
+}
+
+
+/* Para dispositivos móviles */
+@media (max-width: 767px) {
+    .descricioCont {
+        width: 100%; /* Establecer el ancho al 100% en dispositivos móviles */
+    }
+}
+
+
+
