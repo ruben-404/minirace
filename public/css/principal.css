@@ -48,6 +48,98 @@ body{
     max-height: 1000px;
     overflow-y: auto;
 }
+
+/*PAGINA PRINCIPAL CARRUSEL*/
+
+.carruselMenu{
+    height: 700px;
+}
+
+
+.carousel-caption {
+    bottom: 45%;
+    padding: 10px;
+}
+.btn {
+    margin-top: 10px;
+}
+
+.botonCarrusel {
+    background-color: transparent;
+    border: 3px solid #E14658;
+    border-radius: 10px;
+    width: 25%;
+    height: 8%;
+    line-height: 50px;
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.botonCarrusel:hover, .botonCarrusel:active {
+    background-color: #E14658;
+    color: white;
+    border: 3px solid #E14658;
+}
+
+.TituloCarrusel{
+    font-size: 50px;
+}
+/*ACABA CARRUSEL*/
+
+
+/*SPONSORS*/
+
+#zonaSponsors{
+    background-color: #F3F3F3;
+    padding: 50px 0;
+}
+
+#tituloSponsor{
+    font-weight: bold;
+}
+
+#barraSponsors{
+    border-top: 3px solid #E14658;
+    width: 5%;
+    margin: auto;
+    padding-bottom: 2%;
+}
+
+.imgSponsor{
+    width: 200px;
+}
+
+.demo-row {
+    padding: 0px 0;
+  }
+  
+  /*Implement*/
+  .sponsor-feature {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 5px 0;
+  }
+  
+  #id-sponsors .carousel {
+      margin-bottom: 20px;
+  }
+  #id-sponsors .item {
+      padding-bottom: 20px;
+  }
+  #id-sponsors .carousel-indicators {
+      bottom: -25px;
+  }
+/*ACABA SPONSORS*/
+
+
+/* Estilo para la barra de desplazamiento */
 ::-webkit-scrollbar {
     width: 10px; 
 }
