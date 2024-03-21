@@ -7,6 +7,7 @@
     <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     @include('principal.componentes.header')
 </head>
 <body>
@@ -18,7 +19,7 @@
             <div class="carousel-item active">
                 <img src="storage/homeImages/carousel1.png" class="d-block w-100" alt="First slide">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5 class="TituloCarrusel">COMPETICION DE COCHES RC</h5>
+                    <h5 class="TituloCarrusel">COMPETICIÓN <br>DE COCHES RC</h5>
                     <a href="#" class="btn btn-primary botonCarrusel">DESCUBRE MÁS</a>
                 </div>
             </div>
@@ -26,7 +27,7 @@
             <div class="carousel-item">
                 <img src="storage/carrerasImages/cartel_.png" class="d-block w-100" alt="Second slide">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5 class="TituloCarrusel">COMPETICION DE COCHES RC</h5>
+                    <h5 class="TituloCarrusel">COMPETICIÓN <br>DE COCHES RC</h5>
                     <a href="#" class="btn btn-primary botonCarrusel" id="botonCarrusel">DESCUBRE MÁS</a>
                 </div>
             </div>
@@ -34,7 +35,7 @@
             <div class="carousel-item">
                 <img src="storage/homeImages/carousel1.png" class="d-block w-100" alt="Third slide">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5 class="TituloCarrusel">COMPETICION DE COCHES RC</h5>
+                    <h5 class="TituloCarrusel">COMPETICIÓN <br>DE COCHES RC</h5>
                     <a href="#" class="btn btn-primary botonCarrusel">DESCUBRE MÁS</a>
                 </div>
             </div>
