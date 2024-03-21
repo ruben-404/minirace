@@ -1,0 +1,22 @@
+.full-height-register {
+    height: 90.5vh;
+    padding: 0;
+    margin: 0;
+  }
+  /* Estilo para centrar verticalmente el texto */
+  .center-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .registerButton {
+    border-radius: 20px;
+    width: 75%;
+    background-color: #E14658;
+    padding: 15px;
+    border: none;
+}
+.registerButton:hover {
+    background-color: #F54958;
+}

@@ -47,6 +47,8 @@ Route::get('/home/carreras/{id}', [CarreraController::class, 'infoCarrera'])->na
 
 //register Usuario socio
 Route::get('/home/register', [CorredorController::class, 'paginaRegister'])->name('register');
+//Procesar registro socio
+Route::post('/home/procesarRegistro', [CorredorController::class, 'procesarRegistro'])->name('procesarRegistro');
 
 
 //ver tabla carreas

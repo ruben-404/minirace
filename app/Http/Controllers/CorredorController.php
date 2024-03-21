@@ -29,7 +29,7 @@ class CorredorController extends Controller
 
     public function ProcesarLogin(Request $request) {
         $credentials = [
-            "DNI" => $request->email,
+            "DNI" => $request->dni,
             "password" => $request->password
         ];
 
@@ -52,5 +52,9 @@ class CorredorController extends Controller
     public function paginaRegister()
     {
         return view('principal.formularios.register');
+    }
+
+    public function procesarRegistro(Request $request) {
+        
     }
 }
