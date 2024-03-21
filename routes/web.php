@@ -22,7 +22,7 @@ use App\Http\Controllers\CorredorController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('principal.paginas.home');
 });
 
 
@@ -37,6 +37,11 @@ Route::get('/admin/logOut', [AdminController::class, 'logOut'])->name('admin.log
 Route::get('/home/carreras', function () {
     return app()->make(CarreraController::class)->getCarrerasClient();
 });
+//login Usuario
+Route::get('/home/login', [CorredorController::class, 'paginaLogin'])->name('login');
+Route::post('/home/ProcesarLogin', [CorredorController::class, 'ProcesarLogin'])->name('HomeLogin');
+Route::post('/home/logOut', [CorredorController::class, 'logOut'])->name('logout');
+
 
 
 //ver tabla carreas
@@ -79,8 +84,11 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::get('/admin/asseguradoras/{cif}/carreras/aseguradas', [AsseguradoraController::class, 'getCarrerasAseguradas'])->name('carreras.aseguradas');
 
     //Mostrar carreras para añadir
-    Route::get('/admin/asseguradoras/{cif}/carreras/asegurar', [CarreraAsseguradaController::class, 'getMyCarrerasSinAsegurar'])->name('mostrarAseguracionCarreras');
-
+    Route::get('/admin/asseguradoras/{cif}/carreras/asegurar', [CarreraAsseguradaController::class, 'getCarrerasSinAsegurar'])->name('mostrarAseguracionCarreras');
+    //Guardar carrera asegurada
+    Route::post('/admin/asseguradoras/carreras/guardarAseguración', [CarreraAsseguradaController::class, 'saveCarreraAsegurada'])->name('guardarCarreraAsegurada');
+    //Carreras aseguradas PDF:
+    Route::post('/admin/asseguradoras/carreras/facturaAseguración', [CarreraAsseguradaController::class, 'mostrarFacturaAseguradasPDF'])->name('carreras.aseguradasPDF');
     
     //Ver tabla sponsors
     Route::get('/admin/sponsors', function () {

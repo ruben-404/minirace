@@ -106,3 +106,42 @@ body{
 .loginButtonAdmin:hover {
     background-color: #F54958;
 }
+
+
+
+
+
+/* Estilo para la barra de desplazamiento */
+::-webkit-scrollbar {
+    width: 10px; /* Ancho de la barra de desplazamiento */
+}
+
+/* Estilo para el "track" de la barra de desplazamiento (la parte gris) */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color de fondo */
+}
+
+/* Estilo para el "thumb" de la barra de desplazamiento (el botón) */
+::-webkit-scrollbar-thumb {
+    background: #888; /* Color del botón */
+}
+
+/* Hover sobre el "thumb" de la barra de desplazamiento */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color del botón al pasar el mouse */
+}
+
+.btn-custom {
+    margin-top: 5px;
+    color: #333; /* Color del texto */
+    background-color: #ccc; /* Color de fondo gris */
+    border-color: #ccc; /* Color del borde gris */
+}
+
+.btn-custom:hover,
+.btn-custom:focus,
+.btn-custom:active {
+    color: #333; /* Cambia el color del texto al pasar el cursor, enfocar o hacer clic */
+    background-color: #bbb; /* Cambia el color de fondo al pasar el cursor, enfocar o hacer clic */
+    border-color: #bbb; /* Cambia el color del borde al pasar el cursor, enfocar o hacer clic */
+}

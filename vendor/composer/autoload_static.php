@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7591ca1a142f8c5efe03488fbb78e807
+class ComposerStaticInit4d3bf0e6999c0bce3d83a8d85c111a59
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -367,8 +367,8 @@ class ComposerStaticInit7591ca1a142f8c5efe03488fbb78e807
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -565,6 +565,7 @@ class ComposerStaticInit7591ca1a142f8c5efe03488fbb78e807
         'App\\Http\\Controllers\\CurseSponsorController' => __DIR__ . '/../..' . '/app/Http/Controllers/CurseSponsorController.php',
         'App\\Http\\Controllers\\EmpresaController' => __DIR__ . '/../..' . '/app/Http/Controllers/EmpresaController.php',
         'App\\Http\\Controllers\\FotoCarreraController' => __DIR__ . '/../..' . '/app/Http/Controllers/FotoCarreraController.php',
+        'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\InscritoController' => __DIR__ . '/../..' . '/app/Http/Controllers/InscritoController.php',
         'App\\Http\\Controllers\\SponsorController' => __DIR__ . '/../..' . '/app/Http/Controllers/SponsorController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
@@ -5741,6 +5742,7 @@ class ComposerStaticInit7591ca1a142f8c5efe03488fbb78e807
         'Svg\\Tag\\Shape' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Shape.php',
         'Svg\\Tag\\Stop' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Stop.php',
         'Svg\\Tag\\StyleTag' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/StyleTag.php',
+        'Svg\\Tag\\Symbol' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Symbol.php',
         'Svg\\Tag\\Text' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Text.php',
         'Svg\\Tag\\UseTag' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/UseTag.php',
         'Symfony\\Component\\Console\\Application' => __DIR__ . '/..' . '/symfony/console/Application.php',
@@ -6782,9 +6784,9 @@ class ComposerStaticInit7591ca1a142f8c5efe03488fbb78e807
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7591ca1a142f8c5efe03488fbb78e807::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7591ca1a142f8c5efe03488fbb78e807::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7591ca1a142f8c5efe03488fbb78e807::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4d3bf0e6999c0bce3d83a8d85c111a59::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4d3bf0e6999c0bce3d83a8d85c111a59::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4d3bf0e6999c0bce3d83a8d85c111a59::$classMap;
 
         }, null, ClassLoader::class);
     }

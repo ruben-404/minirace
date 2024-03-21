@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/principal.css') }}">
 </head>
 <body>
-    <header class="navbar navbar-dark bg-dark">
+    <header class="navbar navbar-dark bg-black py-3">
         <div class="container-fluid d-flex justify-content-between align-items-center">
     
             <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
@@ -24,22 +24,46 @@
             <nav class="navbar navbar-expand headerNav2 d-none d-md-flex"><!-- Oculta en dispositivos pequeños -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-white">Home</a>
+                        <a class="nav-link text-white" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white">Carreras</a>
+                        <a class="nav-link text-white" href="/home/carreras">Carreras</a>
                     </li>
                 </ul>
             </nav>
 
             <nav class="navbar navbar-expand headerNav d-none d-md-flex"><!-- Oculta en dispositivos pequeños -->
                 <ul class="navbar-nav ml-auto">
+                    @auth <!-- Verificar si el usuario está autenticado -->
+                    <li class="nav-item dropdown"> <!-- Agregamos la clase dropdown aquí -->
+                        <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Perfil <!-- Cambiamos este enlace por un desplegable -->
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <!-- Elementos desplegables dentro del menú -->
+                            <li><a class="dropdown-item" href="#">Mis datos</a></li>
+                            <li><a class="dropdown-item" href="#">Configuración</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                        Cerrar sesión
+                                    </a>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                @else
                     <li class="nav-item">
-                        <a class="nav-link text-white btn btn-primary btn-no-socio">Iniciar sesión</a>
+                        <a class="nav-link text-white btn btn-primary btn-no-socio" href="/home/login">Iniciar sesión</a>
                     </li>
                     <li class="nav-item iniciarSesionNav">
                         <a class="nav-link text-white btn-danger btn btn-socio">No eres socio?</a>
                     </li>
+                @endauth
                 </ul>
             </nav>
 
@@ -54,19 +78,35 @@
         <div class="offcanvas-body">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link">Home</a>
+                    <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">Carreras</a>
+                    <a class="nav-link" href="/home/carreras">Carreras</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link">Iniciar sesión</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">No eres socio?</a>
-                </li>
+                @auth <!-- Verificar si el usuario está autenticado -->
+                    <li><a class="nav-link" href="#">Mis datos</a></li>
+                    <li><a class="nav-link" href="#">Configuración</a></li>
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a class="nav-link" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                                Cerrar sesión
+                            </a>
+                        </form>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home/login">Iniciar sesión</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">No eres socio?</a>
+                    </li>
+                @endauth
             </ul>
         </div>
+        
     </div>  
 </body>
 </html>

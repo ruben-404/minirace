@@ -1,8 +1,7 @@
 @include('principal.componentes.header')
 
-
-<div class="container">
-    <div class="row row-cols-1 row-cols-md-4 g-4">
+<div class="container pt-5">
+    <div class="row row-cols-1 row-cols-md-4 g-4 overflow-auto contCards">
         @foreach($carreras as $carrera)
         <div class="col">
             <div class="card">
@@ -16,6 +15,3 @@
         @endforeach
     </div>
 </div>
-
-
-

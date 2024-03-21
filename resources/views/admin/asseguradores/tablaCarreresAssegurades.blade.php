@@ -10,7 +10,7 @@
     <div class="row mr-5 carrerasTable">
         <div class="col">
         <div class="d-flex justify-content-between titulo">
-            <h2>Carreras aseguradas de {{ $Caseguradas[0]->CIFasseguradora }}</h2> 
+            <h1>Carreras aseguradas de {{ $Caseguradas[0]->CIFasseguradora }}</h1> 
                 <form method="GET" action="{{ route('mostrarAseguracionCarreras', $Caseguradas[0]->CIFasseguradora) }}">
                     @csrf
                     <button id="btn-add" type="submit" class="btn btn-primary btn-lg rounded-circle">
