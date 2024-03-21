@@ -1,5 +1,6 @@
 body{
     background-color: #212529;
+    /*font-family: 'Montserrat';*/
 }
 
 .logo{
@@ -15,6 +16,10 @@ body{
     margin-right: 35%;
 }
 
+.descricioCont{
+    font-size: 20px;
+    width: 45%;
+}
 
 .btn-socio{
     color: white;
@@ -44,6 +49,100 @@ body{
     max-height: 1000px;
     overflow-y: auto;
 }
+
+/*PAGINA PRINCIPAL CARRUSEL*/
+
+.carruselMenu{
+    height: 750px;
+}
+
+
+.carousel-caption {
+    bottom: 45%;
+    padding: 10px;
+}
+.btn {
+    margin-top: 10px;
+}
+
+.botonCarrusel {
+    margin-top: 1%;
+    background-color: transparent;
+    border: 3px solid #E14658;
+    border-radius: 10px;
+    width: 25%;
+    height: 8%;
+    line-height: 50px;
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.botonCarrusel:hover, .botonCarrusel:active {
+    background-color: #E14658;
+    color: white;
+    border: 3px solid #E14658;
+}
+
+.TituloCarrusel{
+    font-size: 50px;
+    font-weight: bold;
+}
+/*ACABA CARRUSEL*/
+
+
+/*SPONSORS*/
+
+#zonaSponsors{
+    background-color: #F3F3F3;
+    padding: 50px 0;
+}
+
+#tituloSponsor{
+    font-weight: bold;
+}
+
+#barraSponsors{
+    border-top: 3px solid #E14658;
+    width: 5%;
+    margin: auto;
+    padding-bottom: 2%;
+}
+
+.imgSponsor{
+    width: 200px;
+}
+
+.demo-row {
+    padding: 0px 0;
+  }
+  
+  /*Implement*/
+  .sponsor-feature {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 5px 0;
+  }
+  
+  #id-sponsors .carousel {
+      margin-bottom: 20px;
+  }
+  #id-sponsors .item {
+      padding-bottom: 20px;
+  }
+  #id-sponsors .carousel-indicators {
+      bottom: -25px;
+  }
+/*ACABA SPONSORS*/
+
+
+/* Estilo para la barra de desplazamiento */
 ::-webkit-scrollbar {
     width: 10px; 
 }
@@ -103,3 +202,61 @@ body{
 .contPca{
     padding-bottom: 10%;
 }
+
+.contInfo{
+    padding-bottom: 30%;
+}
+
+/* #desplegable */
+.accordion-item{
+    background-color: #212529 !important;
+}
+
+#accordionExample{
+    transform: scale(1.12);
+}
+
+.accordion-header{
+    background-color: #212529 !important;
+}
+
+.desplegableInfo{
+    background-color: #212529 !important;
+    border-radius: 0% !important;
+
+}
+
+.accordion-button::after {
+    color: white;
+    background-color: white;
+}
+
+.accordion-button:not(.collapsed){
+    background-color:  #212529!important;
+    color: white !important;
+}
+
+.desplegableCont{
+    border-radius: 0% !important;
+    border: none !important;
+    border-bottom: 1px solid white !important;
+}
+
+.accordion-button:focus {
+    border: none !important;
+}
+
+.accordion-button:focus {
+    box-shadow: none !important;
+}
+
+
+/* Para dispositivos móviles */
+@media (max-width: 767px) {
+    .descricioCont {
+        width: 100%; /* Establecer el ancho al 100% en dispositivos móviles */
+    }
+}
+
+
+
