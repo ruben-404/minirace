@@ -43,6 +43,8 @@ Route::post('/home/ProcesarLogin', [CorredorController::class, 'ProcesarLogin'])
 Route::post('/home/logOut', [CorredorController::class, 'logOut'])->name('logout');
 Route::get('/buscar-carreras-principal', [CarreraController::class, 'buscarCarrerasPrincipal'])->name('buscar-carreras-principal');
 
+//register Usuario socio
+Route::get('/home/register', [CorredorController::class, 'paginaRegister'])->name('register');
 
 
 //ver tabla carreas

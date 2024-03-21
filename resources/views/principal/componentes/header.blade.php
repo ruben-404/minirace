@@ -61,7 +61,7 @@
                         <a class="nav-link text-white btn btn-primary btn-no-socio" href="/home/login">Iniciar sesión</a>
                     </li>
                     <li class="nav-item iniciarSesionNav">
-                        <a class="nav-link text-white btn-danger btn btn-socio">No eres socio?</a>
+                        <a class="nav-link text-white btn-danger btn btn-socio" href="/home/register">No eres socio?</a>
                     </li>
                 @endauth
                 </ul>
