@@ -21,9 +21,7 @@ use App\Http\Controllers\CorredorController;
 |
 */
 
-Route::get('/', function () {
-    return view('principal.paginas.home');
-});
+Route::get('/', [CarreraController::class, 'showHomePage']);
 
 
 //Parte login admin

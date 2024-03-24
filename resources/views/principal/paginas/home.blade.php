@@ -12,6 +12,10 @@
 </head>
 <body>
 
+<!--@foreach ($carrerasDestacadas as $carrera)
+    <div>{{ $carrera->idCarrera }}</div>
+@endforeach-->
+
 <div class="">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner carruselMenu">
@@ -49,6 +53,27 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+</div>
+
+<div class="container pt-5 contPca">
+  <div class="cardsContanier">
+    <h1 class="text-center race-title">PRÓXIMAS CARRERAS</h1>
+    <h3 class="text-center race-subtitle">Echa un vistazo a nuestras próximas carreras</h3>
+      <div class="row row-cols-1 row-cols-md-4 g-4 overflow-auto contCards">
+          @foreach($carrerasDestacadas as $carrera)
+          <div class="col">
+              <div class="card">
+                  <img src="{{ asset('storage/carrerasImages/' . $carrera['cartellPromoció']) }}" class="card-img-top" alt="Cartel de la carrera">
+                  <div class="card-body">
+                      <h5 class="card-title">{{ $carrera['nom'] }}</h5>
+                      <a href="{{ route('infoCarrera', ['id' => $carrera->idCarrera]) }}" class="btn btn-primary">Ver información de la carrera</a>
+
+                  </div>
+              </div>
+          </div>
+          @endforeach
+      </div>
+  </div>
 </div>
 
 <section id="zonaSponsors">
