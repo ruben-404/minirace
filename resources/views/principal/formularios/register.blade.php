@@ -17,7 +17,17 @@
         </div>
         <div class="col-md-6 bg-light full-height-register center-text">
           <form method="POST" action="{{ route('procesarRegistro') }} ">
+          @csrf
             <h1 class="mb-5 text-center">Registro de socio</h1>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class='d-flex'>
               <div>
                 <div class="col-md-12 mb-2"> 
