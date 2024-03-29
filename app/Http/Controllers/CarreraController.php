@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\View;
 
 class CarreraController extends Controller
 {
+    public function showHomePage() {
+        $carrerasDestacadas = Carrera::orderBy('data', 'desc')->take(5)->get();
+        return view('principal.paginas.home', compact('carrerasDestacadas'));
+    }
+    
     public function getCarreras()
     {
         $carreras = Carrera::all();

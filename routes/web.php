@@ -21,9 +21,7 @@ use App\Http\Controllers\CorredorController;
 |
 */
 
-Route::get('/', function () {
-    return view('principal.paginas.home');
-});
+Route::get('/', [CarreraController::class, 'showHomePage']);
 
 
 //Parte login admin
@@ -47,6 +45,8 @@ Route::get('/home/carreras/{id}', [CarreraController::class, 'infoCarrera'])->na
 
 //register Usuario socio
 Route::get('/home/register', [CorredorController::class, 'paginaRegister'])->name('register');
+//Procesar registro socio
+Route::post('/home/procesarRegistro', [CorredorController::class, 'procesarRegistro'])->name('procesarRegistro');
 
 
 //ver tabla carreas
