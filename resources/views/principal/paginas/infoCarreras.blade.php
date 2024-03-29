@@ -1,5 +1,8 @@
 @include('principal.componentes.header')
-
+@php
+// Obtener la fecha actual
+$fechaActual = date('Y-m-d');
+@endphp
 <div class="container mt-5">
     <div class="row text-white contInfo">
         <h2>{{ $carrera->nom }}</h2>
@@ -10,8 +13,40 @@
         <div class="col-md-4 mx-auto descricioCont">
             <!-- Oculto en dispositivos móviles -->
             <p class="d-none d-md-block">{{ $carrera->descripció }}</p>
+            <div class="mt-5">
+                <div class="text-center">
+                    @auth
+                        <!-- Si el usuario está autenticado, el botón lo lleva a la ruta para usuarios autenticados -->
+                        @if ($carrera->data >= $fechaActual)
+                            <!-- La carrera aún no ha pasado -->
+                            <form action="{{ route('apuntarse.carrera') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-primary">Apuntarse a la carrera</button>
+                            </form>
+                        @else
+                            <!-- La carrera ya ha pasado -->
+                            <button type="button" class="btn btn-outline-primary" disabled>Apuntarse (Carrera pasada)</button>
+                        @endif
+                    @else
+                        <!-- Si el usuario no está autenticado, el botón lo lleva a la ruta para usuarios no autenticados -->
+                        @if ($carrera->data >= $fechaActual)
+                            <!-- La carrera aún no ha pasado -->
+                            <form action="{{ route('apuntarse.carrera.noAutenticado') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-primary">Apuntarse a la carrera</button>
+                            </form>
+                        @else
+                            <!-- La carrera ya ha pasado -->
+                            <button type="button" class="btn btn-outline-primary" disabled>Apuntarse (Carrera pasada)</button>
+                        @endif
+                    @endauth
+                </div>
+            </div>
+            
 
         </div>
+
+        
         <div class="accordion mt-5" id="accordionExample">
             <div class="accordion-item desplegableCont text-white">
                 <h2 class="accordion-header" id="headingOne">

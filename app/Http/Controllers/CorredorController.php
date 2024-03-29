@@ -30,11 +30,10 @@ class CorredorController extends Controller
 
     public function ProcesarLogin(Request $request) {
         $credentials = [
-            "DNI" => $request->dni,
+            "DNI" => $request->DNI,
             "password" => $request->password
         ];
 
-        
         if (Auth::guard('web')->attempt($credentials)) {
 
             $request->session()->put('DNI', $credentials['DNI']);

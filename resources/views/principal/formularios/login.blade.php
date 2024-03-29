@@ -8,10 +8,10 @@
                 <img src="{{ asset('resources/userLogo.png') }}" alt="Logo"> <!-- Agregamos un texto alternativo para la accesibilidad -->
             </div>
             <div class="col-md-12 mb-3"> 
-                <label for="email">Dni:</label>
+                <label for="DNI">Dni:</label>
             </div>
             <div class="col-md-12 text-center mb-3"> 
-                <input type="text" id="email" name="email" placeholder="Email" class="form-control input-line" required>
+                <input type="text" id="DNI" name="DNI" placeholder="DNI" class="form-control input-line" required>
             </div>
             <div class="col-md-12 mb-3"> 
                 <label for="password">Contraseña:</label>

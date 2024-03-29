@@ -252,5 +252,32 @@ class CarreraController extends Controller
 
     }
 
+    public function datosUsuarioNovalidado()
+    {
+        return view('principal.formularios.datosUsuarioNoValidado');
+    }
+
+    public function pagarCarrera()
+    {
+        return view('principal.formularios.pagarCarrera');
+    }
+
+
+
+
+    public function apuntraseCarreraValidado()
+    {
+        $user = auth()->user(); // Obtener el usuario autenticado
+        $tipus = $user['tipus'];
+        
+
+        if ($tipus === 'pro') {
+            return view('principal.formularios.pagarCarrera'); // Redirigir a la vista de pagar carrera
+        } else {
+            return view('principal.formularios.pagarAsseguradora'); // Redirigir a la vista de pagar asseguradora
+        }
+    }
+
+
 
 }

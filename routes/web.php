@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\AdminAuthMiddleware;
+use App\Http\Middleware\CorredorMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\AsseguradoraController;
@@ -122,3 +123,26 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
 
 
 });
+
+
+// //rutas usuario validado no va
+// Route::middleware('auth')->group(function () {
+//     // Aquí van las rutas que requieren autenticación
+//     Route::post('/apuntarse-carrera', [CarreraController::class, 'apuntraseCarreraValidado'])->name('apuntarse.carrera');
+// });
+
+
+//rutas validado
+Route::post('/apuntarse-carrera', [CarreraController::class, 'datosUsuarioNovalidado'])->name('apuntarse.carrera.noAutenticado');
+
+
+
+
+
+
+
+
+
+//rutas no validado
+Route::post('/apuntarse-carrera', [CarreraController::class, 'apuntraseCarreraValidado'])->name('apuntarse.carrera');
+Route::get('/pagar-carrera', [CarreraController::class, 'pagarCarrera'])->name('principal.formularios.pagarCarrera');
