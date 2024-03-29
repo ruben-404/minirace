@@ -133,7 +133,7 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
 
 
 //rutas validado
-Route::post('/apuntarse-carrera', [CarreraController::class, 'datosUsuarioNovalidado'])->name('apuntarse.carrera.noAutenticado');
+Route::post('/apuntarse-carrera-no-validado', [CarreraController::class, 'datosUsuarioNovalidado'])->name('apuntarse.carrera.noAutenticado');
 
 
 
