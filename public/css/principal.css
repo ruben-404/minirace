@@ -247,11 +247,19 @@ body{
     box-shadow: none !important;
 }
 
-
+.imgMapaInfo{
+    width: 500px;
+}
 /* Para dispositivos móviles */
 @media (max-width: 767px) {
     .descricioCont {
         width: 100%; /* Establecer el ancho al 100% en dispositivos móviles */
+    }
+    .imgMapaInfo{
+        width: 100%;
+    }
+    .contInfo{
+        padding-bottom: 100%;
     }
 }
 
