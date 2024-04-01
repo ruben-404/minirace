@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\CarreraAsseguradaController;
 use App\Http\Controllers\CorredorController;
+use App\Http\Controllers\InscritoController;
 
 
 /*
@@ -132,17 +133,18 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
 // });
 
 
-//rutas validado
-Route::post('/apuntarse-carrera-no-validado', [CarreraController::class, 'datosUsuarioNovalidado'])->name('apuntarse.carrera.noAutenticado');
-
-
-
-
-
-
-
-
-
 //rutas no validado
+Route::get('/apuntarse-carrera-no-validado/{idCarrera}', [CarreraController::class, 'datosUsuarioNovalidado'])->name('apuntarse.carrera.noAutenticado');
+
+//Para PRO
+Route::post('/inscribir-usuario-no-validado', [InscritoController::class, 'inscribirUsuarioNoValidado'])->name('inscribirUsuarioNoValidado');
+Route::post('/gestionar-inscripcion-no-validado-pro', [InscritoController::class, 'gestionarInscripcionNovalidadoPro'])->name('gestionar.inscripcion.novalidado.pro');
+
+//Para OPEN
+Route::post('/mandar-aseguraciones-carrera-open', [InscritoController::class, 'mandarAseguracionesCarreraOpen'])->name('mandar.aseguraciones.carrera.open');
+Route::post('/gestionar-inscripcion-no-validado-open', [InscritoController::class, 'gestionarInscripcionNovalidadoOpen'])->name('gestionar.inscripcion.novalidado.open');
+
+
+//rutas validado
 Route::post('/apuntarse-carrera', [CarreraController::class, 'apuntraseCarreraValidado'])->name('apuntarse.carrera');
 Route::get('/pagar-carrera', [CarreraController::class, 'pagarCarrera'])->name('principal.formularios.pagarCarrera');

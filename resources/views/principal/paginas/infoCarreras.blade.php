@@ -19,7 +19,7 @@ $fechaActual = date('Y-m-d');
                         <!-- Si el usuario está autenticado, el botón lo lleva a la ruta para usuarios autenticados -->
                         @if ($carrera->data >= $fechaActual)
                             <!-- La carrera aún no ha pasado -->
-                            <form action="{{ route('apuntarse.carrera') }}" method="POST">
+                            <form action="{{ route('apuntarse.carrera', $carrera->idCarrera) }}">
                                 @csrf
                                 <button type="submit" class="btn btn-primary">Apuntarse a la carrera</button>
                             </form>
@@ -31,7 +31,7 @@ $fechaActual = date('Y-m-d');
                         <!-- Si el usuario no está autenticado, el botón lo lleva a la ruta para usuarios no autenticados -->
                         @if ($carrera->data >= $fechaActual)
                             <!-- La carrera aún no ha pasado -->
-                            <form action="{{ route('apuntarse.carrera.noAutenticado') }}" method="POST">
+                            <form action="{{ route('apuntarse.carrera.noAutenticado', $carrera->idCarrera) }}">
                                 @csrf
                                 <button type="submit" class="btn btn-primary">Apuntarse a la carrera</button>
                             </form>

@@ -58,7 +58,7 @@
 <div class="container pt-5 contPca">
   <div class="cardsContanier">
     <h1 class="text-center race-title text-white">PRÓXIMAS CARRERAS</h1>
-    <h3 class="text-center race-subtitle">Echa un vistazo a nuestras próximas carreras</h3>
+    <h3 class="text-center race-subtitle text-white">Echa un vistazo a nuestras próximas carreras</h3>
       <div class="row row-cols-1 row-cols-md-4 g-4 overflow-auto contCards">
           @foreach($carrerasDestacadas as $carrera)
           <div class="col">
@@ -67,7 +67,6 @@
                   <div class="card-body">
                       <h5 class="card-title">{{ $carrera['nom'] }}</h5>
                       <a href="{{ route('infoCarrera', ['id' => $carrera->idCarrera]) }}" class="btn btn-primary">Ver información de la carrera</a>
-
                   </div>
               </div>
           </div>

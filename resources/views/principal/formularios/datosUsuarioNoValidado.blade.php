@@ -16,9 +16,10 @@
           <img src="{{ asset('resources/fondoLogin.png') }}" class="img-fluid h-100" alt="Imagen">
         </div>
         <div class="col-md-6 bg-light full-height-register center-text">
-          <form method="POST" action="{{ route('procesarRegistro') }} ">
+          <form method="POST" action="{{ route('inscribirUsuarioNoValidado') }} ">
           @csrf
-            <h1 class="mb-5 text-center">Ingresea tus datos</h1>
+            <input type="hidden" id="idCarrera" name="idCarrera" value="{{$id}}">
+            <h1 class="mb-5 text-center">Ingresea tus datos</h1> 
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -28,19 +29,19 @@
                     </ul>
                 </div>
             @endif
+            <div class="col-md-12 mb-2"> 
+                <label for="dni">DNI</label>
+            </div>
+            <div class="col-md-12 mb-2 text-center"> 
+                <input type="text" id="dni" name="dni" placeholder="DNI" class="form-control input-line" required>
+            </div>
             <div class='d-flex'>
               <div>
                 <div class="col-md-12 mb-2"> 
-                    <label for="dni">DNI</label>
+                    <label for="nombre">Nombre</label>
                 </div>
                 <div class="col-md-12 mb-2 text-center"> 
-                    <input type="text" id="dni" name="dni" placeholder="DNI" class="form-control input-line" required>
-                </div>
-                <div class="col-md-12 mb-2"> 
-                    <label for="password">Contraseña:</label>
-                </div>
-                <div class="col-md-12 mb-2 text-center"> 
-                    <input type="password" id="password" name="password" placeholder="Contraseña" class="form-control input-line" required>
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre" class="form-control input-line" required>
                 </div>
                 <div class="col-md-12 mb-2"> 
                     <label for="direccion">Dirección</label>
@@ -50,12 +51,6 @@
                 </div>
               </div>
               <div>
-                <div class="col-md-12 mb-2"> 
-                    <label for="nombre">Nombre</label>
-                </div>
-                <div class="col-md-12 mb-2 text-center"> 
-                    <input type="text" id="nombre" name="nombre" placeholder="Nombre" class="form-control input-line" required>
-                </div>
                 <div class="col-md-12 mb-2"> 
                     <label for="apellidos">Apellidos</label>
                 </div>
@@ -77,7 +72,7 @@
                 <input type="text" id="numerofederado" name="numerofederado" placeholder="NumFederado" class="form-control input-line">
             </div>
             <div class="col-md-12 text-center mt-3">
-                <button type="submit" class="btn btn-primary registerButton">Registrarse</button>
+                <button type="submit" class="btn btn-primary registerButton">Inscribirse</button>
             </div>
           </form>
         </div>

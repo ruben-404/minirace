@@ -252,17 +252,15 @@ class CarreraController extends Controller
 
     }
 
-    public function datosUsuarioNovalidado()
+    public function datosUsuarioNovalidado($id)
     {
-        return view('principal.formularios.datosUsuarioNoValidado');
+        return view('principal.formularios.datosUsuarioNoValidado', ['id' => $id]);
     }
 
     public function pagarCarrera()
     {
         return view('principal.formularios.pagarCarrera');
     }
-
-
 
 
     public function apuntraseCarreraValidado()
