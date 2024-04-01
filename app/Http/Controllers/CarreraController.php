@@ -130,7 +130,8 @@ class CarreraController extends Controller
    
     public function actualizar(Request $request, $id)
     {
-        
+        dd($request);
+
         $carrera = Carrera::findOrFail($id);
         $request->validate([
             'nom' => 'required|string|max:255',
@@ -168,6 +169,12 @@ class CarreraController extends Controller
         } else {
             // Si no se proporcionó una nueva imagen, mantener la imagen existente
             $imgCartel = $carrera->cartellPromoció;
+        }
+
+
+        if ($request->hasFile('imgCarrera')) {
+            // Procesar la imagen nueva
+            dd($request);
         }
 
 

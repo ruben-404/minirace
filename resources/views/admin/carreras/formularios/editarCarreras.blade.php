@@ -1,4 +1,5 @@
 @include('layouts.adminHeader')
+<script src="{{ asset('js/carrerasEditar.js') }}"></script>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -94,7 +95,31 @@
                             <label for="cartell_promocio">Cartel de Promoción</label>
                             <input id="cartell_promocio" type="file" class="form-control-file" name="cartellPromoció" value="{{ $carrera->cartellPromoció }}">
                         </div>
+                        @if(strtotime($carrera->data) < strtotime(now()))
 
+                            {{-- <div class="col-md-6">
+                                <div id="dropzone" class="dropzone border border-primary rounded p-4 text-center">
+                                </div>
+            
+                            </div>
+                            <div class="col-md-4">
+                                <p id="imageCount">Número de imágenes: 0</p>
+
+                            </div> --}}
+                            <div class="col-md-6">
+                                <!-- Área de arrastrar y soltar imágenes -->
+                                <div id="dropzone" class="dropzone border border-primary rounded p-4 text-center">
+                                    Arrastra y suelta tus imágenes aquí
+                                </div>
+                                <!-- Contador de imágenes -->
+                                <div class="mt-3">
+                                    <p id="imageCount">Número de imágenes: 0</p>
+                                </div>
+                            </div>
+                        @else
+                            <p>La fecha de la carrera aún no ha pasado. No se pueden subir imágenes.</p>
+                        @endif
+                        
                         <div class="form-group mb-0">
                             <button type="submit" class="btn btn-primary">
                                 Actualizar Carrera
