@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Carrera;
 use App\Models\Inscrito;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Storage;
 
 
 class CarreraController extends Controller
@@ -130,8 +131,7 @@ class CarreraController extends Controller
    
     public function actualizar(Request $request, $id)
     {
-        dd($request);
-
+        // dd($request);
         $carrera = Carrera::findOrFail($id);
         $request->validate([
             'nom' => 'required|string|max:255',
@@ -162,20 +162,20 @@ class CarreraController extends Controller
         }
 
         // Procesar la imagen del cartel si se proporcionó en el formulario
-        if ($request->hasFile('cartellPromoció')) {
-            $imagenCartel = $request->file('cartellPromoció');
-            $imgCartel = 'cartel_' . $request->input('nom') . '.' . $imagenCartel->getClientOriginalExtension();
-            $imagenCartel->move(public_path('storage/carrerasImages'), $imgCartel);
-        } else {
-            // Si no se proporcionó una nueva imagen, mantener la imagen existente
-            $imgCartel = $carrera->cartellPromoció;
-        }
-
-
         if ($request->hasFile('imgCarrera')) {
-            // Procesar la imagen nueva
-            dd($request);
+            $imagenes = $request->file('imgCarrera');
+            $nombresImagenes = [];
+            
+            foreach ($imagenes as $key => $imagen) {
+                $nombreImagen = 'carrusel_' . $request->input('nom') . '_' . $carrera->idCarrera . '_imagen_' . $key . '.' . $imagen->getClientOriginalExtension();
+                $imagen->move(public_path('storage/carrerasImages'), $nombreImagen);
+                $nombresImagenes[] = $nombreImagen;
+            }
         }
+        
+
+
+        
 
 
         try {
