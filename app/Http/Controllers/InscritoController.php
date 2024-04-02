@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\View;
 
 class InscritoController extends Controller
 {
-    //protected $table = 'inscritos'; // Si el nombre de la tabla es diferente
+    //PARTE NO VALIDADO
 
     public function inscribirUsuarioNoValidado(Request $request) {
         $request->validate([
@@ -120,6 +120,54 @@ class InscritoController extends Controller
             $existingCorredor->numeroFederat = $request->input('numerofederado');
             $existingCorredor->update();
         }
+        $numDorsal = Inscrito::where('idCarrera', $request->input('idCarrera'))->max('numDorsal');
+        $numDorsal = $numDorsal + 1;
+        $nuevaInscripcion = new Inscrito();
+        $nuevaInscripcion->DNIcorredor = $request->input('dni');
+        $nuevaInscripcion->idCarrera = $request->input('idCarrera');
+        $nuevaInscripcion->numDorsal = $numDorsal;
+        // Guardar la inscripcion del corredor en la base de datos
+        $nuevaInscripcion->save();
+        return  redirect()->route('infoCarrera', ['id' => $request->input('idCarrera')]);
+    }
+    
+
+    //PARTE DE SOCIO REGISTRADO
+
+    public function apuntraseCarreraValidado($id)
+    {
+        $user = auth()->user(); // Obtener el usuario autenticado
+        $tipus = $user['tipus'];
+
+        if ($tipus === 'PRO') {
+            $dni = $user['DNI'];
+            return view('principal.formularios.pagarCarreraPRO')->with('dni', $dni)->with('id', $id); // Redirigir a la vista de pagar carrera
+        } else {
+            $aseguradorasDisponibles = CarreraAssegurada::where('idCarrera', $id)->get();
+            return view('principal.formularios.pagarAsseguradora')->with('aseguradorasDisponibles', $aseguradorasDisponibles)->with('id', $id);
+        }
+    }
+
+    public function pagarCarreraOPEN(Request $request)
+    {
+        $user = auth()->user();
+        $dni = $user['DNI'];
+        $formData = $request->all();
+        return view('principal.formularios.pagarCarreraOPEN')->with('formData', $formData)->with('dni', $dni);
+    }
+    public function gestionarInscripcionSocioOpen(Request $request) {
+        $numDorsal = Inscrito::where('idCarrera', $request->input('idCarrera'))->max('numDorsal');
+        $numDorsal = $numDorsal + 1;
+        $nuevaInscripcion = new Inscrito();
+        $nuevaInscripcion->DNIcorredor = $request->input('dni');
+        $nuevaInscripcion->idCarrera = $request->input('idCarrera');
+        $nuevaInscripcion->numDorsal = $numDorsal;
+        $nuevaInscripcion->CIFasseguradora = $request->input('aseguradoraElegida');
+        // Guardar la inscripcion del corredor en la base de datos
+        $nuevaInscripcion->save();
+        return  redirect()->route('infoCarrera', ['id' => $request->input('idCarrera')]);
+    }
+    public function gestionarInscripcionSocioPro(Request $request) {
         $numDorsal = Inscrito::where('idCarrera', $request->input('idCarrera'))->max('numDorsal');
         $numDorsal = $numDorsal + 1;
         $nuevaInscripcion = new Inscrito();

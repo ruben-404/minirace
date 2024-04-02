@@ -146,5 +146,12 @@ Route::post('/gestionar-inscripcion-no-validado-open', [InscritoController::clas
 
 
 //rutas validado
-Route::post('/apuntarse-carrera', [CarreraController::class, 'apuntraseCarreraValidado'])->name('apuntarse.carrera');
-Route::get('/pagar-carrera', [CarreraController::class, 'pagarCarrera'])->name('principal.formularios.pagarCarrera');
+Route::get('/apuntarse-carrera/{idCarrera}', [InscritoController::class, 'apuntraseCarreraValidado'])->name('apuntarse.carrera');
+
+//Para PRO
+
+Route::post('/gestionar-inscripcion-socio-pro', [InscritoController::class, 'gestionarInscripcionSocioPro'])->name('gestionar.inscripcion.socio.pro');
+
+//Para OPEN
+Route::post('/pagar-carrera-open', [InscritoController::class, 'pagarCarreraOPEN'])->name('principal.formularios.pagarCarrera.open');
+Route::post('/gestionar-inscripcion-socio-open', [InscritoController::class, 'gestionarInscripcionSocioOpen'])->name('gestionar.inscripcion.socio.open');

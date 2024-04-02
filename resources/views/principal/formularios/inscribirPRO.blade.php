@@ -1,6 +1,5 @@
 
 @include('principal.componentes.header')
-hola
 <div class="container">
     <h2>Tabla de datos</h2>
     <div class="table-responsive">
