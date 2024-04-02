@@ -9,40 +9,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-// function drop(event) {
-//     event.preventDefault();
-
-//     // Obtener el archivo (o archivos) soltado(s)
-//     var files = event.dataTransfer.files;
-
-//     // Verificar si se soltaron archivos
-//     if (files.length > 0) {
-//         // Iterar sobre cada archivo
-//         for (var i = 0; i < files.length; i++) {
-//             var file = files[i];
-
-//             // Verificar si el archivo es una imagen
-//             if (file.type.startsWith('image/')) {
-//                 // Crear un objeto URL para la imagen
-//                 var imageUrl = URL.createObjectURL(file);
-
-//                 // Crear un elemento imagen y establecer su src en la URL del objeto
-//                 var img = new Image();
-//                 img.src = imageUrl;
-
-//                 // Aplicar una clase CSS de Bootstrap para hacer que la imagen sea pequeña
-//                 img.classList.add('img-thumbnail');
-
-//                 // Agregar la imagen al área de soltar
-//                 document.getElementById('dropzone').appendChild(img);
-
-//                 // Actualizar el contador de imágenes
-//                 var imageCount = document.querySelectorAll('img').length;
-//                 document.getElementById('imageCount').innerText = "Número de imágenes: " + imageCount;
-//             }
-//         }
-//     }
-// }
 function drop(event) {
     event.preventDefault();
 
@@ -59,9 +25,8 @@ function drop(event) {
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
 
-            // Verificar si el archivo es una imagen
+
             if (file.type.startsWith('image/')) {
-                // Crear un objeto URL para la imagen
                 var imageUrl = URL.createObjectURL(file);
 
                 // Crear un elemento imagen y establecer su src en la URL del objeto
@@ -71,17 +36,34 @@ function drop(event) {
                 // Agregar la imagen al área de soltar
                 dropzone.appendChild(img);
 
-                // Crear un campo de tipo input oculto para almacenar la imagen como archivo
+                // Crear un campo de tipo input de archivo para almacenar la imagen como archivo
                 var input = document.createElement('input');
-                input.type = 'hidden';
-                // input.name = 'images[]'; // Usar un array para almacenar múltiples imágenes
+                input.type = 'file';
                 input.name = 'imgCarrera[]'; // Usar el mismo nombre que en el formulario
                 input.id = 'imgCarrera'; // Usar el mismo id que en el formulario
-                input.value = imageUrl;
+                
+                // Crear un objeto FileList con el archivo y asignarlo al input
+                var fileList = new DataTransfer();
+                fileList.items.add(file);
+                input.files = fileList.files;
 
                 // Agregar el campo de input al formulario
                 form.appendChild(input);
+
+
+                var inputValue = document.getElementById('imgCarrera').value;
+                console.log('Valor del input después de agregar los archivos:', inputValue);
             }
+        
+            
+            
+
+            
+            
+            
+        
+        
+        
         }
     }
 }
