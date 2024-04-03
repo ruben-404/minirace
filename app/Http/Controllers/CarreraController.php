@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Carrera;
 use App\Models\Inscrito;
+use App\Models\FotoCarrera;
+
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Storage;
 
@@ -131,7 +133,6 @@ class CarreraController extends Controller
    
     public function actualizar(Request $request, $id)
     {
-        // dd($request);
         $carrera = Carrera::findOrFail($id);
         $request->validate([
             'nom' => 'required|string|max:255',
@@ -161,6 +162,17 @@ class CarreraController extends Controller
             $imgMapa = $carrera->imatgeMapa;
         }
 
+        //añadir campo cartel
+        if ($request->hasFile('cartellPromoció')) {
+            $imgCartel = $request->file('cartellPromoció');
+            $imCartel = 'cartel_' . $request->input('nom') . '.' . $imgCartel->getClientOriginalExtension();
+            $imgCartel->move(public_path('storage/carrerasImages'), $imCartel);
+
+        } else {
+            // Si no se proporcionó una nueva imagen, mantener la imagen existente
+            $imgCartel = $carrera->imgCartel;
+        }
+
         // Procesar la imagen del cartel si se proporcionó en el formulario
         if ($request->hasFile('imgCarrera')) {
             $imagenes = $request->file('imgCarrera');
@@ -170,12 +182,17 @@ class CarreraController extends Controller
                 $nombreImagen = 'carrusel_' . $request->input('nom') . '_' . $carrera->idCarrera . '_imagen_' . $key . '.' . $imagen->getClientOriginalExtension();
                 $imagen->move(public_path('storage/carrerasImages'), $nombreImagen);
                 $nombresImagenes[] = $nombreImagen;
+
+                $fotoCarrera = new FotoCarrera();
+                $fotoCarrera->idCarrera = $carrera->idCarrera;
+                $fotoCarrera->ruta = $nombreImagen;
+                $fotoCarrera->save();
+
             }
         }
         
 
 
-        
 
 
         try {
@@ -190,9 +207,11 @@ class CarreraController extends Controller
             $carrera->data = $request->data;
             $carrera->hora = $request->hora;
             $carrera->puntSortida = $request->puntSortida;
-            $carrera->cartellPromoció = $imgCartel;
+            $carrera->cartellPromoció = $imCartel;
+            
             $carrera->preuAsseguradora = $request->preuAsseguradora;
             $carrera->preuPatrocini = $request->preuPatrocini;
+
             $carrera->preuInscripció = $request->preuInscripció;
 
 
@@ -202,6 +221,7 @@ class CarreraController extends Controller
 
         } catch (\Exception $e) {
             // Manejar la excepción y proporcionar una respuesta adecuada
+
             return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
     }
@@ -251,16 +271,77 @@ class CarreraController extends Controller
     }
 
 
+    // public function infoCarrera($idCarrera)
+    // {
+    //     $carrera = Carrera::findOrFail($idCarrera);
+    //     $carrera = Carrera::find($idCarrera);
+    //     $fotos = $carrera->fotos;
+
+    //     return view('principal.paginas.infoCarreras', compact('carrera','fotos'));
+
+    // }
     public function infoCarrera($idCarrera)
     {
+        // Obtener la carrera
         $carrera = Carrera::findOrFail($idCarrera);
+        
+        // Verificar si el usuario está autenticado y obtener su ID
+        $userId = null;
+        if (auth()->check()) {
+            $user = auth()->user();
+            $userId = $user['DNI'];
+        }
 
-        return view('principal.paginas.infoCarreras', compact('carrera'));
+        // Verificar si el usuario está inscrito en esta carrera
+        $estaInscrito = false;
+        if ($userId) {
+            $estaInscrito = $carrera->inscritos()->where('DNIcorredor', $userId)->exists();
+        }
 
+        // Obtener las fotos de la carrera
+        $fotos = $carrera->fotos;
+
+        // Pasar los datos a la vista
+        return view('principal.paginas.infoCarreras', compact('carrera', 'fotos', 'estaInscrito'));
     }
+
 
     public function datosUsuarioNovalidado($id)
     {
         return view('principal.formularios.datosUsuarioNoValidado', ['id' => $id]);
     }
+
+    public function pagarCarrera()
+    {
+        return view('principal.formularios.pagarCarrera');
+    }
+
+
+    public function apuntraseCarreraValidado()
+    {
+        $user = auth()->user(); // Obtener el usuario autenticado
+        $tipus = $user['tipus'];
+        
+
+        if ($tipus === 'pro') {
+            return view('principal.formularios.pagarCarrera'); // Redirigir a la vista de pagar carrera
+        } else {
+            return view('principal.formularios.pagarAsseguradora'); // Redirigir a la vista de pagar asseguradora
+        }
+    }
+
+
+    public function carrusel($id){
+
+
+        $carrera = Carrera::find($id);
+        $fotos = $carrera->fotos;
+
+        return view('principal.componentes.carrusel', compact('fotos'));
+
+
+    }
+
+
+
 }

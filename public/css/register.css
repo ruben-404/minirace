@@ -20,3 +20,10 @@
 .registerButton:hover {
     background-color: #F54958;
 }
+
+@media (max-width: 767px) {
+  .ass {
+      display: none !important;
+  }
+
+}

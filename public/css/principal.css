@@ -212,9 +212,9 @@ body{
     background-color: #212529 !important;
 }
 
-#accordionExample{
+/* #accordionExample{
     transform: scale(1.12);
-}
+} */
 
 .accordion-header{
     background-color: #212529 !important;
@@ -253,6 +253,13 @@ body{
 .imgMapaInfo{
     width: 500px;
 }
+
+/* carrusel carrera */
+#carouselExampleControls{
+    max-width: 800px;
+    padding-top: 10%;
+}
+
 /* Para dispositivos móviles */
 @media (max-width: 767px) {
     .descricioCont {
@@ -263,6 +270,9 @@ body{
     }
     .contInfo{
         padding-bottom: 100%;
+    }
+    .loginForm{
+        width: 100% !important;
     }
 }
 

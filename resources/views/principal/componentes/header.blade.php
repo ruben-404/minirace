@@ -101,7 +101,7 @@
                         <a class="nav-link" href="/home/login">Iniciar sesión</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">No eres socio?</a>
+                        <a class="nav-link" href="/home/register">No eres socio?</a>
                     </li>
                 @endauth
             </ul>
