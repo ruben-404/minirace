@@ -112,7 +112,7 @@ echo "hola " . ($estaInscrito ? 'Sí' : 'No');
             @include('principal.componentes.carrusel')
 
         @else
-            <p>Imagenes no dispooonible</p>
+            
         @endif
 
     </div>

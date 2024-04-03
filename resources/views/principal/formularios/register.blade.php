@@ -6,13 +6,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro de socio</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{ asset('css/register.css') }}">
 </head>
   <body>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-6 full-height-register">
+        <div class="col-md-6 full-height-register ass">
           <img src="{{ asset('resources/fondoLogin.png') }}" class="img-fluid h-100" alt="Imagen">
         </div>
         <div class="col-md-6 bg-light full-height-register center-text">

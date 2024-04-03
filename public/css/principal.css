@@ -212,9 +212,9 @@ body{
     background-color: #212529 !important;
 }
 
-#accordionExample{
+/* #accordionExample{
     transform: scale(1.12);
-}
+} */
 
 .accordion-header{
     background-color: #212529 !important;
@@ -270,6 +270,9 @@ body{
     }
     .contInfo{
         padding-bottom: 100%;
+    }
+    .loginForm{
+        width: 100% !important;
     }
 }
 
