@@ -27,7 +27,7 @@
                     </ul>
                 </div>
             @endif
-            <div class='d-flex'>
+            <div class='d-flex flex-column flex-md-row'>
               <div>
                 <div class="col-md-12 mb-2"> 
                     <label for="dni">DNI</label>
