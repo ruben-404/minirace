@@ -55,15 +55,6 @@ function drop(event) {
                 console.log('Valor del input después de agregar los archivos:', inputValue);
             }
         
-            
-            
-
-            
-            
-            
-        
-        
-        
         }
     }
 }

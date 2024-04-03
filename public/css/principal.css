@@ -253,6 +253,13 @@ body{
 .imgMapaInfo{
     width: 500px;
 }
+
+/* carrusel carrera */
+#carouselExampleControls{
+    max-width: 800px;
+    padding-top: 10%;
+}
+
 /* Para dispositivos móviles */
 @media (max-width: 767px) {
     .descricioCont {

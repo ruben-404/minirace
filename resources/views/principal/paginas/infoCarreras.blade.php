@@ -2,6 +2,8 @@
 @php
 // Obtener la fecha actual
 $fechaActual = date('Y-m-d');
+echo "hola " . ($estaInscrito ? 'Sí' : 'No');
+
 @endphp
 <div class="container mt-5">
     <div class="row text-white contInfo">
@@ -16,31 +18,35 @@ $fechaActual = date('Y-m-d');
             <div class="mt-5">
                 <div class="text-center">
                     @auth
-                        <!-- Si el usuario está autenticado, el botón lo lleva a la ruta para usuarios autenticados -->
-                        @if ($carrera->data >= $fechaActual)
-                            <!-- La carrera aún no ha pasado -->
+                        <!-- Si el usuario está autenticado -->
+                        @if ($estaInscrito)
+                            <!-- Si el usuario ya está inscrito -->
+                            <button type="button" class="btn btn-outline-primary" disabled>Ya estás inscrito</button>
+                        @elseif ($carrera->data >= $fechaActual)
+                            <!-- Si la carrera aún no ha pasado -->
                             <form action="{{ route('apuntarse.carrera', $carrera->idCarrera) }}">
                                 @csrf
                                 <button type="submit" class="btn btn-primary">Apuntarse a la carrera</button>
                             </form>
                         @else
-                            <!-- La carrera ya ha pasado -->
+                            <!-- Si la carrera ya ha pasado -->
                             <button type="button" class="btn btn-outline-primary" disabled>Apuntarse (Carrera pasada)</button>
                         @endif
                     @else
-                        <!-- Si el usuario no está autenticado, el botón lo lleva a la ruta para usuarios no autenticados -->
+                        <!-- Si el usuario no está autenticado -->
                         @if ($carrera->data >= $fechaActual)
-                            <!-- La carrera aún no ha pasado -->
+                            <!-- Si la carrera aún no ha pasado -->
                             <form action="{{ route('apuntarse.carrera.noAutenticado', $carrera->idCarrera) }}">
                                 @csrf
                                 <button type="submit" class="btn btn-primary">Apuntarse a la carrera</button>
                             </form>
                         @else
-                            <!-- La carrera ya ha pasado -->
+                            <!-- Si la carrera ya ha pasado -->
                             <button type="button" class="btn btn-outline-primary" disabled>Apuntarse (Carrera pasada)</button>
                         @endif
                     @endauth
                 </div>
+                
             </div>
             
 
@@ -101,7 +107,13 @@ $fechaActual = date('Y-m-d');
                 </div>
             </div>
         </div>
+        @if(strtotime($carrera->data) < strtotime(now()))
 
+            @include('principal.componentes.carrusel')
+
+        @else
+            <p>Imagenes no dispooonible</p>
+        @endif
 
     </div>
 </div>

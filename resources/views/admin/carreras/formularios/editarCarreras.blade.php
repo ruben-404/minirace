@@ -96,16 +96,6 @@
                             <input id="cartell_promocio" type="file" class="form-control-file" name="cartellPromoció" value="{{ $carrera->cartellPromoció }}">
                         </div>
                         @if(strtotime($carrera->data) < strtotime(now()))
-
-                            {{-- <div class="col-md-6">
-                                <div id="dropzone" class="dropzone border border-primary rounded p-4 text-center">
-                                </div>
-            
-                            </div>
-                            <div class="col-md-4">
-                                <p id="imageCount">Número de imágenes: 0</p>
-
-                            </div> --}}
                             <div class="col-md-6">
                                 <!-- Área de arrastrar y soltar imágenes -->
                                 <div id="dropzone" class="dropzone border border-primary rounded p-4 text-center">
