@@ -27,6 +27,10 @@
                     <td class="text-white">{{ $formData['fechanacimiento'] }}</td>
                 </tr>
                 <tr>
+                    <td class="text-white">Genero</td>
+                    <td class="text-white">{{ $formData['genere'] }}</td>
+                </tr>
+                <tr>
                     <td class="text-white">Aseguradora</td>
                     <td class="text-white">{{ $formData['aseguradoraElegida'] }}</td>
                 </tr>
@@ -40,7 +44,8 @@
             <input type="hidden" id="nombre" name="nombre" value="{{ $formData['nombre'] }}">
             <input type="hidden" id="apellidos" name="apellidos" value="{{ $formData['apellidos'] }}">
             <input type="hidden" id="fechanacimiento" name="fechanacimiento" value="{{ $formData['fechanacimiento'] }}">
-            <input type="hidden" id="aseguradoraElegida" name="aseguradoraElegida" value="{{ $formData['aseguradoraElegida'] }}">
+            <input type="hidden" id="fechanacimiento" name="fechanacimiento" value="{{ $formData['fechanacimiento'] }}">
+            <input type="hidden" id="genere" name="genere" value="{{ $formData['genere'] }}">
             <button type="submit" class="btn btn-primary">Inscribirse</button>
             <p class="text-white">(botón temporal que simula el paypal)</p>
         </form>

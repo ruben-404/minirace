@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('direccio');
             $table->date('dataNaixement');
+            $table->string('genere');
             $table->string('tipus');
             $table->boolean('soci')->default(false);
             $table->integer('numeroFederat')->nullable();

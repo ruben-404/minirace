@@ -21,6 +21,7 @@ class InscritoController extends Controller
             'direccion' => 'required|string|max:50',
             'nombre' => 'required|string|max:50',
             'apellidos' => 'required|string|max:50',
+            'genere' => 'required|string',
             'fechanacimiento' => 'required|date',
             'numerofederado' => 'nullable|string|max:50',
         ]);
@@ -73,6 +74,7 @@ class InscritoController extends Controller
             $nuevoCorredor->nom = $request->input('nombre');
             $nuevoCorredor->cognoms = $request->input('apellidos');
             $nuevoCorredor->dataNaixement = $request->input('fechanacimiento');
+            $nuevoCorredor->genere = $request->input('genere');
             $nuevoCorredor->numeroFederat = null;
             $nuevoCorredor->tipus = 'OPEN'; 
             $nuevoCorredor->soci = 0;
@@ -109,6 +111,7 @@ class InscritoController extends Controller
             $nuevoCorredor->nom = $request->input('nombre');
             $nuevoCorredor->cognoms = $request->input('apellidos');
             $nuevoCorredor->dataNaixement = $request->input('fechanacimiento');
+            $nuevoCorredor->genere = $request->input('genere');
             $nuevoCorredor->numeroFederat = $request->input('numerofederado');
             $nuevoCorredor->tipus = 'PRO'; 
             $nuevoCorredor->soci = 0;

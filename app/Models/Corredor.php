@@ -18,6 +18,7 @@ class Corredor extends Authenticatable
         'password',
         'direccio',
         'dataNaixement',
+        'genere',
         'tipus',
         'soci',
         'numeroFederat',

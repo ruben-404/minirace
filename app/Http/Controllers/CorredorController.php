@@ -61,6 +61,7 @@ class CorredorController extends Controller
             'direccion' => 'required|string|max:50',
             'nombre' => 'required|string|max:50',
             'apellidos' => 'required|string|max:50',
+            'genere' => 'required|string',
             'fechanacimiento' => 'required|date',
             'numerofederado' => 'nullable|string|max:50',
         ]);
@@ -88,6 +89,7 @@ class CorredorController extends Controller
                 $nuevoCorredor->tipus = 'OPEN';
             }
 
+            $nuevoCorredor->genere = $request->input('genere');
             $nuevoCorredor->soci = 1;
             $nuevoCorredor->punts = 0;
 

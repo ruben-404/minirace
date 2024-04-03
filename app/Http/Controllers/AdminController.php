@@ -20,11 +20,11 @@ class AdminController extends Controller
         $admins = Admin::all();
         // Crear usuario admin si es necesario:
 
-        // $admin = new Admin();
-        //  $admin->email = $request->email;
-        //  $admin->password = Hash::make($request->password);
+        //    $admin = new Admin();
+        //    $admin->email = $request->email;
+        //    $admin->password = Hash::make($request->password);
 
-        //  $admin->save(); 
+        //    $admin->save(); 
         
         if (Auth::guard('admin')->attempt($credentials)) {
 

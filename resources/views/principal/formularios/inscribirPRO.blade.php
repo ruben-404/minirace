@@ -23,6 +23,10 @@
                     <td class="text-white">{{ $formData['apellidos'] }}</td>
                 </tr>
                 <tr>
+                    <td class="text-white">Genero</td>
+                    <td class="text-white">{{ $formData['genere'] }}</td>
+                </tr>
+                <tr>
                     <td class="text-white">Fecha de Nacimiento</td>
                     <td class="text-white">{{ $formData['fechanacimiento'] }}</td>
                 </tr>
@@ -40,6 +44,7 @@
             <input type="hidden" id="nombre" name="nombre" value="{{ $formData['nombre'] }}">
             <input type="hidden" id="apellidos" name="apellidos" value="{{ $formData['apellidos'] }}">
             <input type="hidden" id="fechanacimiento" name="fechanacimiento" value="{{ $formData['fechanacimiento'] }}">
+            <input type="hidden" id="genere" name="genere" value="{{ $formData['genere'] }}">
             <input type="hidden" id="numerofederado" name="numerofederado" value="{{ $formData['numerofederado'] }}">
             <p class="text-white">(botón temporal que simula el paypal)</p>
             <button type="submit" class="btn btn-primary">Inscribirse</button>

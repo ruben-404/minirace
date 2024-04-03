@@ -48,6 +48,12 @@
                 <div class="col-md-12 mb-2 text-center"> 
                     <input type="text" id="direccion" name="direccion" placeholder="Dirección" class="form-control input-line" required>
                 </div>
+                <div class="col-md-12 mb-2"> 
+                  <label for="numerofederado">Número de federación</label>
+                </div>
+                <div class="col-md-12 mb-2 text-center"> 
+                    <input type="text" id="numerofederado" name="numerofederado" placeholder="NumFederado" class="form-control input-line">
+                </div>
               </div>
               <div>
                 <div class="col-md-12 mb-2"> 
@@ -68,13 +74,16 @@
                 <div class="col-md-12 mb-2 text-center"> 
                     <input type="date" id="fechanacimiento" name="fechanacimiento" class="form-control input-line" required>
                 </div>
+                <div class="col-md-12 mb-2"> 
+                  <label for="genere">Genero</label>
+                </div>
+                <div class="col-md-12 mb-2 text-center"> 
+                    <select id="genere" name="genere" class="form-control input-line">
+                      <option value="H">Hombre</option>
+                      <option value="M">Mujer</option>
+                    </select>
+                </div>
               </div>
-            </div>
-            <div class="col-md-12 mb-2"> 
-                <label for="numerofederado">Número de federación (si estas federado)</label>
-            </div>
-            <div class="col-md-12 mb-2 text-center"> 
-                <input type="text" id="numerofederado" name="numerofederado" placeholder="NumFederado" class="form-control input-line">
             </div>
             <div class="col-md-12 text-center mt-3">
                 <button type="submit" class="btn btn-primary registerButton">Registrarse</button>
