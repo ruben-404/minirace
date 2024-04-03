@@ -27,6 +27,7 @@ return new class extends Migration
 
             // Otros campos
             $table->integer('numDorsal');
+            $table->string('qr')->nullable();
             $table->date('dataArribada')->nullable();
             $table->integer('temps')->nullable();
             $table->timestamps();

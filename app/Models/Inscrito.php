@@ -14,6 +14,7 @@ class Inscrito extends Model
         'idCarrera',
         'CIFasseguradora',
         'numDorsal',
+        'qr',
         'dataArribada',
         'temps'
     ];
