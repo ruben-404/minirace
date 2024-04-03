@@ -10,6 +10,8 @@ use App\Models\Inscrito;
 use App\Models\Asseguradora;
 use App\Models\CarreraAssegurada;
 use Illuminate\Support\Facades\View;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 
 class InscritoController extends Controller
 {
@@ -180,5 +182,19 @@ class InscritoController extends Controller
         // Guardar la inscripcion del corredor en la base de datos
         $nuevaInscripcion->save();
         return  redirect()->route('infoCarrera', ['id' => $request->input('idCarrera')]);
+    }
+
+    public function generateQRCode($dniCorredor, $idCarrera)
+    {
+        // Combinar el DNI del corredor y el ID de la carrera para formar el nombre del archivo
+        $fileName = $dniCorredor . '_' . $idCarrera . '_qrcode.png';
+
+        // Generar el código QR con los datos proporcionados
+        QrCode::size(300)
+            ->format('png')
+            ->generate($dniCorredor . '_' . $idCarrera, public_path('qr_codes/' . $fileName));
+
+        // Devolver un mensaje de éxito
+        return "QR code generated successfully.";
     }
 }

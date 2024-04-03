@@ -25,7 +25,7 @@ function drop(event) {
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
 
-
+            console.log(file)
             if (file.type.startsWith('image/')) {
                 var imageUrl = URL.createObjectURL(file);
 
@@ -52,7 +52,6 @@ function drop(event) {
 
 
                 var inputValue = document.getElementById('imgCarrera').value;
-                console.log('Valor del input después de agregar los archivos:', inputValue);
             }
         
         }

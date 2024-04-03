@@ -170,7 +170,7 @@ class CarreraController extends Controller
 
         } else {
             // Si no se proporcionó una nueva imagen, mantener la imagen existente
-            $imgCartel = $carrera->imgCartel;
+            $imCartel = $carrera->cartellPromoció;
         }
 
         // Procesar la imagen del cartel si se proporcionó en el formulario
@@ -196,7 +196,6 @@ class CarreraController extends Controller
 
 
         try {
-
             $carrera->nom = $request->nom;
             $carrera->descripció = $request->descripció;
             $carrera->desnivell = $request->desnivell;
@@ -208,10 +207,9 @@ class CarreraController extends Controller
             $carrera->hora = $request->hora;
             $carrera->puntSortida = $request->puntSortida;
             $carrera->cartellPromoció = $imCartel;
-            
             $carrera->preuAsseguradora = $request->preuAsseguradora;
             $carrera->preuPatrocini = $request->preuPatrocini;
-
+            
             $carrera->preuInscripció = $request->preuInscripció;
 
 
