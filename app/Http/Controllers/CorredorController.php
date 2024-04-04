@@ -6,6 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Corredor;
+use App\Models\Carrera;
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
+
 
 class CorredorController extends Controller
 {
@@ -105,4 +112,52 @@ class CorredorController extends Controller
 
 
     }
+
+    
+    
+    public function generarPDFConQR($idCarrera, $idCorredor, $numDorsal)
+    {
+        // Obtener la información necesaria para generar el QR
+        $corredor = Corredor::findOrFail($idCorredor);
+        $carrera = Carrera::findOrFail($idCarrera);
+    
+        // Crear los datos para el código QR
+        // $qrData = "Nombre: " . $idCorredor . ", Carrera: " . $idCarrera;
+        $url = route('inscrito.guardar.tiempo', ['idCarrera' => $idCarrera, 'idCorredor' => $idCorredor]);
+        $qrData = "URL: " . $url;
+
+    
+        // Generar el código QR como un objeto QrCode
+        $qrCode = QrCode::size(300)->generate($qrData);
+    
+        // Generar el contenido HTML para el PDF con el QR en el medio
+        $html = '<h1 style="text-align: center;">' . $carrera->nom . '</h1>';
+        $html .= '<h1 style="text-align: center;">' . $numDorsal . '</h1>';
+
+        $html .= '<div style="text-align: center;">';
+        $html .= '<img src="data:image/png;base64,' . base64_encode($qrCode) . '" alt="QR Code">';
+        $html .= '</div>';
+
+
+        $html .= '<h1 style="text-align: center;">' . $corredor->nom . ' ' . $corredor->cognoms . '</h1>';
+        
+
+
+        // Configurar Dompdf
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $dompdf = new Dompdf($options);
+    
+        // Cargar el contenido HTML en Dompdf
+        $dompdf->loadHtml($html);
+    
+        // Renderizar el PDF
+        $dompdf->render();
+    
+        // Devolver el PDF generado
+        return $dompdf->stream('qr_corredor.pdf');
+    }
+    
+   
+    
 }

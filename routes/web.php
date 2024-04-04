@@ -56,6 +56,13 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::get('/admin/carreras', function () {
         return app()->make(CarreraController::class)->getCarreras();
     });
+
+    //qr
+    Route::get('/generar-pdf-qr/{idCarrera}/{idCorredor}/{numDorsal}', [CorredorController::class, 'generarPDFConQR'])->name('generar.pdf.qr');
+    Route::get('/guardar-tiempo/{idCarrera}/{idCorredor}', [InscritoController::class, 'guardarTiempo'])->name('inscrito.guardar.tiempo');
+
+
+
     //add carreras formulario
     Route::get('/admin/add-carreras', [CarreraController::class, 'addCarreras'])->name('addCarreras');
     // save  carreras

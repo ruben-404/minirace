@@ -64,6 +64,12 @@ class InscritoController extends Controller
 
     }
 
+    public function guardarTiempo($idCarrera, $idCorredor)
+    {
+        // Imprimir el DNI del corredor y el ID de la carrera
+        dd("DNI del corredor: " . $idCorredor, "ID de la carrera: " . $idCarrera);
+    }
+
     public function gestionarInscripcionNovalidadoOpen(Request $request) {
         //Si ya existe un corredor con ese DNI...
         $existingCorredor = Corredor::where('DNI', $request->input('dni'))->first();
@@ -184,17 +190,25 @@ class InscritoController extends Controller
         return  redirect()->route('infoCarrera', ['id' => $request->input('idCarrera')]);
     }
 
-    public function generateQRCode($dniCorredor, $idCarrera)
-    {
-        // Combinar el DNI del corredor y el ID de la carrera para formar el nombre del archivo
-        $fileName = $dniCorredor . '_' . $idCarrera . '_qrcode.png';
+    // public function generateQRCode($dniCorredor, $idCarrera)
+    // {
+    //     // Nombre del archivo del código QR
+    //     $fileName = $idCarrera . '_qr_' . $dniCorredor . '.png';
 
-        // Generar el código QR con los datos proporcionados
-        QrCode::size(300)
-            ->format('png')
-            ->generate($dniCorredor . '_' . $idCarrera, public_path('qr_codes/' . $fileName));
+    //     // Generar el código QR y guardar en storage/qr
+    //     QrCode::size(300)
+    //         ->format('png')
+    //         ->generate($dniCorredor . '_' . $idCarrera, storage_path('app/public/qr/' . $fileName));
 
-        // Devolver un mensaje de éxito
-        return "QR code generated successfully.";
-    }
+    //     // Ruta del código QR relativa a storage
+    //     $qrPath = 'storage/qr/' . $fileName;
+
+    //     // Actualizar el registro de inscritos con la ruta del código QR
+    //     Inscrito::where('idCarrera', $idCarrera)
+    //             ->where('DNIcorredor', $dniCorredor)
+    //             ->update(['qr' => $qrPath]);
+
+    //     // Devolver un mensaje de éxito
+    //     return "QR code generated successfully.";
+    // }
 }

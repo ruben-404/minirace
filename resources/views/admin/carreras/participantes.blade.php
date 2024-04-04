@@ -34,6 +34,14 @@
                         <td>{{ $inscrito->corredor->nom }}</td>
                         <td>{{ $inscrito->carrera->nom}}</td>
                         <td>{{ $inscrito->numDorsal }}</td>
+                        <td>{{ $inscrito->idCarrera }}</td>
+                        <td>{{ $inscrito->DNIcorredor }}</td>
+
+
+                        <td>  
+                            <a href="{{ route('generar.pdf.qr', ['idCarrera' => $inscrito->idCarrera, 'idCorredor' => $inscrito->DNIcorredor, 'numDorsal' => $inscrito->numDorsal]) }}" class="btn btn-primary">Generar PDF con QR</a>
+
+                        </td>
                         </tr>
                         @endforeach
                     </tbody>
