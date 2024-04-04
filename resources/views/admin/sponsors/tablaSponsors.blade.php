@@ -25,7 +25,9 @@
                             <th class="text-center">CIF</th>
                             <th class="text-center">Dirección</th>
                             <th class="text-center">Destacado</th>
-                            <th colspan="2" class="text-center">Acciones</th>
+                            <th class="text-center">Patrocinar</th>
+                            <th colspan="1" class="text-center">Acciones</th>
+                            <th colspan="2" class="text-center">Carreras Patrocinadas</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,10 +38,24 @@
                             <td class="text-center align-middle">{{ $sponsor->nom }}</td>
                             <td class="text-center align-middle">{{ $sponsor->adreça }}</td>
                             <td class="text-center align-middle">{{ $sponsor->destacado ? 'Sí' : 'No' }}</td>
+                            <!-- L -->
+                            <td class="text-center align-middle">
+                                <form method="GET" action="{{ route('mostrarPatrocinioCarreras', $sponsor->CIF) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-info btn-editar">Carreras</button>
+                                </form>
+                            </td>
+                            
                             <td class="text-center align-middle">
                                 <form method="GET" action="{{ route('editarSponsor', $sponsor->CIF) }}">
                                     @csrf
                                     <button type="submit" class="btn btn-info btn-editar">Editar</button>
+                                </form>
+                            </td>
+                            <td class="text-center align-middle">
+                                <form method="GET" action="{{ route('carreras.patrocinadas', $sponsor->CIF) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-info btn-patrocinadas">Ver</button>
                                 </form>
                             </td>
                         </tr>

@@ -177,6 +177,7 @@ class ComposerStaticInit4d3bf0e6999c0bce3d83a8d85c111a59
         'B' => 
         array (
             'Brick\\Math\\' => 11,
+            'Barryvdh\\DomPDF\\' => 16,
         ),
         'A' => 
         array (
@@ -367,8 +368,8 @@ class ComposerStaticInit4d3bf0e6999c0bce3d83a8d85c111a59
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -546,6 +547,10 @@ class ComposerStaticInit4d3bf0e6999c0bce3d83a8d85c111a59
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
         ),
+        'Barryvdh\\DomPDF\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -560,6 +565,7 @@ class ComposerStaticInit4d3bf0e6999c0bce3d83a8d85c111a59
         'App\\Http\\Controllers\\AsseguradoraController' => __DIR__ . '/../..' . '/app/Http/Controllers/AsseguradoraController.php',
         'App\\Http\\Controllers\\CarreraAsseguradaController' => __DIR__ . '/../..' . '/app/Http/Controllers/CarreraAsseguradaController.php',
         'App\\Http\\Controllers\\CarreraController' => __DIR__ . '/../..' . '/app/Http/Controllers/CarreraController.php',
+        'App\\Http\\Controllers\\CarreraPatrocinadaController' => __DIR__ . '/../..' . '/app/Http/Controllers/CarreraPatrocinadaController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\CorredorController' => __DIR__ . '/../..' . '/app/Http/Controllers/CorredorController.php',
         'App\\Http\\Controllers\\CurseSponsorController' => __DIR__ . '/../..' . '/app/Http/Controllers/CurseSponsorController.php',
@@ -571,6 +577,7 @@ class ComposerStaticInit4d3bf0e6999c0bce3d83a8d85c111a59
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\AdminAuthMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/AdminAuthMiddleware.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
+        'App\\Http\\Middleware\\CorredorMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/CorredorMiddleware.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\PreventRequestsDuringMaintenance' => __DIR__ . '/../..' . '/app/Http/Middleware/PreventRequestsDuringMaintenance.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
@@ -583,6 +590,7 @@ class ComposerStaticInit4d3bf0e6999c0bce3d83a8d85c111a59
         'App\\Models\\Asseguradora' => __DIR__ . '/../..' . '/app/Models/Asseguradora.php',
         'App\\Models\\Carrera' => __DIR__ . '/../..' . '/app/Models/Carrera.php',
         'App\\Models\\CarreraAssegurada' => __DIR__ . '/../..' . '/app/Models/CarreraAssegurada.php',
+        'App\\Models\\CarreraPatrocinada' => __DIR__ . '/../..' . '/app/Models/CarreraPatrocinada.php',
         'App\\Models\\Corredor' => __DIR__ . '/../..' . '/app/Models/Corredor.php',
         'App\\Models\\CurseSponsor' => __DIR__ . '/../..' . '/app/Models/CurseSponsor.php',
         'App\\Models\\Empresa' => __DIR__ . '/../..' . '/app/Models/Empresa.php',
@@ -596,6 +604,9 @@ class ComposerStaticInit4d3bf0e6999c0bce3d83a8d85c111a59
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+        'Barryvdh\\DomPDF\\Facade\\Pdf' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/Facade/Pdf.php',
+        'Barryvdh\\DomPDF\\PDF' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/PDF.php',
+        'Barryvdh\\DomPDF\\ServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/ServiceProvider.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',
         'Brick\\Math\\BigInteger' => __DIR__ . '/..' . '/brick/math/src/BigInteger.php',
         'Brick\\Math\\BigNumber' => __DIR__ . '/..' . '/brick/math/src/BigNumber.php',

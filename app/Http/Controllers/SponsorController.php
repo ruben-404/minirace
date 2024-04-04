@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Sponsor;
+use App\Models\CarreraPatrocinada;
 use App\Http\Controllers\CarreraController;
+use App\Http\Controllers\CarreraPatrocinadaController;
 
 
 class SponsorController extends Controller
@@ -84,5 +86,16 @@ class SponsorController extends Controller
         return redirect('/admin/sponsors');
     }
 
+    public function getCarrerasPatrocinadas($cif)
+    {
+        
+        $carrerasPatrocinadas = CarreraPatrocinada::with('carrera')->where('cifSponsor', $cif)->get();
 
+        if(!empty($carrerasPatrocinadas[0])) {
+            return view('admin.sponsors.tablaCarreresPatrocinadas', ['carrerasPatrocinadas' => $carrerasPatrocinadas, 'cif' => $cif]);
+        } else {
+            $Carreras = Carrera::all();
+            return view('admin.sponsors.formularios.addCarrerasPatrocinadas', ['Carreras' => $Carreras, 'cif' => $cif]);
+        }
+    }
 }

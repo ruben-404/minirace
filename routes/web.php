@@ -7,6 +7,7 @@ use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\AsseguradoraController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SponsorController;
+use App\Http\Controllers\CarreraPatrocinadaController;
 use App\Http\Controllers\CarreraAsseguradaController;
 use App\Http\Controllers\CorredorController;
 use App\Http\Controllers\InscritoController;
@@ -109,6 +110,14 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::get('/admin/sponsors/{cif}', [SponsorController::class, 'editar'])->name('editarSponsor');
     //Actualizar sponsor
     Route::put('/admin/sponsors/{cif}', [SponsorController::class, 'actualizar'])->name('actualizarSponsor');
+    //Mostrar carreras patrocinables
+    Route::get('/admin/sponsors/{cif}/carreras/patrocinar', [CarreraPatrocinadaController::class, 'getCarrerasSinPatrocinar'])->name('mostrarPatrocinioCarreras');
+    //Guardar carrera asegurada
+    Route::post('/admin/sponsors/carreras/guardarPatrocinio', [CarreraPatrocinadaController::class, 'saveCarreraPatrocinada'])->name('guardarCarreraPatrocinada');
+    //Carreras aseguradas PDF:
+    Route::post('/admin/asseguradoras/carreras/facturaAseguración', [CarreraAsseguradaController::class, 'mostrarFacturaAseguradasPDF'])->name('carreras.aseguradasPDF');
+    //Carreras aseguradas 
+    Route::get('/admin/asseguradoras/{cif}/carreras/patrocinadas', [SponsorController::class, 'getCarrerasPatrocinadas'])->name('carreras.patrocinadas');
 
     //navegacion
     Route::get('/admin/carreras', [CarreraController::class, 'getCarreras'])->name('carreras');
