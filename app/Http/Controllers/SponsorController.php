@@ -21,6 +21,15 @@ class SponsorController extends Controller
     {
         return view('admin.sponsors.formularios.addSponsors');
     }
+    public function toggleHabilitado(Request $request, $cif)
+    {
+        $sponsor = Sponsor::findOrFail($cif);
+        $sponsor->destacat = !$sponsor->destacat;
+        $sponsor->save();
+
+        return redirect('/admin/sponsors');
+
+    }
 
     public function guardar(Request $request)
     {

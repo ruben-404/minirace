@@ -1,5 +1,5 @@
 @include('layouts.adminHeader')
-<script src="{{ asset('js/carreras.js') }}"></script>
+<script src="{{ asset('js/sponsors.js') }}"></script>
 
 <div class="container mt-4 d-flex flex-row">
 
@@ -45,12 +45,26 @@
                                     <button type="submit" class="btn btn-info btn-editar">Carreras</button>
                                 </form>
                             </td>
+                            <td class="text-center align-middle">
+                                <form method="POST" action="{{ route('toggleHabilitadoSponsor', $sponsor->CIF) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="activarBtn btn btn-{{ $sponsor->destacat ? 'success' : 'danger' }} ">
+                                        {{ $sponsor->destacat ? ' SÍ ' : 'NO' }}
+                                    </button>
+                                </form>
+                            </td>
                             
                             <td class="text-center align-middle">
                                 <form method="GET" action="{{ route('editarSponsor', $sponsor->CIF) }}">
                                     @csrf
                                     <button type="submit" class="btn btn-info btn-editar">Editar</button>
                                 </form>
+                            </td>
+                            <td class="text-center align-middle">
+                                <button type="button" class="accionesBtn btn btn-primary btn-ver-detalles-aseguradora" data-cif="{{$sponsor->CIF}}" data-nom="{{$sponsor->nom}}" data-direccion="{{ $sponsor->adreça }}" data-preucursa="{{ $sponsor->preuCursa }}" data-logo="{{ $sponsor->logo }}">
+                                    Detalles
+                                </button>
                             </td>
                             <td class="text-center align-middle">
                                 <form method="GET" action="{{ route('carreras.patrocinadas', $sponsor->CIF) }}">

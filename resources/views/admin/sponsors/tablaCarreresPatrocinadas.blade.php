@@ -1,5 +1,5 @@
 @include('layouts.adminHeader')
-<script src="{{ asset('js/aseguradoras.js') }}"></script>
+<script src="{{ asset('js/sponsors.js') }}"></script>
 
 
 <div class="container mt-4 d-flex flex-row">

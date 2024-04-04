@@ -112,12 +112,15 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::put('/admin/sponsors/{cif}', [SponsorController::class, 'actualizar'])->name('actualizarSponsor');
     //Mostrar carreras patrocinables
     Route::get('/admin/sponsors/{cif}/carreras/patrocinar', [CarreraPatrocinadaController::class, 'getCarrerasSinPatrocinar'])->name('mostrarPatrocinioCarreras');
-    //Guardar carrera asegurada
+    //Guardar carrera patrocinada
     Route::post('/admin/sponsors/carreras/guardarPatrocinio', [CarreraPatrocinadaController::class, 'saveCarreraPatrocinada'])->name('guardarCarreraPatrocinada');
     //Carreras aseguradas PDF:
     Route::post('/admin/asseguradoras/carreras/facturaAseguración', [CarreraAsseguradaController::class, 'mostrarFacturaAseguradasPDF'])->name('carreras.aseguradasPDF');
     //Carreras aseguradas 
     Route::get('/admin/asseguradoras/{cif}/carreras/patrocinadas', [SponsorController::class, 'getCarrerasPatrocinadas'])->name('carreras.patrocinadas');
+    //Toggle sponsor destacado
+    Route::put('/admin/sponsors/{cif}/toggle', [SponsorController::class, 'toggleHabilitado'])->name('toggleHabilitadoSponsor');
+
 
     //navegacion
     Route::get('/admin/carreras', [CarreraController::class, 'getCarreras'])->name('carreras');
