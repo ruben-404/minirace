@@ -7,13 +7,19 @@ use Illuminate\Http\Request;
 use App\Models\Carrera;
 use App\Models\Inscrito;
 use App\Models\FotoCarrera;
-
+use App\Models\Corredor;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Storage;
-
+use App\Http\Controllers\InscritoController;
 
 class CarreraController extends Controller
 {
+    protected $inscritoController;
+
+    public function __construct(InscritoController $inscritoController)
+    {
+        $this->inscritoController = $inscritoController;
+    }
     public function showHomePage() {
         $carrerasDestacadas = Carrera::orderBy('data', 'desc')->take(5)->get();
         return view('principal.paginas.home', compact('carrerasDestacadas'));
@@ -60,9 +66,102 @@ class CarreraController extends Controller
         return view('admin.carreras.formularios.addCarreras');
     }
 
+    // public function guardar(Request $request)
+    // {
+    //     // Validar los datos del formulario
+    //     $request->validate([
+    //         'nombre' => 'required|string|max:255',
+    //         'descripcion' => 'required|string',
+    //         'desnivell' => 'required|integer',
+    //         'imagen_mapa' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         'maxim_participants' => 'required|integer',
+    //         'habilitado' => 'required|boolean',
+    //         'km' => 'required|numeric',
+    //         'data' => 'required|date',
+    //         'hora' => 'required|date_format:H:i',
+    //         'punt_sortida' => 'required|string',
+    //         'cartell_promocio' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         'preu_asseguradora' => 'required|numeric',
+    //         'preu_patrocinio' => 'required|numeric',
+    //         'preu_inscripcio' => 'required|numeric',
+    //     ]);
+
+
+    //     //fotos
+    //     $imagenMapa = $request->file('imagen_mapa');
+    //     $nombreCIF = $request->input('nom');
+    //     $extension = $imagenMapa->getClientOriginalExtension();
+    //     $imgMapa = 'mapa_' . $nombreCIF . '.' . $extension;
+
+
+    //     $imagenCartel = $request->file('cartell_promocio');
+    //     $extension = $imagenCartel->getClientOriginalExtension();
+    //     $imgCartel = 'cartel_' . $nombreCIF . '.' . $extension;
+
+    //     // Guardar la imagen en la carpeta 'public'
+    //     $imagenMapa->move(public_path('storage/carrerasImages'), $imgMapa);
+    //     $imagenCartel->move(public_path('storage/carrerasImages'), $imgCartel);
+
+
+    //     // Crear una nueva instancia de Carrera y asignar los valores
+    //     $carrera = new Carrera();
+    //     $carrera->nom = $request->nombre;
+    //     $carrera->descripció = $request->descripcion;
+    //     $carrera->desnivell = $request->desnivell;
+    //     $carrera->imatgeMapa = $imgMapa;
+    //     $carrera->maximParticipants = $request->maxim_participants;
+    //     $carrera->habilitado = $request->habilitado;
+    //     $carrera->km = $request->km;
+    //     $carrera->data = $request->data;
+    //     $carrera->hora = $request->hora;
+    //     $carrera->puntSortida = $request->punt_sortida;
+    //     $carrera->cartellPromoció = $imgCartel;
+    //     $carrera->preuAsseguradora = $request->preu_asseguradora;
+    //     $carrera->preuPatrocini = $request->preu_patrocinio;
+    //     $carrera->preuInscripció = $request->preu_inscripcio;
+
+    //     // Guardar la carrera en la base de datos
+    //     $carrera->save();
+
+    //     // Redirigir a la página de lista de carreras u otra página según sea necesario
+    //     return redirect('/admin/carreras');
+    // }
     public function guardar(Request $request)
     {
-        // Validar los datos del formulario
+        $this->validarDatos($request);
+
+        $imgMapa = $this->procesarImagen($request->file('imagen_mapa'), $request->input('nombre'), 'mapa');
+        $imgCartel = $this->procesarImagen($request->file('cartell_promocio'), $request->input('nombre'), 'cartel');
+
+        Carrera::create([
+            'nom' => $request->nombre,
+            'descripció' => $request->descripcion,
+            'desnivell' => $request->desnivell,
+            'imatgeMapa' => $imgMapa,
+            'maximParticipants' => $request->maxim_participants,
+            'habilitado' => $request->habilitado,
+            'km' => $request->km,
+            'data' => $request->data,
+            'hora' => $request->hora,
+            'puntSortida' => $request->punt_sortida,
+            'cartellPromoció' => $imgCartel,
+            'preuAsseguradora' => $request->preu_asseguradora,
+            'preuPatrocini' => $request->preu_patrocinio,
+            'preuInscripció' => $request->preu_inscripcio,
+        ]);
+
+        return redirect('/admin/carreras');
+    }
+
+    private function procesarImagen($imagen, $nombreCIF, $tipo)
+    {
+        $extension = $imagen->getClientOriginalExtension();
+        $nombreArchivo = $tipo . '_' . $nombreCIF . '.' . $extension;
+        $imagen->move(public_path('storage/carrerasImages'), $nombreArchivo);
+        return $nombreArchivo;
+    }
+    private function validarDatos(Request $request)
+    {
         $request->validate([
             'nombre' => 'required|string|max:255',
             'descripcion' => 'required|string',
@@ -79,47 +178,8 @@ class CarreraController extends Controller
             'preu_patrocinio' => 'required|numeric',
             'preu_inscripcio' => 'required|numeric',
         ]);
-
-
-        //fotos
-        $imagenMapa = $request->file('imagen_mapa');
-        $nombreCIF = $request->input('nom');
-        $extension = $imagenMapa->getClientOriginalExtension();
-        $imgMapa = 'mapa_' . $nombreCIF . '.' . $extension;
-
-
-        $imagenCartel = $request->file('cartell_promocio');
-        $extension = $imagenCartel->getClientOriginalExtension();
-        $imgCartel = 'cartel_' . $nombreCIF . '.' . $extension;
-
-        // Guardar la imagen en la carpeta 'public'
-        $imagenMapa->move(public_path('storage/carrerasImages'), $imgMapa);
-        $imagenCartel->move(public_path('storage/carrerasImages'), $imgCartel);
-
-
-        // Crear una nueva instancia de Carrera y asignar los valores
-        $carrera = new Carrera();
-        $carrera->nom = $request->nombre;
-        $carrera->descripció = $request->descripcion;
-        $carrera->desnivell = $request->desnivell;
-        $carrera->imatgeMapa = $imgMapa;
-        $carrera->maximParticipants = $request->maxim_participants;
-        $carrera->habilitado = $request->habilitado;
-        $carrera->km = $request->km;
-        $carrera->data = $request->data;
-        $carrera->hora = $request->hora;
-        $carrera->puntSortida = $request->punt_sortida;
-        $carrera->cartellPromoció = $imgCartel;
-        $carrera->preuAsseguradora = $request->preu_asseguradora;
-        $carrera->preuPatrocini = $request->preu_patrocinio;
-        $carrera->preuInscripció = $request->preu_inscripcio;
-
-        // Guardar la carrera en la base de datos
-        $carrera->save();
-
-        // Redirigir a la página de lista de carreras u otra página según sea necesario
-        return redirect('/admin/carreras');
     }
+
 
     public function editar($id)
     {
@@ -240,12 +300,6 @@ class CarreraController extends Controller
         // Buscar los inscritos para la carrera específica con la relación corredor cargada
         
         $inscritos = Inscrito::with('corredor')->where('idCarrera', $idCarrera)->get();
-        // $inscritos = Inscrito::with('corredor')
-        // ->where('idCarrera', '!=', $idCarrera)
-        // ->orWhereNull('idCarrera')
-        // ->get();
-
-
 
         return view('admin.carreras.participantes', compact('inscritos'));
     }
@@ -279,29 +333,34 @@ class CarreraController extends Controller
 
     // }
     public function infoCarrera($idCarrera)
-    {
-        // Obtener la carrera
-        $carrera = Carrera::findOrFail($idCarrera);
-        
-        // Verificar si el usuario está autenticado y obtener su ID
-        $userId = null;
-        if (auth()->check()) {
-            $user = auth()->user();
-            $userId = $user['DNI'];
-        }
-
-        // Verificar si el usuario está inscrito en esta carrera
-        $estaInscrito = false;
-        if ($userId) {
-            $estaInscrito = $carrera->inscritos()->where('DNIcorredor', $userId)->exists();
-        }
-
-        // Obtener las fotos de la carrera
-        $fotos = $carrera->fotos;
-
-        // Pasar los datos a la vista
-        return view('principal.paginas.infoCarreras', compact('carrera', 'fotos', 'estaInscrito'));
+{
+    // Obtener la carrera
+    $carrera = Carrera::findOrFail($idCarrera);
+    
+    // Verificar si el usuario está autenticado y obtener su ID
+    $userId = null;
+    if (auth()->check()) {
+        $user = auth()->user();
+        $userId = $user['DNI'];
     }
+
+    // Verificar si el usuario está inscrito en esta carrera
+    $estaInscrito = false;
+    if ($userId) {
+        $estaInscrito = $carrera->inscritos()->where('DNIcorredor', $userId)->exists();
+    }
+
+    // Obtener las fotos de la carrera
+    $fotos = $carrera->fotos;
+
+    // Obtener la clasificación de participantes por edad y género
+    $inscritoController = new InscritoController();
+    $clasificacionParticipantes = $inscritoController->clasificarParticipantesPorEdadGenero($idCarrera);
+
+    // Pasar los datos a la vista
+    return view('principal.paginas.infoCarreras', compact('carrera', 'fotos', 'estaInscrito', 'clasificacionParticipantes'));
+}
+
 
 
     public function datosUsuarioNovalidado($id)
@@ -338,6 +397,29 @@ class CarreraController extends Controller
         return view('principal.componentes.carrusel', compact('fotos'));
 
 
+    }
+
+    public function updateDorsalesCorredores(Request $request) {
+        $dorsales = $request->input('numDorsales');
+        $idcarrera = $request->input('carreraid');
+        $inscritosEncontrados = [];
+    
+        foreach ($dorsales as $dorsal) {
+            $inscrito = Inscrito::where('DNIcorredor', $dorsal['dni'])
+                ->where('idCarrera', intval($idcarrera))
+                ->first();
+    
+            if ($inscrito) {
+                try {
+                    $inscrito->numDorsal = intval($dorsal['dorsalnum']);
+                    $inscrito->save();
+                    $inscritosEncontrados[] = $inscrito;
+                } catch(Exception $e) {
+                    return response()->json(['error' => 'Error al procesar la solicitud: ' . $e->getMessage()], 500);
+                }
+            }
+        }
+        return response()->json(['message' => 'Dorsales actualizados correctamente', 'inscritos' => $inscritosEncontrados]);
     }
 
 

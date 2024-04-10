@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Corredor;
 use App\Models\Carrera;
+use App\Models\Inscrito;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -157,6 +158,55 @@ class CorredorController extends Controller
         // Devolver el PDF generado
         return $dompdf->stream('qr_corredor.pdf');
     }
+
+
+    public function generarPDFConQRParaTodos($idCarrera)
+{
+    // Obtener todos los inscritos para la carrera
+    $inscritos = Inscrito::where('idCarrera', $idCarrera)->get();
+
+    // Configurar Dompdf
+    $options = new Options();
+    $options->set('isHtml5ParserEnabled', true);
+    $dompdf = new Dompdf($options);
+
+    // Inicializar el contenido HTML del PDF
+    $html = '';
+
+    // Iterar sobre cada inscrito
+    foreach ($inscritos as $inscrito) {
+        // Obtener información del corredor y la carrera
+        $corredor = Corredor::findOrFail($inscrito->DNIcorredor);
+        $carrera = Carrera::findOrFail($idCarrera);
+
+        // Crear la URL para el inscrito
+        $url = route('inscrito.guardar.tiempo', ['idCarrera' => $idCarrera, 'idCorredor' => $inscrito->DNIcorredor]);
+        
+        // Crear el código QR para la URL
+        $qrCode = QrCode::size(300)->generate($url);
+
+        // Agregar la información del inscrito al HTML
+        $html .= '<h1 style="text-align: center;">' . $carrera->nom . '</h1>';
+        $html .= '<h1 style="text-align: center;">' . $inscrito->numDorsal . '</h1>';
+        $html .= '<div style="text-align: center;">';
+        $html .= '<img src="data:image/png;base64,' . base64_encode($qrCode) . '" alt="QR Code">';
+        $html .= '</div>';
+        $html .= '<h1 style="text-align: center;">' . $corredor->nom . ' ' . $corredor->cognoms . '</h1>';
+
+        // Agregar un salto de página HTML después de cada inscrito
+        $html .= '<div style="page-break-after: always;"></div>';
+    }
+
+    // Cargar el contenido HTML en Dompdf
+    $dompdf->loadHtml($html);
+
+    // Renderizar el PDF
+    $dompdf->render();
+
+    // Devolver el PDF generado
+    return $dompdf->stream('qr_corredores.pdf');
+}
+
     
    
     

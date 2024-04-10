@@ -111,6 +111,40 @@ echo "hola " . ($estaInscrito ? 'Sí' : 'No');
 
             @include('principal.componentes.carrusel')
 
+            <div class="container">
+                <h2>Classificacion</h2>
+                @if(isset($clasificacionParticipantes))
+                    @foreach($clasificacionParticipantes as $clave => $participantes)
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2 class="text-white">{{ $clave }}</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr class="text-white">
+                                            <th>Nombre</th>
+                                            <th>Tiempo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($participantes as $participante)
+                                            <tr>
+                                                <td class="text-white">{{ $participante->corredor->nom }}</td>
+                                                <td class="text-white">{{ $participante->temps }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+            
+
         @else
             
         @endif

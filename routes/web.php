@@ -60,7 +60,9 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     //qr
     Route::get('/generar-pdf-qr/{idCarrera}/{idCorredor}/{numDorsal}', [CorredorController::class, 'generarPDFConQR'])->name('generar.pdf.qr');
     Route::get('/guardar-tiempo/{idCarrera}/{idCorredor}', [InscritoController::class, 'guardarTiempo'])->name('inscrito.guardar.tiempo');
+    Route::get('/generar-pdf-qr/{idCarrera}', [CorredorController::class, 'generarPDFConQRParaTodos'])->name('generar.pdf.qr.todos');
 
+   
 
 
     //add carreras formulario
@@ -78,7 +80,8 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     //PDF corredores
     Route::get('/admin/carreras/{id}/corredorespdf', [CarreraController::class, 'getCorredoresInscritospdf'])->name('corredores.inscritosPDF');
 
-
+    //Actualizar numero de dorsales
+    Route::post('/admin/carreras/actualizar/dorsales', [CarreraController::class, 'updateDorsalesCorredores'])->name('carreras.numdorsales.update');
 
     //ver tabla asseguradoras
     Route::get('/admin/asseguradoras', function () {
@@ -142,6 +145,10 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
 
 //rutas no validado
 Route::get('/apuntarse-carrera-no-validado/{idCarrera}', [CarreraController::class, 'datosUsuarioNovalidado'])->name('apuntarse.carrera.noAutenticado');
+ //clasificados
+ Route::get('/clasificar-participantes/{idCarrera}', [InscritoController::class, 'clasificarParticipantesPorEdadGenero']);
+
+
 
 //Para PRO
 Route::post('/inscribir-usuario-no-validado', [InscritoController::class, 'inscribirUsuarioNoValidado'])->name('inscribirUsuarioNoValidado');
@@ -162,3 +169,7 @@ Route::post('/gestionar-inscripcion-socio-pro', [InscritoController::class, 'ges
 //Para OPEN
 Route::post('/pagar-carrera-open', [InscritoController::class, 'pagarCarreraOPEN'])->name('principal.formularios.pagarCarrera.open');
 Route::post('/gestionar-inscripcion-socio-open', [InscritoController::class, 'gestionarInscripcionSocioOpen'])->name('gestionar.inscripcion.socio.open');
+
+
+//test
+// Route::get('/admin/carreras', [CarreraController::class, 'getCarreras'])->name('carreras');

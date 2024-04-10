@@ -14,6 +14,7 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "nesbot/carbon": "^2.72",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "tecnickcom/tcpdf": "^6.7"
     },
@@ -23,7 +24,7 @@
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
-        "phpunit/phpunit": "^10.1",
+        "phpunit/phpunit": "^10.5",
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {

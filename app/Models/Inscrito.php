@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Inscrito extends Model
 {
     use HasFactory;
+    protected function setKeysForSaveQuery($query)
+    {
+        $query
+            ->where('DNIcorredor', '=', $this->getAttribute('DNIcorredor'))
+            ->where('idCarrera', '=', $this->getAttribute('idCarrera'));
+        return $query;
+    }
     protected $table = 'inscritos';
     protected $fillable = [
         'DNIcorredor',

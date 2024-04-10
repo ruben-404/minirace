@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro de socio</title>
   <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+  <script src="https://www.paypal.com/sdk/js?client-id=AWLRjNZgcsBV_POJ4dOvoukFw6tcEAJ0Flsa8TRcdLNW5VhIYjEYkTXJraBRU2BKm66t_WEPbQF-e9ZG&currency=EUR"></script>
+  <script src="{{ asset('js/paypalSocio.js') }}"></script>
 </head>
   <body>
     <div class="container-fluid">
@@ -15,7 +17,7 @@
           <img src="{{ asset('resources/fondoLogin.png') }}" class="img-fluid h-100" alt="Imagen">
         </div>
         <div class="col-md-6 bg-light full-height-register center-text">
-          <form method="POST" action="{{ route('procesarRegistro') }} ">
+          <form method="POST" action="{{ route('procesarRegistro') }}" id="registrar-socio-form">
           @csrf
             <h1 class="mb-5 text-center">Registro de socio</h1>
             @if ($errors->any())
@@ -84,9 +86,10 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-12 text-center mt-3">
+            <!--<div class="col-md-12 text-center mt-3">
                 <button type="submit" class="btn btn-primary registerButton">Registrarse</button>
-            </div>
+            </div>-->
+            <div id="paypal-button-container"></div>
           </form>
         </div>
       </div>

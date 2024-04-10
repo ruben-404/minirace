@@ -4871,7 +4871,6 @@ class ComposerStaticInit4d3bf0e6999c0bce3d83a8d85c111a59
         'PHPUnit\\Util\\PHP\\AbstractPhpProcess' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/PHP/AbstractPhpProcess.php',
         'PHPUnit\\Util\\PHP\\DefaultPhpProcess' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/PHP/DefaultPhpProcess.php',
         'PHPUnit\\Util\\PHP\\PhpProcessException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Exception/PhpProcessException.php',
-        'PHPUnit\\Util\\PHP\\WindowsPhpProcess' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/PHP/WindowsPhpProcess.php',
         'PHPUnit\\Util\\Reflection' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Reflection.php',
         'PHPUnit\\Util\\Test' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Test.php',
         'PHPUnit\\Util\\ThrowableToStringMapper' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/ThrowableToStringMapper.php',
