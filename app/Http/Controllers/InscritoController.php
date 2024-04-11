@@ -89,14 +89,59 @@ class InscritoController extends Controller
     //     $inscripcion = Inscrito::where('idCarrera', $idCarrera)
     //                             ->where('DNIcorredor', $idCorredor)
     //                             ->firstOrFail();
-    
+
+    //     // Obtener el sexo y la fecha de nacimiento del corredor
+    //     $corredor = Corredor::findOrFail($idCorredor);
+    //     $sexo = $corredor->genere;
+    //     $fechaNacimiento = $corredor->dataNaixement;
+
+    //     // Calcular la edad del corredor
+    //     $edad = Carbon::parse($fechaNacimiento)->age;
+    //     $anioNacimiento = Carbon::parse($fechaNacimiento)->year;
+
+
+    //     // Definir el rango de edad del corredor actual
+    //     $rangoEdad = '';
+    //     if ($edad >= 20 && $edad <= 29) {
+    //         $rangoEdad = '20-29';
+    //     } elseif ($edad >= 30 && $edad <= 39) {
+    //         $rangoEdad = '30-39';
+    //     } elseif ($edad >= 40 && $edad <= 49) {
+    //         $rangoEdad = '40-49';
+    //     } elseif ($edad >= 50 && $edad <= 59) {
+    //         $rangoEdad = '50-59';
+    //     } elseif ($edad >= 60) {
+    //         $rangoEdad = '60-99';
+    //     }
+
+    //     $corredoresFiltrados = Inscrito::where('idCarrera', $idCarrera)
+    //     ->whereNotNull('temps')
+    //     ->whereHas('corredor', function ($query) use ($sexo, $anioNacimiento) {
+    //         $query->where('genere', $sexo)
+    //             ->whereRaw('? BETWEEN YEAR(dataNaixement) AND YEAR(dataNaixement)', [$anioNacimiento]);
+    //     })
+    //     ->get();
+
+    //     // Calcular los puntos según la posición
+    //     $puntos = 0;
+    //     if ($corredoresFiltrados->isEmpty()) {
+    //         $puntos = 1000; // Primer lugar
+    //     } else {
+    //         $posicion = $corredoresFiltrados->count() + 1; // Posición del corredor actual
+    //         if ($posicion < 10) {
+    //             $puntos = 1000 - (($posicion - 1) * 100); // Restar los puntos según la posición
+    //         }
+    //     }
+
+    //     // Actualizar los puntos del corredor
+    //     $corredor->update(['punts' => $puntos]);
+
     //     // Actualizar el campo de tiempo con la hora actual
     //     $inscripcion->update(['temps' => Carbon::now()]);
-    
-    //     // Imprimir un mensaje de confirmación
-    //     return "El tiempo ha sido guardado para el corredor con DNI $idCorredor y la carrera con ID $idCarrera";
-    // }
 
+    //     // Imprimir un mensaje de confirmación
+    //     return "El tiempo ha sido guardado y se han asignado $puntos puntos para el corredor con DNI $idCorredor y la carrera con ID $idCarrera.";
+    // }
 
     public function guardarTiempo($idCarrera, $idCorredor)
     {
@@ -112,8 +157,6 @@ class InscritoController extends Controller
 
         // Calcular la edad del corredor
         $edad = Carbon::parse($fechaNacimiento)->age;
-        $anioNacimiento = Carbon::parse($fechaNacimiento)->year;
-
 
         // Definir el rango de edad del corredor actual
         $rangoEdad = '';
@@ -129,27 +172,59 @@ class InscritoController extends Controller
             $rangoEdad = '60-99';
         }
 
+        // Consulta para obtener los corredores filtrados
         $corredoresFiltrados = Inscrito::where('idCarrera', $idCarrera)
-        ->whereNotNull('temps')
-        ->whereHas('corredor', function ($query) use ($sexo, $anioNacimiento) {
-            $query->where('genere', $sexo)
-                ->whereRaw('? BETWEEN YEAR(dataNaixement) AND YEAR(dataNaixement)', [$anioNacimiento]);
-        })
-        ->get();
+                                        ->whereNotNull('temps')
+                                        ->whereHas('corredor', function ($query) use ($sexo) {
+                                            $query->where('genere', $sexo);
+                                        })
+                                        ->get();
+        
+        $corredoresReales = [];
+
+        foreach ($corredoresFiltrados as $corredorFiltrado) {
+            // Obtener la fecha de nacimiento del corredor filtrado
+            $fechaNacimientoFiltrado = $corredorFiltrado->corredor->dataNaixement;
+            
+            // Calcular la edad del corredor filtrado
+            $edadFiltrado = Carbon::parse($fechaNacimientoFiltrado)->age;
+        
+            // Definir el rango de edad del corredor filtrado
+            $rangoEdadFiltrado = '';
+            if ($edadFiltrado >= 20 && $edadFiltrado <= 29) {
+                $rangoEdadFiltrado = '20-29';
+            } elseif ($edadFiltrado >= 30 && $edadFiltrado <= 39) {
+                $rangoEdadFiltrado = '30-39';
+            } elseif ($edadFiltrado >= 40 && $edadFiltrado <= 49) {
+                $rangoEdadFiltrado = '40-49';
+            } elseif ($edadFiltrado >= 50 && $edadFiltrado <= 59) {
+                $rangoEdadFiltrado = '50-59';
+            } elseif ($edadFiltrado >= 60) {
+                $rangoEdadFiltrado = '60-99';
+            }
+        
+            // Si el rango de edad del corredor filtrado coincide con el del corredor original, agregarlo a corredoresReales
+            if ($rangoEdadFiltrado === $rangoEdad) {
+                $corredoresReales[] = $corredorFiltrado;
+            }
+        }
 
         // Calcular los puntos según la posición
+        $corredoresReales = collect($corredoresReales);
+
         $puntos = 0;
-        if ($corredoresFiltrados->isEmpty()) {
+        if ($corredoresReales->isEmpty()) {
             $puntos = 1000; // Primer lugar
         } else {
-            $posicion = $corredoresFiltrados->count() + 1; // Posición del corredor actual
+            $posicion = $corredoresReales->count() + 1; // Posición del corredor actual
             if ($posicion < 10) {
                 $puntos = 1000 - (($posicion - 1) * 100); // Restar los puntos según la posición
             }
         }
 
         // Actualizar los puntos del corredor
-        $corredor->update(['punts' => $puntos]);
+        $corredor->increment('punts', $puntos);
+
 
         // Actualizar el campo de tiempo con la hora actual
         $inscripcion->update(['temps' => Carbon::now()]);
@@ -157,6 +232,7 @@ class InscritoController extends Controller
         // Imprimir un mensaje de confirmación
         return "El tiempo ha sido guardado y se han asignado $puntos puntos para el corredor con DNI $idCorredor y la carrera con ID $idCarrera.";
     }
+
 
 
     public function clasificarParticipantesPorEdadGenero($idCarrera)
@@ -212,94 +288,94 @@ class InscritoController extends Controller
 
 //FUNCIONES PARA INSCRIPCIONES DE NO VALIDADO OPEN
     
-    public function getOpenNovalidadoPrice(Request $request) {
+public function getOpenNovalidadoPrice(Request $request) {
         
-        $idRace = $request->input('idCarrera');
-        $carrera = Carrera::where('idCarrera', intval($idRace))->first();
-        if($carrera) {
-            $preuInscripcio = $carrera->preuInscripció;
-        }
-
-        $CIFaseg = $request->input('CIFaseguradora');
-        $aseguradora = Asseguradora::where('CIF', $CIFaseg)->first();
-        if($aseguradora) {
-            $preuAseguradora = $aseguradora->preuCursa;
-        }
-
-        $preuFinal = $preuAseguradora + $preuInscripcio;
-
-        return response()->json(['price' => $preuFinal]);
+    $idRace = $request->input('idCarrera');
+    $carrera = Carrera::where('idCarrera', intval($idRace))->first();
+    if($carrera) {
+        $preuInscripcio = $carrera->preuInscripció;
     }
 
-    public function gestionarInscripcionNovalidadoOpen(Request $request) {
-        //Si ya existe un corredor con ese DNI...
-        $existingCorredor = Corredor::where('DNI', $request->input('dni'))->first();
-        if(!$existingCorredor) {
-            //Crear un nuevo corredor para poder inscribirlo
-            $nuevoCorredor = new Corredor();
-            $nuevoCorredor->DNI = $request->input('dni');
-            $nuevoCorredor->password = 'notavailable';
-            $nuevoCorredor->direccio = $request->input('direccion');
-            $nuevoCorredor->nom = $request->input('nombre');
-            $nuevoCorredor->cognoms = $request->input('apellidos');
-            $nuevoCorredor->dataNaixement = $request->input('fechanacimiento');
-            $nuevoCorredor->genere = $request->input('genere');
-            $nuevoCorredor->numeroFederat = null;
-            $nuevoCorredor->tipus = 'OPEN'; 
-            $nuevoCorredor->soci = 0;
-            $nuevoCorredor->punts = 0;
-            // Guardar el nuevo corredor en la base de datos
-            $nuevoCorredor->save();
-        }
-        else if($existingCorredor->tipus === 'PRO') {
-            $existingCorredor->tipus = 'OPEN';
-            $existingCorredor->numeroFederat = null;
-            $existingCorredor->update();
-        }
-        $maxDorsal = Inscrito::join('corredors', 'inscritos.DNIcorredor', '=', 'corredors.DNI')
-            ->where('corredors.tipus', 'OPEN')
-            ->where('inscritos.idCarrera', $request->input('idCarrera'))
-            ->max('inscritos.numDorsal');
-        if ($maxDorsal === null) {
-            $carrera = Carrera::findOrFail($request->input('idCarrera'));
-            $numDorsal = $carrera->maximParticipants + 1;
-        } else {
-            $numDorsal = $maxDorsal + 1;
-        }
-        $nuevaInscripcion = new Inscrito();
-        $nuevaInscripcion->DNIcorredor = $request->input('dni');
-        $nuevaInscripcion->idCarrera = $request->input('idCarrera');
-        $nuevaInscripcion->numDorsal = $numDorsal;
-        $nuevaInscripcion->CIFasseguradora = $request->input('aseguradoraElegida');
-        // Guardar la inscripcion del corredor en la base de datos
-        $nuevaInscripcion->save(); 
-        $datos = [
-            'idCarrera' => $request->input('idCarrera'),
-            'CIFaseguradora' => $request->input('aseguradoraElegida')
-        ];
-        return view('principal/paginas/successOpenNovalidado', ['datos' => $datos]);
+    $CIFaseg = $request->input('CIFaseguradora');
+    $aseguradora = Asseguradora::where('CIF', $CIFaseg)->first();
+    if($aseguradora) {
+        $preuAseguradora = $aseguradora->preuCursa;
     }
-    public function generarFacturaNovalidadoOpen(Request $request) {
-        $idCarrera = $request->query('idCarrera');
-        $CIFaseguradora = $request->query('CIFaseguradora');
 
-        $idCarrera = $request->input('idCarrera');
-        $carrera = Carrera::where('idCarrera', intval($idCarrera))->first();
-        if($carrera) {
-            $preuInscripcio = $carrera->preuInscripció;
-        }
+    $preuFinal = $preuAseguradora + $preuInscripcio;
 
-        $CIFaseguradora = $request->input('CIFaseguradora');
-        $aseguradora = Asseguradora::where('CIF', $CIFaseguradora)->first();
-        if($aseguradora) {
-            $preuAseguradora = $aseguradora->preuCursa;
-        }
-        $precios = [
-            'carrera' => $preuInscripcio,
-            'aseguradora' => $preuAseguradora
-        ];
-        return view('principal/PDFs/facturaOpenNovalidado', ['precios' => $precios]);
+    return response()->json(['price' => $preuFinal]);
+}
+
+public function gestionarInscripcionNovalidadoOpen(Request $request) {
+    //Si ya existe un corredor con ese DNI...
+    $existingCorredor = Corredor::where('DNI', $request->input('dni'))->first();
+    if(!$existingCorredor) {
+        //Crear un nuevo corredor para poder inscribirlo
+        $nuevoCorredor = new Corredor();
+        $nuevoCorredor->DNI = $request->input('dni');
+        $nuevoCorredor->password = 'notavailable';
+        $nuevoCorredor->direccio = $request->input('direccion');
+        $nuevoCorredor->nom = $request->input('nombre');
+        $nuevoCorredor->cognoms = $request->input('apellidos');
+        $nuevoCorredor->dataNaixement = $request->input('fechanacimiento');
+        $nuevoCorredor->genere = $request->input('genere');
+        $nuevoCorredor->numeroFederat = null;
+        $nuevoCorredor->tipus = 'OPEN'; 
+        $nuevoCorredor->soci = 0;
+        $nuevoCorredor->punts = 0;
+        // Guardar el nuevo corredor en la base de datos
+        $nuevoCorredor->save();
     }
+    else if($existingCorredor->tipus === 'PRO') {
+        $existingCorredor->tipus = 'OPEN';
+        $existingCorredor->numeroFederat = null;
+        $existingCorredor->update();
+    }
+    $maxDorsal = Inscrito::join('corredors', 'inscritos.DNIcorredor', '=', 'corredors.DNI')
+        ->where('corredors.tipus', 'OPEN')
+        ->where('inscritos.idCarrera', $request->input('idCarrera'))
+        ->max('inscritos.numDorsal');
+    if ($maxDorsal === null) {
+        $carrera = Carrera::findOrFail($request->input('idCarrera'));
+        $numDorsal = $carrera->maximParticipants + 1;
+    } else {
+        $numDorsal = $maxDorsal + 1;
+    }
+    $nuevaInscripcion = new Inscrito();
+    $nuevaInscripcion->DNIcorredor = $request->input('dni');
+    $nuevaInscripcion->idCarrera = $request->input('idCarrera');
+    $nuevaInscripcion->numDorsal = $numDorsal;
+    $nuevaInscripcion->CIFasseguradora = $request->input('aseguradoraElegida');
+    // Guardar la inscripcion del corredor en la base de datos
+    $nuevaInscripcion->save(); 
+    $datos = [
+        'idCarrera' => $request->input('idCarrera'),
+        'CIFaseguradora' => $request->input('aseguradoraElegida')
+    ];
+    return view('principal/paginas/successOpenNovalidado', ['datos' => $datos]);
+}
+public function generarFacturaNovalidadoOpen(Request $request) {
+    $idCarrera = $request->query('idCarrera');
+    $CIFaseguradora = $request->query('CIFaseguradora');
+
+    $idCarrera = $request->input('idCarrera');
+    $carrera = Carrera::where('idCarrera', intval($idCarrera))->first();
+    if($carrera) {
+        $preuInscripcio = $carrera->preuInscripció;
+    }
+
+    $CIFaseguradora = $request->input('CIFaseguradora');
+    $aseguradora = Asseguradora::where('CIF', $CIFaseguradora)->first();
+    if($aseguradora) {
+        $preuAseguradora = $aseguradora->preuCursa;
+    }
+    $precios = [
+        'carrera' => $preuInscripcio,
+        'aseguradora' => $preuAseguradora
+    ];
+    return view('principal/PDFs/facturaOpenNovalidado', ['precios' => $precios]);
+}
 
 //FUNCIONES PARA INSCRIPCIONES DE NO VALIDADO PRO
 
@@ -520,4 +596,17 @@ class InscritoController extends Controller
 
         return view('principal/PDFs/facturaPro', ['precios' => $precios]);
     }
+
+    function generarClasificacionPDF($idCarrera) {
+        // Crear una instancia del controlador de Inscrito
+        $inscritoController = new InscritoController();
+    
+        // Obtener la clasificación de participantes por edad y género
+        $clasificacionParticipantes = $inscritoController->clasificarParticipantesPorEdadGenero($idCarrera);
+    
+        // Pasar los datos de clasificación a la vista
+        return view('principal.paginas.classificacionPdf', compact('clasificacionParticipantes'));
+    }
+    
+    
 }

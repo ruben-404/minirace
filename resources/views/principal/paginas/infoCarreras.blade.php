@@ -23,11 +23,16 @@ echo "hola " . ($estaInscrito ? 'Sí' : 'No');
                             <!-- Si el usuario ya está inscrito -->
                             <button type="button" class="btn btn-outline-primary" disabled>Ya estás inscrito</button>
                         @elseif ($carrera->data >= $fechaActual)
-                            <!-- Si la carrera aún no ha pasado -->
-                            <form action="{{ route('apuntarse.carrera', $carrera->idCarrera) }}">
-                                @csrf
-                                <button type="submit" class="btn btn-primary">Apuntarse a la carrera</button>
-                            </form>
+                            <!-- Si la carrera aún no ha pasado y no está llena -->
+                            @if (!$llena)
+                                <form action="{{ route('apuntarse.carrera', $carrera->idCarrera) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary">Apuntarse a la carrera</button>
+                                </form>
+                            @else
+                                <!-- Si la carrera está llena -->
+                                <button type="button" class="btn btn-outline-primary" disabled>Carrera llena</button>
+                            @endif
                         @else
                             <!-- Si la carrera ya ha pasado -->
                             <button type="button" class="btn btn-outline-primary" disabled>Apuntarse (Carrera pasada)</button>
@@ -35,19 +40,24 @@ echo "hola " . ($estaInscrito ? 'Sí' : 'No');
                     @else
                         <!-- Si el usuario no está autenticado -->
                         @if ($carrera->data >= $fechaActual)
-                            <!-- Si la carrera aún no ha pasado -->
-                            <form action="{{ route('apuntarse.carrera.noAutenticado', $carrera->idCarrera) }}">
-                                @csrf
-                                <button type="submit" class="btn btn-primary">Apuntarse a la carrera</button>
-                            </form>
+                            <!-- Si la carrera aún no ha pasado y no está llena -->
+                            @if (!$llena)
+                                <form action="{{ route('apuntarse.carrera.noAutenticado', $carrera->idCarrera) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary">Apuntarse a la carrera</button>
+                                </form>
+                            @else
+                                <!-- Si la carrera está llena -->
+                                <button type="button" class="btn btn-outline-primary" disabled>Carrera llena</button>
+                            @endif
                         @else
                             <!-- Si la carrera ya ha pasado -->
                             <button type="button" class="btn btn-outline-primary" disabled>Apuntarse (Carrera pasada)</button>
                         @endif
                     @endauth
                 </div>
-                
             </div>
+            
             
 
         </div>
@@ -143,6 +153,8 @@ echo "hola " . ($estaInscrito ? 'Sí' : 'No');
                     @endforeach
                 @endif
             </div>
+            <a href="{{ route('generar.pdf.clasificacion', ['idCarrera' => $carrera->idCarrera]) }}" class="btn btn-primary">Generar Clasificación en PDF</a>
+
             
 
         @else
