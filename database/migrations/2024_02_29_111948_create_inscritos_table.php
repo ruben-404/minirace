@@ -29,7 +29,7 @@ return new class extends Migration
             $table->integer('numDorsal');
             $table->string('qr')->nullable();
             $table->date('dataArribada')->nullable();
-            $table->integer('temps')->nullable();
+            $table->time('temps')->nullable();
             $table->timestamps();
         });
     }

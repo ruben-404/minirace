@@ -207,7 +207,8 @@ class InscritoController extends Controller
         }
 
         // Actualizar los puntos del corredor
-        $corredor->update(['punts' => $puntos]);
+        $corredor->increment('punts', $puntos);
+
 
         // Actualizar el campo de tiempo con la hora actual
         $inscripcion->update(['temps' => Carbon::now()]);
@@ -271,83 +272,94 @@ class InscritoController extends Controller
 
 //FUNCIONES PARA INSCRIPCIONES DE NO VALIDADO OPEN
     
-    public function getOpenNovalidadoPrice(Request $request) {
+public function getOpenNovalidadoPrice(Request $request) {
         
-        $idRace = $request->input('idCarrera');
-        $carrera = Carrera::where('idCarrera', intval($idRace))->first();
-        if($carrera) {
-            $preuInscripcio = $carrera->preuInscripció;
-        }
-
-    public function gestionarInscripcionNovalidadoOpen(Request $request) {
-        //Si ya existe un corredor con ese DNI...
-        $existingCorredor = Corredor::where('DNI', $request->input('dni'))->first();
-        if(!$existingCorredor) {
-            //Crear un nuevo corredor para poder inscribirlo
-            $nuevoCorredor = new Corredor();
-            $nuevoCorredor->DNI = $request->input('dni');
-            $nuevoCorredor->password = 'notavailable';
-            $nuevoCorredor->direccio = $request->input('direccion');
-            $nuevoCorredor->nom = $request->input('nombre');
-            $nuevoCorredor->cognoms = $request->input('apellidos');
-            $nuevoCorredor->dataNaixement = $request->input('fechanacimiento');
-            $nuevoCorredor->genere = $request->input('genere');
-            $nuevoCorredor->numeroFederat = null;
-            $nuevoCorredor->tipus = 'OPEN'; 
-            $nuevoCorredor->soci = 0;
-            $nuevoCorredor->punts = 0;
-            // Guardar el nuevo corredor en la base de datos
-            $nuevoCorredor->save();
-        }
-        else if($existingCorredor->tipus === 'PRO') {
-            $existingCorredor->tipus = 'OPEN';
-            $existingCorredor->numeroFederat = null;
-            $existingCorredor->update();
-        }
-        $maxDorsal = Inscrito::join('corredors', 'inscritos.DNIcorredor', '=', 'corredors.DNI')
-            ->where('corredors.tipus', 'OPEN')
-            ->where('inscritos.idCarrera', $request->input('idCarrera'))
-            ->max('inscritos.numDorsal');
-        if ($maxDorsal === null) {
-            $carrera = Carrera::findOrFail($request->input('idCarrera'));
-            $numDorsal = $carrera->maximParticipants + 1;
-        } else {
-            $numDorsal = $maxDorsal + 1;
-        }
-        $nuevaInscripcion = new Inscrito();
-        $nuevaInscripcion->DNIcorredor = $request->input('dni');
-        $nuevaInscripcion->idCarrera = $request->input('idCarrera');
-        $nuevaInscripcion->numDorsal = $numDorsal;
-        $nuevaInscripcion->CIFasseguradora = $request->input('aseguradoraElegida');
-        // Guardar la inscripcion del corredor en la base de datos
-        $nuevaInscripcion->save(); 
-        $datos = [
-            'idCarrera' => $request->input('idCarrera'),
-            'CIFaseguradora' => $request->input('aseguradoraElegida')
-        ];
-        return view('principal/paginas/successOpenNovalidado', ['datos' => $datos]);
+    $idRace = $request->input('idCarrera');
+    $carrera = Carrera::where('idCarrera', intval($idRace))->first();
+    if($carrera) {
+        $preuInscripcio = $carrera->preuInscripció;
     }
-    public function generarFacturaNovalidadoOpen(Request $request) {
-        $idCarrera = $request->query('idCarrera');
-        $CIFaseguradora = $request->query('CIFaseguradora');
 
-        $idCarrera = $request->input('idCarrera');
-        $carrera = Carrera::where('idCarrera', intval($idCarrera))->first();
-        if($carrera) {
-            $preuInscripcio = $carrera->preuInscripció;
-        }
-
-        $CIFaseguradora = $request->input('CIFaseguradora');
-        $aseguradora = Asseguradora::where('CIF', $CIFaseguradora)->first();
-        if($aseguradora) {
-            $preuAseguradora = $aseguradora->preuCursa;
-        }
-        $precios = [
-            'carrera' => $preuInscripcio,
-            'aseguradora' => $preuAseguradora
-        ];
-        return view('principal/PDFs/facturaOpenNovalidado', ['precios' => $precios]);
+    $CIFaseg = $request->input('CIFaseguradora');
+    $aseguradora = Asseguradora::where('CIF', $CIFaseg)->first();
+    if($aseguradora) {
+        $preuAseguradora = $aseguradora->preuCursa;
     }
+
+    $preuFinal = $preuAseguradora + $preuInscripcio;
+
+    return response()->json(['price' => $preuFinal]);
+}
+
+public function gestionarInscripcionNovalidadoOpen(Request $request) {
+    //Si ya existe un corredor con ese DNI...
+    $existingCorredor = Corredor::where('DNI', $request->input('dni'))->first();
+    if(!$existingCorredor) {
+        //Crear un nuevo corredor para poder inscribirlo
+        $nuevoCorredor = new Corredor();
+        $nuevoCorredor->DNI = $request->input('dni');
+        $nuevoCorredor->password = 'notavailable';
+        $nuevoCorredor->direccio = $request->input('direccion');
+        $nuevoCorredor->nom = $request->input('nombre');
+        $nuevoCorredor->cognoms = $request->input('apellidos');
+        $nuevoCorredor->dataNaixement = $request->input('fechanacimiento');
+        $nuevoCorredor->genere = $request->input('genere');
+        $nuevoCorredor->numeroFederat = null;
+        $nuevoCorredor->tipus = 'OPEN'; 
+        $nuevoCorredor->soci = 0;
+        $nuevoCorredor->punts = 0;
+        // Guardar el nuevo corredor en la base de datos
+        $nuevoCorredor->save();
+    }
+    else if($existingCorredor->tipus === 'PRO') {
+        $existingCorredor->tipus = 'OPEN';
+        $existingCorredor->numeroFederat = null;
+        $existingCorredor->update();
+    }
+    $maxDorsal = Inscrito::join('corredors', 'inscritos.DNIcorredor', '=', 'corredors.DNI')
+        ->where('corredors.tipus', 'OPEN')
+        ->where('inscritos.idCarrera', $request->input('idCarrera'))
+        ->max('inscritos.numDorsal');
+    if ($maxDorsal === null) {
+        $carrera = Carrera::findOrFail($request->input('idCarrera'));
+        $numDorsal = $carrera->maximParticipants + 1;
+    } else {
+        $numDorsal = $maxDorsal + 1;
+    }
+    $nuevaInscripcion = new Inscrito();
+    $nuevaInscripcion->DNIcorredor = $request->input('dni');
+    $nuevaInscripcion->idCarrera = $request->input('idCarrera');
+    $nuevaInscripcion->numDorsal = $numDorsal;
+    $nuevaInscripcion->CIFasseguradora = $request->input('aseguradoraElegida');
+    // Guardar la inscripcion del corredor en la base de datos
+    $nuevaInscripcion->save(); 
+    $datos = [
+        'idCarrera' => $request->input('idCarrera'),
+        'CIFaseguradora' => $request->input('aseguradoraElegida')
+    ];
+    return view('principal/paginas/successOpenNovalidado', ['datos' => $datos]);
+}
+public function generarFacturaNovalidadoOpen(Request $request) {
+    $idCarrera = $request->query('idCarrera');
+    $CIFaseguradora = $request->query('CIFaseguradora');
+
+    $idCarrera = $request->input('idCarrera');
+    $carrera = Carrera::where('idCarrera', intval($idCarrera))->first();
+    if($carrera) {
+        $preuInscripcio = $carrera->preuInscripció;
+    }
+
+    $CIFaseguradora = $request->input('CIFaseguradora');
+    $aseguradora = Asseguradora::where('CIF', $CIFaseguradora)->first();
+    if($aseguradora) {
+        $preuAseguradora = $aseguradora->preuCursa;
+    }
+    $precios = [
+        'carrera' => $preuInscripcio,
+        'aseguradora' => $preuAseguradora
+    ];
+    return view('principal/PDFs/facturaOpenNovalidado', ['precios' => $precios]);
+}
 
 //FUNCIONES PARA INSCRIPCIONES DE NO VALIDADO PRO
 
@@ -568,7 +580,6 @@ class InscritoController extends Controller
 
         return view('principal/PDFs/facturaPro', ['precios' => $precios]);
     }
-<<<<<<< HEAD
 
     function generarClasificacionPDF($idCarrera) {
         // Crear una instancia del controlador de Inscrito
@@ -582,6 +593,4 @@ class InscritoController extends Controller
     }
     
     
-=======
->>>>>>> f4858785680d2a147bc90f6d299a366785794214
 }
