@@ -135,6 +135,7 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
 
 });
 
+Route::get('/generar-clasificacion-pdf/{idCarrera}', [InscritoController::class, 'generarClasificacionPDF'])->name('generar.pdf.clasificacion');
 
 // //rutas usuario validado no va
 // Route::middleware('auth')->group(function () {

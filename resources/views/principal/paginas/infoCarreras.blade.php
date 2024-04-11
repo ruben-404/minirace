@@ -143,6 +143,8 @@ echo "hola " . ($estaInscrito ? 'Sí' : 'No');
                     @endforeach
                 @endif
             </div>
+            <a href="{{ route('generar.pdf.clasificacion', ['idCarrera' => $carrera->idCarrera]) }}" class="btn btn-primary">Generar Clasificación en PDF</a>
+
             
 
         @else
