@@ -33,6 +33,22 @@ class InscritoController extends Controller
         try{
 
             $dni = $request->input('dni');
+
+            //Comprobación DNI:
+        
+            $dni = strtoupper(trim($dni));
+            if (strlen($dni) !== 9) {
+                return redirect()->route('apuntarse.carrera.noAutenticado', ['idCarrera' => $request->input('idCarrera')])->withErrors(['dni' => 'El DNI no es valido']);
+            }
+            $numero = substr($dni, 0, 8);
+            $letra = substr($dni, 8, 1);
+            $letraCalculada = substr("TRWAGMYFPDXBNJZSQVHLCKE", $numero % 23, 1);
+            if ($letra !== $letraCalculada) {
+                return redirect()->route('apuntarse.carrera.noAutenticado', ['idCarrera' => $request->input('idCarrera')])->withErrors(['dni' => 'El DNI no es valido']);
+            }
+
+            $existingCorredor = Corredor::where('dni', $dni)->first();
+
             $idCarrera = $request->input('idCarrera');
 
             $existingCorredorInscrito = Inscrito::where('DNIcorredor', $dni)->where('idCarrera', $idCarrera)->first();
