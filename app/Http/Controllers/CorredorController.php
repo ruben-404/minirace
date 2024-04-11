@@ -105,7 +105,12 @@ class CorredorController extends Controller
             $nuevoCorredor->save();
 
             // Redirigir a la página de lista de aseguradoras u otra página según sea necesario
-            return redirect('/home/login')->with('success', 'Socio registrado correctamente.');
+            //return redirect('/home/login')->with('success', 'Socio registrado correctamente.');*/
+            $dni = $request->input('dni');
+            $datos = [
+                'DNIcorredor' => $dni
+            ];
+            return view('principal/paginas/successRegistro', ['datos' => $datos]);
         } catch (\Exception $e) {
             // Manejar la excepción y proporcionar una respuesta adecuada
             return redirect()->back()->withInput()->with('error', $e->getMessage());
