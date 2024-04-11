@@ -62,6 +62,20 @@ class CorredorController extends Controller
         return view('principal.formularios.register');
     }
 
+    public function comprobarDNI($dni) {
+        $dni = strtoupper(trim($dni));
+        if (strlen($dni) !== 9) {
+            return false;
+        }
+        $numero = substr($dni, 0, 8);
+        $letra = substr($dni, 8, 1);
+        $letraCalculada = substr("TRWAGMYFPDXBNJZSQVHLCKE", $numero % 23, 1);
+        if ($letra !== $letraCalculada) {
+            return false;
+        }
+        return true;
+    }
+
     public function procesarRegistro(Request $request) {
         $request->validate([
             'dni' => 'required|string|max:255',
@@ -74,18 +88,11 @@ class CorredorController extends Controller
             'numerofederado' => 'nullable|string|max:50',
         ]);
         try{
-            $dni = $request->input('dni');
-
-            //Comprobación DNI:
             
-            $dni = strtoupper(trim($dni));
-            if (strlen($dni) !== 9) {
-                return redirect()->back()->withInput()->withErrors(['dni' => 'El DNI no es valido']);
-            }
-            $numero = substr($dni, 0, 8);
-            $letra = substr($dni, 8, 1);
-            $letraCalculada = substr("TRWAGMYFPDXBNJZSQVHLCKE", $numero % 23, 1);
-            if ($letra !== $letraCalculada) {
+            $dni = $request->input('dni');
+            $valido = $this->comprobarDNI($dni);
+
+            if(!$valido) {
                 return redirect()->back()->withInput()->withErrors(['dni' => 'El DNI no es valido']);
             }
 
@@ -94,6 +101,7 @@ class CorredorController extends Controller
             if ($existingCorredor) {
                 return redirect()->back()->withInput()->withErrors(['dni' => 'Ya existe un corredor con este DNI']);
             }
+            
             $nuevoCorredor = new Corredor();
             $nuevoCorredor->DNI = $dni;
             $nuevoCorredor->password = Hash::make($request->password);
@@ -179,53 +187,49 @@ class CorredorController extends Controller
 
 
     public function generarPDFConQRParaTodos($idCarrera)
-{
-    // Obtener todos los inscritos para la carrera
-    $inscritos = Inscrito::where('idCarrera', $idCarrera)->get();
+    {
+        // Obtener todos los inscritos para la carrera
+        $inscritos = Inscrito::where('idCarrera', $idCarrera)->get();
 
-    // Configurar Dompdf
-    $options = new Options();
-    $options->set('isHtml5ParserEnabled', true);
-    $dompdf = new Dompdf($options);
+        // Configurar Dompdf
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $dompdf = new Dompdf($options);
 
-    // Inicializar el contenido HTML del PDF
-    $html = '';
+        // Inicializar el contenido HTML del PDF
+        $html = '';
 
-    // Iterar sobre cada inscrito
-    foreach ($inscritos as $inscrito) {
-        // Obtener información del corredor y la carrera
-        $corredor = Corredor::findOrFail($inscrito->DNIcorredor);
-        $carrera = Carrera::findOrFail($idCarrera);
+        // Iterar sobre cada inscrito
+        foreach ($inscritos as $inscrito) {
+            // Obtener información del corredor y la carrera
+            $corredor = Corredor::findOrFail($inscrito->DNIcorredor);
+            $carrera = Carrera::findOrFail($idCarrera);
 
-        // Crear la URL para el inscrito
-        $url = route('inscrito.guardar.tiempo', ['idCarrera' => $idCarrera, 'idCorredor' => $inscrito->DNIcorredor]);
-        
-        // Crear el código QR para la URL
-        $qrCode = QrCode::size(300)->generate($url);
+            // Crear la URL para el inscrito
+            $url = route('inscrito.guardar.tiempo', ['idCarrera' => $idCarrera, 'idCorredor' => $inscrito->DNIcorredor]);
+            
+            // Crear el código QR para la URL
+            $qrCode = QrCode::size(300)->generate($url);
 
-        // Agregar la información del inscrito al HTML
-        $html .= '<h1 style="text-align: center;">' . $carrera->nom . '</h1>';
-        $html .= '<h1 style="text-align: center;">' . $inscrito->numDorsal . '</h1>';
-        $html .= '<div style="text-align: center;">';
-        $html .= '<img src="data:image/png;base64,' . base64_encode($qrCode) . '" alt="QR Code">';
-        $html .= '</div>';
-        $html .= '<h1 style="text-align: center;">' . $corredor->nom . ' ' . $corredor->cognoms . '</h1>';
+            // Agregar la información del inscrito al HTML
+            $html .= '<h1 style="text-align: center;">' . $carrera->nom . '</h1>';
+            $html .= '<h1 style="text-align: center;">' . $inscrito->numDorsal . '</h1>';
+            $html .= '<div style="text-align: center;">';
+            $html .= '<img src="data:image/png;base64,' . base64_encode($qrCode) . '" alt="QR Code">';
+            $html .= '</div>';
+            $html .= '<h1 style="text-align: center;">' . $corredor->nom . ' ' . $corredor->cognoms . '</h1>';
 
-        // Agregar un salto de página HTML después de cada inscrito
-        $html .= '<div style="page-break-after: always;"></div>';
-    }
+            // Agregar un salto de página HTML después de cada inscrito
+            $html .= '<div style="page-break-after: always;"></div>';
+        }
 
-    // Cargar el contenido HTML en Dompdf
-    $dompdf->loadHtml($html);
+        // Cargar el contenido HTML en Dompdf
+        $dompdf->loadHtml($html);
 
-    // Renderizar el PDF
-    $dompdf->render();
+        // Renderizar el PDF
+        $dompdf->render();
 
-    // Devolver el PDF generado
-    return $dompdf->stream('qr_corredores.pdf');
-}
-
-    
-   
-    
+        // Devolver el PDF generado
+        return $dompdf->stream('qr_corredores.pdf');
+    }  
 }

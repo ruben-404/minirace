@@ -355,21 +355,31 @@ public function gestionarInscripcionNovalidadoOpen(Request $request) {
     ];
     return view('principal/paginas/successOpenNovalidado', ['datos' => $datos]);
 }
-public function generarFacturaNovalidadoOpen(Request $request) {
-    $idCarrera = $request->query('idCarrera');
-    $CIFaseguradora = $request->query('CIFaseguradora');
-
-    $idCarrera = $request->input('idCarrera');
+public function consultaDePrecioCarrera($idCarrera) {
     $carrera = Carrera::where('idCarrera', intval($idCarrera))->first();
     if($carrera) {
         $preuInscripcio = $carrera->preuInscripció;
     }
-
-    $CIFaseguradora = $request->input('CIFaseguradora');
+    return $preuInscripcio;
+}
+public function consultaDePrecioAseguradora($CIFaseguradora) {
     $aseguradora = Asseguradora::where('CIF', $CIFaseguradora)->first();
     if($aseguradora) {
         $preuAseguradora = $aseguradora->preuCursa;
     }
+    return $preuAseguradora;
+}
+public function generarFacturaNovalidadoOpen(Request $request) {
+    $idCarrera = $request->query('idCarrera');
+    $CIFaseguradora = $request->query('CIFaseguradora');
+    $idCarrera = $request->input('idCarrera');
+
+    $preuInscripcio = $this->consultaDePrecioCarrera($idCarrera);
+
+    $CIFaseguradora = $request->input('CIFaseguradora');
+
+    $preuAseguradora = $this->consultaDePrecioAseguradora($CIFaseguradora);
+
     $precios = [
         'carrera' => $preuInscripcio,
         'aseguradora' => $preuAseguradora
