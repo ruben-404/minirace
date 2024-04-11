@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Carrera;
 use App\Models\Corredor;
 use App\Models\Inscrito;
 use App\Models\Asseguradora;
@@ -193,14 +194,26 @@ class InscritoController extends Controller
     return $clasificacion;
 }
 
+//FUNCIONES PARA INSCRIPCIONES DE NO VALIDADO OPEN
+    
+    public function getOpenNovalidadoPrice(Request $request) {
+        
+        $idRace = $request->input('idCarrera');
+        $carrera = Carrera::where('idCarrera', intval($idRace))->first();
+        if($carrera) {
+            $preuInscripcio = $carrera->preuInscripció;
+        }
 
+        $CIFaseg = $request->input('CIFaseguradora');
+        $aseguradora = Asseguradora::where('CIF', $CIFaseg)->first();
+        if($aseguradora) {
+            $preuAseguradora = $aseguradora->preuCursa;
+        }
 
+        $preuFinal = $preuAseguradora + $preuInscripcio;
 
-
-
-
-
-
+        return response()->json(['price' => $preuFinal]);
+    }
 
     public function gestionarInscripcionNovalidadoOpen(Request $request) {
         //Si ya existe un corredor con ese DNI...
@@ -243,8 +256,48 @@ class InscritoController extends Controller
         $nuevaInscripcion->numDorsal = $numDorsal;
         $nuevaInscripcion->CIFasseguradora = $request->input('aseguradoraElegida');
         // Guardar la inscripcion del corredor en la base de datos
-        $nuevaInscripcion->save();
-        return  redirect()->route('infoCarrera', ['id' => $request->input('idCarrera')]);
+        $nuevaInscripcion->save(); 
+        $datos = [
+            'idCarrera' => $request->input('idCarrera'),
+            'CIFaseguradora' => $request->input('aseguradoraElegida')
+        ];
+        return view('principal/paginas/successOpenNovalidado', ['datos' => $datos]);
+    }
+    public function generarFacturaNovalidadoOpen(Request $request) {
+        $idCarrera = $request->query('idCarrera');
+        $CIFaseguradora = $request->query('CIFaseguradora');
+
+        $idCarrera = $request->input('idCarrera');
+        $carrera = Carrera::where('idCarrera', intval($idCarrera))->first();
+        if($carrera) {
+            $preuInscripcio = $carrera->preuInscripció;
+        }
+
+        $CIFaseguradora = $request->input('CIFaseguradora');
+        $aseguradora = Asseguradora::where('CIF', $CIFaseguradora)->first();
+        if($aseguradora) {
+            $preuAseguradora = $aseguradora->preuCursa;
+        }
+        $precios = [
+            'carrera' => $preuInscripcio,
+            'aseguradora' => $preuAseguradora
+        ];
+        return view('principal/PDFs/facturaOpenNovalidado', ['precios' => $precios]);
+    }
+
+//FUNCIONES PARA INSCRIPCIONES DE NO VALIDADO PRO
+
+    public function getProNovalidadoPrice(Request $request) {
+            
+        $idRace = $request->input('idCarrera');
+        $carrera = Carrera::where('idCarrera', intval($idRace))->first();
+        if($carrera) {
+            $preuInscripcio = $carrera->preuInscripció;
+        }
+
+        $preuFinal = $preuInscripcio;
+
+        return response()->json(['price' => $preuFinal]);
     }
 
     public function gestionarInscripcionNovalidadoPro(Request $request) {
@@ -286,12 +339,28 @@ class InscritoController extends Controller
         $nuevaInscripcion->numDorsal = $numDorsal;
         // Guardar la inscripcion del corredor en la base de datos
         $nuevaInscripcion->save();
-        return  redirect()->route('infoCarrera', ['id' => $request->input('idCarrera')]);
+        $datos = [
+            'idCarrera' => $request->input('idCarrera')
+        ];
+        return view('principal/paginas/successProNovalidado', ['datos' => $datos]);
+    }
+    public function generarFacturaNovalidadoPro(Request $request) {
+        $idCarrera = $request->query('idCarrera');
 
+        $idCarrera = $request->input('idCarrera');
+        $carrera = Carrera::where('idCarrera', intval($idCarrera))->first();
+        if($carrera) {
+            $preuInscripcio = $carrera->preuInscripció;
+        }
+
+        $precios = [
+            'carrera' => $preuInscripcio
+        ];
+
+        return view('principal/PDFs/facturaProNovalidado', ['precios' => $precios]);
     }
     
 
-    //PARTE DE SOCIO REGISTRADO
 
     public function apuntraseCarreraValidado($id)
     {
@@ -306,7 +375,29 @@ class InscritoController extends Controller
             return view('principal.formularios.pagarAsseguradora')->with('aseguradorasDisponibles', $aseguradorasDisponibles)->with('id', $id);
         }
     }
+    
 
+//FUNCIONES PARA INSCRIPCIONES DE SOCIO VALIDADO OPEN
+
+    public function getOpenPrice(Request $request) {
+            
+        $idRace = $request->input('idCarrera');
+        $carrera = Carrera::where('idCarrera', intval($idRace))->first();
+        if($carrera) {
+            $preuInscripcio = $carrera->preuInscripció;
+            $preuInscripcio = $preuInscripcio * 0.8;
+        }
+
+        $CIFaseg = $request->input('CIFaseguradora');
+        $aseguradora = Asseguradora::where('CIF', $CIFaseg)->first();
+        if($aseguradora) {
+            $preuAseguradora = $aseguradora->preuCursa;
+        }
+
+        $preuFinal = $preuAseguradora + $preuInscripcio;
+
+        return response()->json(['price' => $preuFinal]);
+    }
     public function pagarCarreraOPEN(Request $request)
     {
         $user = auth()->user();
@@ -333,7 +424,49 @@ class InscritoController extends Controller
         $nuevaInscripcion->CIFasseguradora = $request->input('aseguradoraElegida');
         // Guardar la inscripcion del corredor en la base de datos
         $nuevaInscripcion->save();
-        return  redirect()->route('infoCarrera', ['id' => $request->input('idCarrera')]);
+        $datos = [
+            'idCarrera' => $request->input('idCarrera'),
+            'CIFaseguradora' => $request->input('aseguradoraElegida')
+        ];
+        return view('principal/paginas/successOpen', ['datos' => $datos]);
+    }
+    public function generarFacturaOpen(Request $request) {
+        $idCarrera = $request->query('idCarrera');
+        $CIFaseguradora = $request->query('CIFaseguradora');
+
+        $idCarrera = $request->input('idCarrera');
+        $carrera = Carrera::where('idCarrera', intval($idCarrera))->first();
+        if($carrera) {
+            $preuInscripcio = $carrera->preuInscripció;
+        }
+
+        $CIFaseguradora = $request->input('CIFaseguradora');
+        $aseguradora = Asseguradora::where('CIF', $CIFaseguradora)->first();
+        if($aseguradora) {
+            $preuAseguradora = $aseguradora->preuCursa;
+        }
+        $precios = [
+            'carrera' => $preuInscripcio,
+            'aseguradora' => $preuAseguradora
+        ];
+        return view('principal/PDFs/facturaOpen', ['precios' => $precios]);
+    }
+
+//FUNCIONES PARA INSCRIPCIONES DE SOCIO VALIDADO PRO
+
+
+    public function getProPrice(Request $request) {
+                
+        $idRace = $request->input('idCarrera');
+        $carrera = Carrera::where('idCarrera', intval($idRace))->first();
+        if($carrera) {
+            $preuInscripcio = $carrera->preuInscripció;
+            $preuInscripcio = $preuInscripcio * 0.8;
+        }
+
+        $preuFinal = $preuInscripcio;
+
+        return response()->json(['price' => $preuFinal]);
     }
     public function gestionarInscripcionSocioPro(Request $request) {
         $maxDorsal = Inscrito::join('corredors', 'inscritos.DNIcorredor', '=', 'corredors.DNI')
@@ -351,7 +484,24 @@ class InscritoController extends Controller
         $nuevaInscripcion->numDorsal = $numDorsal;
         // Guardar la inscripcion del corredor en la base de datos
         $nuevaInscripcion->save();
-        return  redirect()->route('infoCarrera', ['id' => $request->input('idCarrera')]);
+        $datos = [
+            'idCarrera' => $request->input('idCarrera')
+        ];
+        return view('principal/paginas/successPro', ['datos' => $datos]);
     }
-    
+    public function generarFacturaPro(Request $request) {
+        $idCarrera = $request->query('idCarrera');
+
+        $idCarrera = $request->input('idCarrera');
+        $carrera = Carrera::where('idCarrera', intval($idCarrera))->first();
+        if($carrera) {
+            $preuInscripcio = $carrera->preuInscripció;
+        }
+
+        $precios = [
+            'carrera' => $preuInscripcio
+        ];
+
+        return view('principal/PDFs/facturaPro', ['precios' => $precios]);
+    }
 }

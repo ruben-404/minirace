@@ -1,6 +1,5 @@
 $(document).ready(function() {
     setup();
-    console.log("hola");
 });
 function setup(){
     const sortableList = document.getElementById('draggable-list')

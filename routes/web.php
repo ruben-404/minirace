@@ -10,7 +10,7 @@ use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\CarreraAsseguradaController;
 use App\Http\Controllers\CorredorController;
 use App\Http\Controllers\InscritoController;
-
+use App\Http\Controllers\EmpresaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,8 +47,13 @@ Route::get('/home/carreras/{id}', [CarreraController::class, 'infoCarrera'])->na
 
 //register Usuario socio
 Route::get('/home/register', [CorredorController::class, 'paginaRegister'])->name('register');
+//Sacar precio de la empresa
+Route::get('/home/register/preciosocio', [EmpresaController::class, 'getPrecioSocio'])->name('get.socio.price');
+
+
 //Procesar registro socio
 Route::post('/home/procesarRegistro', [CorredorController::class, 'procesarRegistro'])->name('procesarRegistro');
+Route::get('/descargar/pdf/socio', [EmpresaController::class, 'generarFacturaSocio'])->name('generar.factura.socio');
 
 
 //ver tabla carreas
@@ -144,31 +149,43 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
 
 
 //rutas no validado
+
 Route::get('/apuntarse-carrera-no-validado/{idCarrera}', [CarreraController::class, 'datosUsuarioNovalidado'])->name('apuntarse.carrera.noAutenticado');
  //clasificados
  Route::get('/clasificar-participantes/{idCarrera}', [InscritoController::class, 'clasificarParticipantesPorEdadGenero']);
 
-
-
 //Para PRO
 Route::post('/inscribir-usuario-no-validado', [InscritoController::class, 'inscribirUsuarioNoValidado'])->name('inscribirUsuarioNoValidado');
 Route::post('/gestionar-inscripcion-no-validado-pro', [InscritoController::class, 'gestionarInscripcionNovalidadoPro'])->name('gestionar.inscripcion.novalidado.pro');
+Route::get('/obtener/precio/novalidado/pro', [InscritoController::class, 'getProNovalidadoPrice'])->name('get.pro.novalidado.price');
+Route::get('/descargar/pdf/novalidado/pro', [InscritoController::class, 'generarFacturaNovalidadoPro'])->name('generar.factura.novalidado.pro');
+
+
 
 //Para OPEN
 Route::post('/mandar-aseguraciones-carrera-open', [InscritoController::class, 'mandarAseguracionesCarreraOpen'])->name('mandar.aseguraciones.carrera.open');
 Route::post('/gestionar-inscripcion-no-validado-open', [InscritoController::class, 'gestionarInscripcionNovalidadoOpen'])->name('gestionar.inscripcion.novalidado.open');
+Route::get('/obtener/precio/novalidado/open', [InscritoController::class, 'getOpenNovalidadoPrice'])->name('get.open.novalidado.price');
+Route::get('/descargar/pdf/novalidado/open', [InscritoController::class, 'generarFacturaNovalidadoOpen'])->name('generar.factura.novalidado.open');
 
 
 //rutas validado
+
 Route::get('/apuntarse-carrera/{idCarrera}', [InscritoController::class, 'apuntraseCarreraValidado'])->name('apuntarse.carrera');
 
 //Para PRO
 
 Route::post('/gestionar-inscripcion-socio-pro', [InscritoController::class, 'gestionarInscripcionSocioPro'])->name('gestionar.inscripcion.socio.pro');
+Route::get('/obtener/precio/pro', [InscritoController::class, 'getProPrice'])->name('get.pro.price');
+Route::get('/descargar/pdf/pro', [InscritoController::class, 'generarFacturaPro'])->name('generar.factura.pro');
 
 //Para OPEN
 Route::post('/pagar-carrera-open', [InscritoController::class, 'pagarCarreraOPEN'])->name('principal.formularios.pagarCarrera.open');
 Route::post('/gestionar-inscripcion-socio-open', [InscritoController::class, 'gestionarInscripcionSocioOpen'])->name('gestionar.inscripcion.socio.open');
+Route::get('/obtener/precio/open', [InscritoController::class, 'getOpenPrice'])->name('get.open.price');
+Route::get('/descargar/pdf/open', [InscritoController::class, 'generarFacturaOpen'])->name('generar.factura.open');
+
+
 
 
 //test

@@ -89,7 +89,7 @@
             <!--<div class="col-md-12 text-center mt-3">
                 <button type="submit" class="btn btn-primary registerButton">Registrarse</button>
             </div>-->
-            <div id="paypal-button-container"></div>
+            <div id="paypal-button-socio-container" data-url="{{ route('get.socio.price') }}"></div>
           </form>
         </div>
       </div>
