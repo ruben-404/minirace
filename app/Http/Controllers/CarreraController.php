@@ -357,8 +357,13 @@ class CarreraController extends Controller
     $inscritoController = new InscritoController();
     $clasificacionParticipantes = $inscritoController->clasificarParticipantesPorEdadGenero($idCarrera);
 
+    $llena = ($carrera->maximParticipants == $carrera->inscritos->count());
+
+
+
     // Pasar los datos a la vista
-    return view('principal.paginas.infoCarreras', compact('carrera', 'fotos', 'estaInscrito', 'clasificacionParticipantes'));
+    return view('principal.paginas.infoCarreras', compact('carrera', 'fotos', 'estaInscrito', 'clasificacionParticipantes', 'llena'));
+
 }
 
 
