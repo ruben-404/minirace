@@ -135,3 +135,4 @@
 
 </body>
 </html>
+@include('principal.componentes.footer')

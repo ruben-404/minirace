@@ -359,10 +359,15 @@ class CarreraController extends Controller
 
     $llena = ($carrera->maximParticipants == $carrera->inscritos->count());
 
+    // Obtener todos los registros de inscritos que hayan terminado la carrera
+    $registrosTerminados = $carrera->inscritos()
+        ->whereNotNull('temps')
+        ->with('corredor') // Cargar la relación con el corredor
+        ->get();
 
 
     // Pasar los datos a la vista
-    return view('principal.paginas.infoCarreras', compact('carrera', 'fotos', 'estaInscrito', 'clasificacionParticipantes', 'llena'));
+    return view('principal.paginas.infoCarreras', compact('carrera', 'fotos', 'estaInscrito', 'clasificacionParticipantes', 'registrosTerminados'));
 
 }
 

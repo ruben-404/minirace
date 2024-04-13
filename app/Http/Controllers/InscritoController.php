@@ -67,65 +67,6 @@ class InscritoController extends Controller
 
     }
 
-    // public function guardarTiempo($idCarrera, $idCorredor)
-    // {
-    //     // Obtener el registro de inscripción
-    //     $inscripcion = Inscrito::where('idCarrera', $idCarrera)
-    //                             ->where('DNIcorredor', $idCorredor)
-    //                             ->firstOrFail();
-
-    //     // Obtener el sexo y la fecha de nacimiento del corredor
-    //     $corredor = Corredor::findOrFail($idCorredor);
-    //     $sexo = $corredor->genere;
-    //     $fechaNacimiento = $corredor->dataNaixement;
-
-    //     // Calcular la edad del corredor
-    //     $edad = Carbon::parse($fechaNacimiento)->age;
-    //     $anioNacimiento = Carbon::parse($fechaNacimiento)->year;
-
-
-    //     // Definir el rango de edad del corredor actual
-    //     $rangoEdad = '';
-    //     if ($edad >= 20 && $edad <= 29) {
-    //         $rangoEdad = '20-29';
-    //     } elseif ($edad >= 30 && $edad <= 39) {
-    //         $rangoEdad = '30-39';
-    //     } elseif ($edad >= 40 && $edad <= 49) {
-    //         $rangoEdad = '40-49';
-    //     } elseif ($edad >= 50 && $edad <= 59) {
-    //         $rangoEdad = '50-59';
-    //     } elseif ($edad >= 60) {
-    //         $rangoEdad = '60-99';
-    //     }
-
-    //     $corredoresFiltrados = Inscrito::where('idCarrera', $idCarrera)
-    //     ->whereNotNull('temps')
-    //     ->whereHas('corredor', function ($query) use ($sexo, $anioNacimiento) {
-    //         $query->where('genere', $sexo)
-    //             ->whereRaw('? BETWEEN YEAR(dataNaixement) AND YEAR(dataNaixement)', [$anioNacimiento]);
-    //     })
-    //     ->get();
-
-    //     // Calcular los puntos según la posición
-    //     $puntos = 0;
-    //     if ($corredoresFiltrados->isEmpty()) {
-    //         $puntos = 1000; // Primer lugar
-    //     } else {
-    //         $posicion = $corredoresFiltrados->count() + 1; // Posición del corredor actual
-    //         if ($posicion < 10) {
-    //             $puntos = 1000 - (($posicion - 1) * 100); // Restar los puntos según la posición
-    //         }
-    //     }
-
-    //     // Actualizar los puntos del corredor
-    //     $corredor->update(['punts' => $puntos]);
-
-    //     // Actualizar el campo de tiempo con la hora actual
-    //     $inscripcion->update(['temps' => Carbon::now()]);
-
-    //     // Imprimir un mensaje de confirmación
-    //     return "El tiempo ha sido guardado y se han asignado $puntos puntos para el corredor con DNI $idCorredor y la carrera con ID $idCarrera.";
-    // }
 
     public function guardarTiempo($idCarrera, $idCorredor)
     {
@@ -582,14 +523,27 @@ public function generarFacturaNovalidadoOpen(Request $request) {
     }
 
     function generarClasificacionPDF($idCarrera) {
+        // Obtener la carrera por su ID
+        $carrera = Carrera::find($idCarrera);
+        
+        if (!$carrera) {
+            // Manejar el caso donde no se encuentra la carrera con el ID proporcionado
+            return response()->json(['error' => 'Carrera no encontrada'], 404);
+        }
+        
         // Crear una instancia del controlador de Inscrito
         $inscritoController = new InscritoController();
     
         // Obtener la clasificación de participantes por edad y género
         $clasificacionParticipantes = $inscritoController->clasificarParticipantesPorEdadGenero($idCarrera);
+
+        $registrosTerminados = $carrera->inscritos()
+        ->whereNotNull('temps')
+        ->with('corredor') // Cargar la relación con el corredor
+        ->get();
     
-        // Pasar los datos de clasificación a la vista
-        return view('principal.paginas.classificacionPdf', compact('clasificacionParticipantes'));
+        // Pasar los datos de clasificación a la vista junto con la carrera
+        return view('principal.paginas.classificacionPdf', compact('carrera', 'clasificacionParticipantes','registrosTerminados'));
     }
     
     
