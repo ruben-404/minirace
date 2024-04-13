@@ -33,6 +33,22 @@ class InscritoController extends Controller
         try{
 
             $dni = $request->input('dni');
+
+            //Comprobación DNI:
+        
+            $dni = strtoupper(trim($dni));
+            if (strlen($dni) !== 9) {
+                return redirect()->route('apuntarse.carrera.noAutenticado', ['idCarrera' => $request->input('idCarrera')])->withErrors(['dni' => 'El DNI no es valido']);
+            }
+            $numero = substr($dni, 0, 8);
+            $letra = substr($dni, 8, 1);
+            $letraCalculada = substr("TRWAGMYFPDXBNJZSQVHLCKE", $numero % 23, 1);
+            if ($letra !== $letraCalculada) {
+                return redirect()->route('apuntarse.carrera.noAutenticado', ['idCarrera' => $request->input('idCarrera')])->withErrors(['dni' => 'El DNI no es valido']);
+            }
+
+            $existingCorredor = Corredor::where('dni', $dni)->first();
+
             $idCarrera = $request->input('idCarrera');
 
             $existingCorredorInscrito = Inscrito::where('DNIcorredor', $dni)->where('idCarrera', $idCarrera)->first();
@@ -280,21 +296,31 @@ public function gestionarInscripcionNovalidadoOpen(Request $request) {
     ];
     return view('principal/paginas/successOpenNovalidado', ['datos' => $datos]);
 }
-public function generarFacturaNovalidadoOpen(Request $request) {
-    $idCarrera = $request->query('idCarrera');
-    $CIFaseguradora = $request->query('CIFaseguradora');
-
-    $idCarrera = $request->input('idCarrera');
+public function consultaDePrecioCarrera($idCarrera) {
     $carrera = Carrera::where('idCarrera', intval($idCarrera))->first();
     if($carrera) {
         $preuInscripcio = $carrera->preuInscripció;
     }
-
-    $CIFaseguradora = $request->input('CIFaseguradora');
+    return $preuInscripcio;
+}
+public function consultaDePrecioAseguradora($CIFaseguradora) {
     $aseguradora = Asseguradora::where('CIF', $CIFaseguradora)->first();
     if($aseguradora) {
         $preuAseguradora = $aseguradora->preuCursa;
     }
+    return $preuAseguradora;
+}
+public function generarFacturaNovalidadoOpen(Request $request) {
+    $idCarrera = $request->query('idCarrera');
+    $CIFaseguradora = $request->query('CIFaseguradora');
+    $idCarrera = $request->input('idCarrera');
+
+    $preuInscripcio = $this->consultaDePrecioCarrera($idCarrera);
+
+    $CIFaseguradora = $request->input('CIFaseguradora');
+
+    $preuAseguradora = $this->consultaDePrecioAseguradora($CIFaseguradora);
+
     $precios = [
         'carrera' => $preuInscripcio,
         'aseguradora' => $preuAseguradora
