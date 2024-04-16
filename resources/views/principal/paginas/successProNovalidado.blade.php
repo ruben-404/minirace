@@ -21,7 +21,7 @@
                     <h1 class="d-block">Inscrito satisfactoriamente</h1>
                 </div>
                 <div class="col-md-12 mb-2 center-text">
-                    <a href="{{ route('generar.factura.novalidado.pro', ['idCarrera' => $datos['idCarrera']]) }}" class="d-block btn btn-primary">Descargar factura</a>
+                    <a href="{{ route('generar.factura.novalidado.pro', ['idCarrera' => $datos['idCarrera'], 'DNIcorredor' => $datos['DNIcorredor']]) }}" class="d-block btn btn-primary">Descargar factura</a>
                 </div>
                 <div class="col-md-12 mb-2 center-text"> 
                     <a href="/" class="d-block btn btn-primary">Volver al inicio</a>

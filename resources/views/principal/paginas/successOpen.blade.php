@@ -21,7 +21,7 @@
                     <h1 class="d-block">Inscrito satisfactoriamente</h1>
                 </div>
                 <div class="col-md-12 mb-2 center-text">
-                    <a href="{{ route('generar.factura.open', ['idCarrera' => $datos['idCarrera'], 'CIFaseguradora' => $datos['CIFaseguradora']]) }}" class="d-block btn btn-primary">Descargar factura</a>
+                    <a href="{{ route('generar.factura.open', ['idCarrera' => $datos['idCarrera'], 'CIFaseguradora' => $datos['CIFaseguradora'], 'DNIcorredor' => $datos['DNIcorredor']]) }}" class="d-block btn btn-primary">Descargar factura</a>
                 </div>
                 <div class="col-md-12 mb-2 center-text"> 
                     <a href="/" class="d-block btn btn-primary">Volver al inicio</a>

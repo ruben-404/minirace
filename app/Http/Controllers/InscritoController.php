@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Carrera;
 use App\Models\Corredor;
 use App\Models\Inscrito;
+use App\Models\Empresa;
 use App\Models\Asseguradora;
 use App\Models\CarreraAssegurada;
 use Illuminate\Support\Facades\View;
@@ -351,7 +352,8 @@ public function gestionarInscripcionNovalidadoOpen(Request $request) {
     $nuevaInscripcion->save(); 
     $datos = [
         'idCarrera' => $request->input('idCarrera'),
-        'CIFaseguradora' => $request->input('aseguradoraElegida')
+        'CIFaseguradora' => $request->input('aseguradoraElegida'),
+        'DNIcorredor' => $request->input('dni')
     ];
     return view('principal/paginas/successOpenNovalidado', ['datos' => $datos]);
 }
@@ -380,11 +382,17 @@ public function generarFacturaNovalidadoOpen(Request $request) {
 
     $preuAseguradora = $this->consultaDePrecioAseguradora($CIFaseguradora);
 
-    $precios = [
+    $DNIcorredor = $request->query('DNIcorredor');
+    $empresa = Empresa::first();
+    $corredor = Corredor::where('DNI', $DNIcorredor)->first();
+
+    $datos = [
         'carrera' => $preuInscripcio,
-        'aseguradora' => $preuAseguradora
+        'aseguradora' => $preuAseguradora,
+        'empresa' => $empresa,
+        'corredor' => $corredor
     ];
-    return view('principal/PDFs/facturaOpenNovalidado', ['precios' => $precios]);
+    return view('principal/PDFs/facturaOpenNovalidado', ['datos' => $datos]);
 }
 
 //FUNCIONES PARA INSCRIPCIONES DE NO VALIDADO PRO
@@ -442,7 +450,8 @@ public function generarFacturaNovalidadoOpen(Request $request) {
         // Guardar la inscripcion del corredor en la base de datos
         $nuevaInscripcion->save();
         $datos = [
-            'idCarrera' => $request->input('idCarrera')
+            'idCarrera' => $request->input('idCarrera'),
+            'DNIcorredor' => $request->input('dni')
         ];
         return view('principal/paginas/successProNovalidado', ['datos' => $datos]);
     }
@@ -455,11 +464,17 @@ public function generarFacturaNovalidadoOpen(Request $request) {
             $preuInscripcio = $carrera->preuInscripció;
         }
 
-        $precios = [
-            'carrera' => $preuInscripcio
+        $DNIcorredor = $request->query('DNIcorredor');
+        $empresa = Empresa::first();
+        $corredor = Corredor::where('DNI', $DNIcorredor)->first();
+
+        $datos = [
+            'carrera' => $preuInscripcio,
+            'corredor' => $corredor,
+            'empresa' => $empresa
         ];
 
-        return view('principal/PDFs/facturaProNovalidado', ['precios' => $precios]);
+        return view('principal/PDFs/facturaProNovalidado', ['datos' => $datos]);
     }
     
 
@@ -528,7 +543,8 @@ public function generarFacturaNovalidadoOpen(Request $request) {
         $nuevaInscripcion->save();
         $datos = [
             'idCarrera' => $request->input('idCarrera'),
-            'CIFaseguradora' => $request->input('aseguradoraElegida')
+            'CIFaseguradora' => $request->input('aseguradoraElegida'),
+            'DNIcorredor' => $request->input('dni')
         ];
         return view('principal/paginas/successOpen', ['datos' => $datos]);
     }
@@ -547,11 +563,18 @@ public function generarFacturaNovalidadoOpen(Request $request) {
         if($aseguradora) {
             $preuAseguradora = $aseguradora->preuCursa;
         }
-        $precios = [
+
+        $DNIcorredor = $request->query('DNIcorredor');
+        $empresa = Empresa::first();
+        $corredor = Corredor::where('DNI', $DNIcorredor)->first();
+
+        $datos = [
             'carrera' => $preuInscripcio,
-            'aseguradora' => $preuAseguradora
+            'aseguradora' => $preuAseguradora,
+            'corredor' => $corredor,
+            'empresa' => $empresa
         ];
-        return view('principal/PDFs/facturaOpen', ['precios' => $precios]);
+        return view('principal/PDFs/facturaOpen', ['datos' => $datos]);
     }
 
 //FUNCIONES PARA INSCRIPCIONES DE SOCIO VALIDADO PRO
@@ -587,7 +610,8 @@ public function generarFacturaNovalidadoOpen(Request $request) {
         // Guardar la inscripcion del corredor en la base de datos
         $nuevaInscripcion->save();
         $datos = [
-            'idCarrera' => $request->input('idCarrera')
+            'idCarrera' => $request->input('idCarrera'),
+            'DNIcorredor' => $request->input('dni')
         ];
         return view('principal/paginas/successPro', ['datos' => $datos]);
     }
@@ -600,11 +624,17 @@ public function generarFacturaNovalidadoOpen(Request $request) {
             $preuInscripcio = $carrera->preuInscripció;
         }
 
-        $precios = [
-            'carrera' => $preuInscripcio
+        $DNIcorredor = $request->query('DNIcorredor');
+        $empresa = Empresa::first();
+        $corredor = Corredor::where('DNI', $DNIcorredor)->first();
+
+        $datos = [
+            'carrera' => $preuInscripcio,
+            'corredor' => $corredor,
+            'empresa' => $empresa
         ];
 
-        return view('principal/PDFs/facturaPro', ['precios' => $precios]);
+        return view('principal/PDFs/facturaPro', ['datos' => $datos]);
     }
 
     function generarClasificacionPDF($idCarrera) {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Corredor;
 use App\Models\Empresa;
 use Illuminate\Support\Facades\View;
 
@@ -20,12 +21,10 @@ class EmpresaController extends Controller
     public function generarFacturaSocio(Request $request) {
         $DNIcorredor = $request->query('DNIcorredor');
         $empresa = Empresa::first();
-        if ($empresa) {
-            $preuSociAnual = $empresa->preuSociAnual;
-        }
+        $corredor = Corredor::where('DNI', $DNIcorredor)->first();
         $datos = [
-            'DNI' => $DNIcorredor,
-            'preu' => $preuSociAnual
+            'corredor' => $corredor,
+            'empresa' => $empresa
         ];
         return view('principal/PDFs/facturaSocio', ['datos' => $datos]);
     }
