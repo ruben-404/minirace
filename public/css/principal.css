@@ -255,6 +255,10 @@ body{
     width: 500px;
 }
 
+.spon {
+    padding-bottom: 20%;
+}
+
 /* carrusel carrera */
 #carouselExampleControls{
     max-width: 800px;
