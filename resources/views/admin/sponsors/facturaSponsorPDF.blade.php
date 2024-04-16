@@ -35,6 +35,12 @@ $html = '<style>
         </style>';
 
 $html .= '<h1>Factura patrocinador ' . $cif .'</h1>';
+$html .= '<div class="datos">';
+$html .= '<h2>'. $empresa->nom .'</h2>'; 
+$html .= '<p>'. $empresa->CIF .'</p>'; 
+$html .= '<p>'. $empresa->email .'</p>'; 
+$html .= '<p>'. $empresa->direccion .'</p>'; 
+$html .= '</div>';
 $html .= '<table class="table">';
 $html .= '<thead>';
 $html .= '<tr>';
