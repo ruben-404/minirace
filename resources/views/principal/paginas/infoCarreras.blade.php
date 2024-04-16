@@ -193,8 +193,25 @@ echo($sponsors);
                                     </table>
                                 </div>
                             </div>
+                          
+                            
                         @endif
                     @endforeach
+                    <div class="container mt-5">
+                        <div class="row text-white contInfo">
+                            <!-- Otras partes del contenido -->
+                    
+                            <!-- Condición para mostrar el botón si hay registros terminados o clasificación de participantes -->
+                            @if(!empty($registrosTerminados) || !empty($clasificacionParticipantes))
+                            <div class="col-md-12">
+                                <a href="{{ route('generar.pdf.clasificacion', ['idCarrera' => $carrera->idCarrera]) }}" class="btn btn-primary">Generar Clasificación en PDF</a>
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    
+
                 @else
                     <div class="row">
                         <div class="col-md-12">
@@ -204,7 +221,6 @@ echo($sponsors);
                 @endif
 
 
-            <a href="{{ route('generar.pdf.clasificacion', ['idCarrera' => $carrera->idCarrera]) }}" class="btn btn-primary">Generar Clasificación en PDF</a>
 
             
 
@@ -213,7 +229,10 @@ echo($sponsors);
         @endif
 
     </div>
-    <h2>Sponsors</h2>
+    @if(!$sponsors->isEmpty())
+        <h2 class="mt-5">Sponsors</h2>
+    @endif
+
     <div class="container mt-5">
         <div class="row">
             @foreach($sponsors as $sponsor)
