@@ -32,16 +32,36 @@ $html = '<style>
             .table tr:nth-child(odd) td {
                 background-color: #e6e6e6;
             }
+            .datos {
+                margin-top: 20px;
+                margin-bottom: 20px;
+                padding: 10px;
+                border-radius: 5px;
+                margin-right: 20px;
+            }
         </style>';
-
-$html .= '<h1>Factura Registro de socio</h1>';
+$html .= '<h1>Factura de socios:</h1>';
+$html .= '<div class="datos">';
+$html .= '<h2>'. $datos['empresa']['nom'] .'</h2>'; 
+$html .= '<p>'. $datos['empresa']['CIF'] .'</p>'; 
+$html .= '<p>'. $datos['empresa']['email'] .'</p>'; 
+$html .= '<p>'. $datos['empresa']['direccion'] .'</p>'; 
+$html .= '</div>';
+$html .= '<div class="datos">';
+$html .= '<h2>'. $datos['corredor']['nom'] . ' ' . $datos['corredor']['cognoms'] .'</h2>'; 
+$html .= '<p>'. $datos['corredor']['DNI'] .'</p>'; 
+$html .= '<p>'. $datos['corredor']['direccio'] .'</p>'; 
+$html .= '<p>'. $datos['corredor']['dataNaixement'] .'</p>'; 
+$html .= '<p>'. $datos['corredor']['genere'] .'</p>'; 
+$html .= '<p>'. $datos['corredor']['tipus'] .'</p>'; 
+$html .= '</div>';
 $html .= '<table class="table">';
 $html .= '<tbody>';
 $html .= '<tr>';
 $html .= '<th>DNI inscrito</th>';
-$html .= '<td>' . $datos['DNI'] . '</td>';
+$html .= '<td>' . $datos['corredor']['DNI'] . '</td>';
 $html .= '<th>Precio Total</th>';
-$html .= '<td>' . $datos['preu'] . ' €</td>';
+$html .= '<td>' . $datos['empresa']['preuSociAnual'] . ' €</td>';
 $html .= '</tr>';
 $html .= '</tbody>';
 $html .= '</table>';

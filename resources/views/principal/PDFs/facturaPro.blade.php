@@ -32,18 +32,39 @@ $html = '<style>
             .table tr:nth-child(odd) td {
                 background-color: #e6e6e6;
             }
+            .datos {
+                margin-top: 20px;
+                margin-bottom: 20px;
+                padding: 10px;
+                border-radius: 5px;
+                margin-right: 20px;
+            }
         </style>';
 
 $html .= '<h1>Factura inscripción</h1>';
+$html .= '<div class="datos">';
+$html .= '<h2>'. $datos['empresa']['nom'] .'</h2>'; 
+$html .= '<p>'. $datos['empresa']['CIF'] .'</p>'; 
+$html .= '<p>'. $datos['empresa']['email'] .'</p>'; 
+$html .= '<p>'. $datos['empresa']['direccion'] .'</p>'; 
+$html .= '</div>';
+$html .= '<div class="datos">';
+$html .= '<h2>'. $datos['corredor']['nom'] . ' ' . $datos['corredor']['cognoms'] .'</h2>';
+$html .= '<p>'. $datos['corredor']['DNI'] .'</p>'; 
+$html .= '<p>'. $datos['corredor']['direccio'] .'</p>'; 
+$html .= '<p>'. $datos['corredor']['dataNaixement'] .'</p>'; 
+$html .= '<p>'. $datos['corredor']['genere'] .'</p>'; 
+$html .= '<p>'. $datos['corredor']['tipus'] .'</p>'; 
+$html .= '</div>';
 $html .= '<table class="table">';
 $html .= '<tbody>';
 $html .= '<tr>';
 $html .= '<th>Precio de carrera (20% de descuento)</th>';
-$html .= '<td>' . $precios['carrera'] * 0.8 . ' €</td>';
+$html .= '<td>' . $datos['carrera'] * 0.8 . ' €</td>';
 $html .= '</tr>';
 $html .= '</tbody>';
 $html .= '</table>';
-$html .= '<h2>Precio total: ' . $precios['carrera'] * 0.8 . '€</h2>';
+$html .= '<h2>Precio total: ' . $datos['carrera'] * 0.8 . '€</h2>';
 
 // Cargamos el contenido HTML en Dompdf
 $dompdf->loadHtml($html);

@@ -18,6 +18,7 @@ return new class extends Migration
             // Otros campos
             $table->string('nom');
             $table->string('email');
+            $table->string('direccion');
             $table->float('preuPlanaPrincipal');
             $table->float('preuSociAnual');
             $table->timestamps();

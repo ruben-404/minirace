@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CarreraAssegurada;
+use App\Models\Empresa;
 use App\Models\Carrera;
 
 class CarreraAsseguradaController extends Controller
@@ -39,12 +40,13 @@ class CarreraAsseguradaController extends Controller
     public function mostrarFacturaAseguradasPDF(Request $request) {
         $idsCarrera = $request->input('carreras');
         $carreras = Carrera::whereIn('idCarrera', $idsCarrera)->get();
+        $empresa = Empresa::first();
         $cif = $request->input('cif');
         // Ver datos
 
         // echo ($carreras);
         // echo($cif);
 
-        return view('admin.asseguradores.facturaAseguradoraPDF', ['carreras' => $carreras, 'cif' => $cif]);
+        return view('admin.asseguradores.facturaAseguradoraPDF', ['carreras' => $carreras, 'cif' => $cif, 'empresa' => $empresa]);
     }
 }
