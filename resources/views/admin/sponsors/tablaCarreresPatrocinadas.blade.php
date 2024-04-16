@@ -10,7 +10,7 @@
     <div class="row mr-5 carrerasTable">
         <div class="col">
         <div class="d-flex justify-content-between titulo">
-            <h1>Carreras patrocinadas de {{ $carrerasPatrocinadas[0]->cifSponsor }}</h1> 
+            <h1 class="text-white">Carreras patrocinadas de {{ $carrerasPatrocinadas[0]->cifSponsor }}</h1> 
                 <form method="GET" action="{{ route('mostrarPatrocinioCarreras', $carrerasPatrocinadas[0]->cifSponsor) }}">
                     @csrf
                     <button id="btn-add" type="submit" class="btn btn-primary btn-lg rounded-circle">

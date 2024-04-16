@@ -289,6 +289,7 @@ public function gestionarInscripcionNovalidadoOpen(Request $request) {
     $nuevaInscripcion->idCarrera = $request->input('idCarrera');
     $nuevaInscripcion->numDorsal = $numDorsal;
     $nuevaInscripcion->CIFasseguradora = $request->input('aseguradoraElegida');
+    
     // Guardar la inscripcion del corredor en la base de datos
     $nuevaInscripcion->save(); 
     $datos = [
