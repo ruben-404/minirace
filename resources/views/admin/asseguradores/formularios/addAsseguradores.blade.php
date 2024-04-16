@@ -1,5 +1,6 @@
 @include('layouts.adminHeader')
-
+<link rel="stylesheet" href="{{ asset('css/register.css') }}">
+<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -19,20 +20,20 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="cif">CIF</label>
-                                    <input id="cif" type="text" class="form-control" name="cif" required></input>
+                                    <input id="cif" type="text" class="form-control input-line" name="cif" required></input>
                                 </div>
                                 <div class="form-group">
                                     <label for="nombre">Nombre</label>
-                                    <input id="nombre" type="text" class="form-control" name="nombre" required autofocus>
+                                    <input id="nombre" type="text" class="form-control input-line" name="nombre" required autofocus>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="direccion">Adreça</label>
-                                    <input id="direccion" type="text" class="form-control" name="direccion" required>
+                                    <input id="direccion" type="text" class="form-control input-line" name="direccion" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="precio">Precio</label>
-                                    <input id="precio" type="number" class="form-control" name="precio" required>
+                                    <input id="precio" type="number" class="form-control input-line" name="precio" required>
                                 </div>
 
                                 <div class="form-group">
@@ -50,7 +51,7 @@
                             </div>
                         </div>
                         <div class="form-group mb-0">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary submitButton">
                                 Guardar Aseguradora
                             </button>
                         </div>

@@ -11,6 +11,8 @@ use App\Http\Controllers\CarreraAsseguradaController;
 use App\Http\Controllers\CorredorController;
 use App\Http\Controllers\InscritoController;
 use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\CarreraPatrocinadaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -125,6 +127,13 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     //Actualizar sponsor
     Route::put('/admin/sponsors/{cif}', [SponsorController::class, 'actualizar'])->name('actualizarSponsor');
 
+    //Mostrar carreras patrocinables
+    Route::get('/admin/sponsors/{cif}/carreras/patrocinar', [CarreraPatrocinadaController::class, 'getCarrerasSinPatrocinar'])->name('mostrarPatrocinioCarreras');
+    //Guardar carrera patrocinada
+    Route::post('/admin/sponsors/carreras/guardarPatrocinio', [CarreraPatrocinadaController::class, 'saveCarreraPatrocinada'])->name('guardarCarreraPatrocinada');
+    //Carreras aseguradas PDF:
+    Route::post('/admin/asseguradoras/carreras/facturaAseguración', [CarreraAsseguradaController::class, 'mostrarFacturaAseguradasPDF'])->name('carreras.aseguradasPDF');
+
     //navegacion
     Route::get('/admin/carreras', [CarreraController::class, 'getCarreras'])->name('carreras');
     Route::get('/admin/asseguradoras', [AsseguradoraController::class, 'getAsseguradoras'])->name('asseguradoras');
@@ -136,7 +145,10 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
     Route::get('/buscar-asseguradoras', [AsseguradoraController::class, 'buscarAsseguradores'])->name('buscar-asseguradoras');
     Route::get('/buscar-sponsors', [CarreraController::class, 'buscarSponsors'])->name('buscar-sponsors');
 
-
+    //Toggle sponsor destacado
+    Route::put('/admin/sponsors/{cif}/toggle', [SponsorController::class, 'toggleHabilitado'])->name('toggleHabilitadoSponsor');
+    //Carreras aseguradas 
+    Route::get('/admin/asseguradoras/{cif}/carreras/patrocinadas', [SponsorController::class, 'getCarrerasPatrocinadas'])->name('carreras.patrocinadas');
 
 });
 

@@ -11,6 +11,8 @@ use App\Models\Corredor;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\InscritoController;
+use App\Models\CurseSponsor;
+use App\Models\Sponsor;
 
 class CarreraController extends Controller
 {
@@ -332,7 +334,45 @@ class CarreraController extends Controller
     //     return view('principal.paginas.infoCarreras', compact('carrera','fotos'));
 
     // }
-    public function infoCarrera($idCarrera)
+//     public function infoCarrera($idCarrera)
+// {
+//     // Obtener la carrera
+//     $carrera = Carrera::findOrFail($idCarrera);
+    
+//     // Verificar si el usuario está autenticado y obtener su ID
+//     $userId = null;
+//     if (auth()->check()) {
+//         $user = auth()->user();
+//         $userId = $user['DNI'];
+//     }
+
+//     // Verificar si el usuario está inscrito en esta carrera
+//     $estaInscrito = false;
+//     if ($userId) {
+//         $estaInscrito = $carrera->inscritos()->where('DNIcorredor', $userId)->exists();
+//     }
+
+//     // Obtener las fotos de la carrera
+//     $fotos = $carrera->fotos;
+
+//     // Obtener la clasificación de participantes por edad y género
+//     $inscritoController = new InscritoController();
+//     $clasificacionParticipantes = $inscritoController->clasificarParticipantesPorEdadGenero($idCarrera);
+
+//     $llena = ($carrera->maximParticipants == $carrera->inscritos->count());
+
+//     // Obtener todos los registros de inscritos que hayan terminado la carrera
+//     $registrosTerminados = $carrera->inscritos()
+//         ->whereNotNull('temps')
+//         ->with('corredor') // Cargar la relación con el corredor
+//         ->get();
+
+
+//     // Pasar los datos a la vista
+//     return view('principal.paginas.infoCarreras', compact('carrera', 'fotos', 'estaInscrito', 'clasificacionParticipantes', 'registrosTerminados'));
+
+// }
+public function infoCarrera($idCarrera)
 {
     // Obtener la carrera
     $carrera = Carrera::findOrFail($idCarrera);
@@ -359,11 +399,24 @@ class CarreraController extends Controller
 
     $llena = ($carrera->maximParticipants == $carrera->inscritos->count());
 
+    // Obtener todos los registros de inscritos que hayan terminado la carrera
+    $registrosTerminados = $carrera->inscritos()
+        ->whereNotNull('temps')
+        ->with('corredor') // Cargar la relación con el corredor
+        ->get();
 
+    // Obtener los patrocinadores de la carrera
+    $curseSponsors = CurseSponsor::where('idCarrera', $idCarrera)->get();
+    $sponsors = [];
+    foreach ($curseSponsors as $curseSponsor) {
+        $sponsor = Sponsor::where('CIF', $curseSponsor->cifSponsor)->first();
+        if ($sponsor) {
+            $sponsors[] = $sponsor;
+        }
+    }
 
     // Pasar los datos a la vista
-    return view('principal.paginas.infoCarreras', compact('carrera', 'fotos', 'estaInscrito', 'clasificacionParticipantes', 'llena'));
-
+    return view('principal.paginas.infoCarreras', compact('carrera', 'fotos', 'estaInscrito', 'clasificacionParticipantes', 'registrosTerminados', 'sponsors'));
 }
 
 

@@ -6,19 +6,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro de socio</title>
+  <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
   <link rel="stylesheet" href="{{ asset('css/register.css') }}">
 </head>
   <body>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-6 full-height-register ass">
+        <div class="col-md-6 full-height-register">
           <img src="{{ asset('resources/fondoLogin.png') }}" class="img-fluid h-100" alt="Imagen">
         </div>
         <div class="col-md-6 bg-light full-height-register center-text">
           <form method="POST" action="{{ route('inscribirUsuarioNoValidado') }} ">
           @csrf
             <input type="hidden" id="idCarrera" name="idCarrera" value="{{$id}}">
-            <h1 class="mb-5 text-center">Ingresea tus datos</h1> 
+            <h1 class="mb-5 text-center">Ingresa tus datos</h1> 
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -34,7 +35,7 @@
             <div class="col-md-12 mb-2 text-center"> 
                 <input type="text" id="dni" name="dni" placeholder="DNI" class="form-control input-line" required>
             </div>
-            <div class='d-flex flex-column flex-md-row'>
+            <div class='d-flex'>
               <div>
                 <div class="col-md-12 mb-2"> 
                     <label for="nombre">Nombre</label>

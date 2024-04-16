@@ -1,5 +1,7 @@
 @include('layouts.adminHeader')
 <script src="{{ asset('js/carrerasEditar.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('css/register.css') }}">
+<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 
 <div class="container">
     <div class="row justify-content-center">
@@ -21,28 +23,28 @@
                             <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
-                                <input id="nombre" type="text" class="form-control" name="nom" value="{{ $carrera->nom }}" required autofocus>
+                                <input id="nombre" type="text" class="form-control input-line" name="nom" value="{{ $carrera->nom }}" required autofocus>
                             </div>
 
                             <div class="form-group">
                                 <label for="descripcion">Descripción</label>
-                                <textarea id="descripcion" class="form-control" name="descripció" required>{{ $carrera->descripció }}</textarea>
+                                <textarea id="descripcion" class="form-control input-line" name="descripció" required>{{ $carrera->descripció }}</textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="desnivell">Desnivel</label>
-                                <input id="desnivell" type="number" class="form-control" name="desnivell" value="{{ $carrera->desnivell }}" required>
+                                <input id="desnivell" type="number" class="form-control input-line" name="desnivell" value="{{ $carrera->desnivell }}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="maxim_participants">Máximo Participantes</label>
-                                <input id="maxim_participants" type="number" class="form-control" name="maximParticipants" value="{{ $carrera->maximParticipants }}" required>
+                                <input id="maxim_participants" type="number" class="form-control input-line" name="maximParticipants" value="{{ $carrera->maximParticipants }}" required>
                             </div>
                     
 
                         <div class="form-group">
                             <label for="habilitado">Habilitado</label>
-                            <select id="habilitado" class="form-control" name="habilitado" required>
+                            <select id="habilitado" class="form-control input-line" name="habilitado" required>
                                 <option value="1" {{ $carrera->habilitado ? 'selected' : '' }}>Sí</option>
                                 <option value="0" {{ !$carrera->habilitado ? 'selected' : '' }}>No</option>
                             </select>
@@ -50,11 +52,11 @@
 
                         <div class="form-group">
                             <label for="km">Kilómetros</label>
-                            <input id="km" type="number" class="form-control" name="km" value="{{ $carrera->km }}" required>
+                            <input id="km" type="number" class="form-control input-line" name="km" value="{{ $carrera->km }}" required>
                         </div>
                         <div class="form-group">
                             <label for="punt_sortida">Punto de Salida</label>
-                            <input id="punt_sortida" type="text" class="form-control" name="puntSortida" value="{{ $carrera->puntSortida }}" required>
+                            <input id="punt_sortida" type="text" class="form-control input-line" name="puntSortida" value="{{ $carrera->puntSortida }}" required>
                         </div>
 
                         </div>
@@ -63,27 +65,27 @@
 
                         <div class="form-group">
                             <label for="data">Fecha</label>
-                            <input id="data" type="date" class="form-control" name="data" value="{{ $carrera->data }}" required>
+                            <input id="data" type="date" class="form-control input-line" name="data" value="{{ $carrera->data }}" required>
                         </div>
 
                         <div class="form-group">
                             <label for="hora">Hora</label>
-                            <input id="hora" type="time" class="form-control" name="hora" value="{{ old('hora', date('H:i', strtotime($carrera->hora))) }}" required>
+                            <input id="hora" type="time" class="form-control input-line" name="hora" value="{{ old('hora', date('H:i', strtotime($carrera->hora))) }}" required>
                         </div>
 
                         <div class="form-group">
                             <label for="preu_asseguradora">Precio Aseguradora</label>
-                            <input id="preu_asseguradora" type="number" class="form-control" name="preuAsseguradora" value="{{ $carrera->preuAsseguradora }}" required>
+                            <input id="preu_asseguradora" type="number" class="form-control input-line" name="preuAsseguradora" value="{{ $carrera->preuAsseguradora }}" required>
                         </div>
 
                         <div class="form-group">
                             <label for="preu_patrocinio">Precio Patrocinio</label>
-                            <input id="preu_patrocinio" type="number" class="form-control" name="preuPatrocini" value="{{ $carrera->preuPatrocini }}" required>
+                            <input id="preu_patrocinio" type="number" class="form-control input-line" name="preuPatrocini" value="{{ $carrera->preuPatrocini }}" required>
                         </div>
 
                         <div class="form-group">
                             <label for="preu_inscripcio">Precio Inscripción</label>
-                            <input id="preu_inscripcio" type="number" class="form-control" name="preuInscripció" value="{{ $carrera->preuInscripció }}" required>
+                            <input id="preu_inscripcio" type="number" class="form-control input-line" name="preuInscripció" value="{{ $carrera->preuInscripció }}" required>
                         </div>
 
                         <div class="form-group">
@@ -111,7 +113,7 @@
                         @endif
                         
                         <div class="form-group mb-0">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary submitButton">
                                 Actualizar Carrera
                             </button>
                         </div>

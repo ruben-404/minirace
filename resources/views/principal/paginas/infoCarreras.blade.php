@@ -98,7 +98,8 @@ echo "hola " . ($estaInscrito ? 'Sí' : 'No');
                 <div id="collapseThree" class="accordion-collapse collapse desplegableInfo" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                     <div class="accordion-body text-white">
                         <p>Hora: {{ $carrera->hora }}</p>
-                        <p>Fecha: {{ $carrera->data }}</p>
+                        <p>Fecha: {{ \Carbon\Carbon::parse($carrera->data)->format('d/m/Y') }}</p>
+
 
                     </div>
                 </div>
@@ -122,37 +123,86 @@ echo "hola " . ($estaInscrito ? 'Sí' : 'No');
             @include('principal.componentes.carrusel')
 
             <div class="container">
-                <h2>Classificacion</h2>
-                @if(isset($clasificacionParticipantes))
+            @if(isset($registrosTerminados) && count($registrosTerminados) > 0)
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-white">Clasificación General</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="text-white">
+                                <th>Nombre</th>
+                                <th>Hora de Llegada</th>
+                                <th>Tiempo de Llegada</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($registrosTerminados as $registro)
+                                <tr class="text-white">
+                                    <td class="text-white">{{ $registro->corredor->nom }}</td>
+                                    <td class="text-white">{{ $registro->temps }}</td>
+                                    @php
+                                        $horaCarrera = new DateTime($carrera->hora);
+                                        $tiempoParticipante = new DateTime($registro->temps);
+                                        $diferencia = $horaCarrera->diff($tiempoParticipante);
+                                        $tiempoLlegada = $diferencia->format('%H:%I:%S');
+                                    @endphp
+                                    <td class="text-white">{{ $tiempoLlegada }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endif
+
+                @if(isset($clasificacionParticipantes) && count($clasificacionParticipantes) > 0)
                     @foreach($clasificacionParticipantes as $clave => $participantes)
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h2 class="text-white">{{ $clave }}</h2>
+                        @if(count($participantes) > 0)
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h2 class="text-white">Master {{ $clave }}</h2>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr class="text-white">
-                                            <th>Nombre</th>
-                                            <th>Tiempo</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($participantes as $participante)
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr class="text-white">
+                                                <th>Nombre</th>
+                                                <th>Hora de Llegada</th>
+                                                <th>Tiempo de Llegada</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($participantes as $participante)
                                             <tr>
                                                 <td class="text-white">{{ $participante->corredor->nom }}</td>
                                                 <td class="text-white">{{ $participante->temps }}</td>
+                                                @php
+                                                    $horaCarrera = new DateTime($carrera->hora);
+                                                    $tiempoParticipante = new DateTime($participante->temps);
+
+                                                    $diferencia = $horaCarrera->diff($tiempoParticipante);
+                                                    $tiempoLlegada = $diferencia->format('%H:%I:%S');
+                                                @endphp
+                                                <td class="text-white">{{ $tiempoLlegada }}</td>
                                             </tr>
                                         @endforeach
-                                    </tbody>
-                                </table>
+
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     @endforeach
+                @else
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="text-white">No hay registros disponibles.</p>
+                        </div>
+                    </div>
                 @endif
-            </div>
+
             <a href="{{ route('generar.pdf.clasificacion', ['idCarrera' => $carrera->idCarrera]) }}" class="btn btn-primary">Generar Clasificación en PDF</a>
 
             
