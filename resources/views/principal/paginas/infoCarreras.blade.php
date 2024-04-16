@@ -2,7 +2,7 @@
 @php
 // Obtener la fecha actual
 $fechaActual = date('Y-m-d');
-echo "hola " . ($estaInscrito ? 'Sí' : 'No');
+echo($sponsors);
 
 @endphp
 <div class="container mt-5">
@@ -203,6 +203,7 @@ echo "hola " . ($estaInscrito ? 'Sí' : 'No');
                     </div>
                 @endif
 
+
             <a href="{{ route('generar.pdf.clasificacion', ['idCarrera' => $carrera->idCarrera]) }}" class="btn btn-primary">Generar Clasificación en PDF</a>
 
             
@@ -212,5 +213,21 @@ echo "hola " . ($estaInscrito ? 'Sí' : 'No');
         @endif
 
     </div>
+    <h2>Sponsors</h2>
+    <div class="container mt-5">
+        <div class="row">
+            @foreach($sponsors as $sponsor)
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <img src="{{ asset('storage/sponsorsImages/' . $sponsor->logo) }}" class="card-img-top" alt="Logo del sponsor">
+                    <div class="card-body">
+                        <h5 class="card-title text-black">{{ $sponsor->nom }}</h5>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
 </div>
+
 @include('principal.componentes.footer')

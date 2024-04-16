@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\InscritoController;
 use App\Models\CurseSponsor;
 use App\Models\Sponsor;
+use Illuminate\Support\Collection;
+
 
 class CarreraController extends Controller
 {
@@ -406,15 +408,15 @@ public function infoCarrera($idCarrera)
         ->get();
 
     // Obtener los patrocinadores de la carrera
+    // Obtener los patrocinadores de la carrera
     $curseSponsors = CurseSponsor::where('idCarrera', $idCarrera)->get();
-    $sponsors = [];
+    $sponsors = new Collection();
     foreach ($curseSponsors as $curseSponsor) {
         $sponsor = Sponsor::where('CIF', $curseSponsor->cifSponsor)->first();
         if ($sponsor) {
-            $sponsors[] = $sponsor;
+            $sponsors->push($sponsor);
         }
     }
-
     // Pasar los datos a la vista
     return view('principal.paginas.infoCarreras', compact('carrera', 'fotos', 'estaInscrito', 'clasificacionParticipantes', 'registrosTerminados', 'sponsors'));
 }
