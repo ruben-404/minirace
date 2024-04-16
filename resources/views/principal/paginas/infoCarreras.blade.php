@@ -2,7 +2,6 @@
 @php
 // Obtener la fecha actual
 $fechaActual = date('Y-m-d');
-echo($sponsors);
 
 @endphp
 <div class="container mt-5">
@@ -229,11 +228,12 @@ echo($sponsors);
         @endif
 
     </div>
-    @if(!$sponsors->isEmpty())
-        <h2 class="mt-5">Sponsors</h2>
-    @endif
+  
 
-    <div class="container mt-5">
+    <div class="container mt-5 spon">
+        @if(!$sponsors->isEmpty())
+            <h2 class="mt-5 text-white">Sponsors</h2>
+        @endif
         <div class="row">
             @foreach($sponsors as $sponsor)
             <div class="col-md-3 mb-3">
