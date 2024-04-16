@@ -7,14 +7,16 @@
                 <form method="POST" enctype="multipart/form-data" action="{{ route('principal.formularios.pagarCarrera.open')}}">
                     @csrf
                     <div class="form-group mb-0">
-                    <select id="aseguradoraElegida" name="aseguradoraElegida"> 
-                        @foreach ($aseguradorasDisponibles as $carrera)
-                            <option value="{{ $carrera->CIFasseguradora }}">{{ $carrera->asseguradora->nom }} -- {{ $carrera->asseguradora->preuCursa }}€</option>
-                        @endforeach
-                    </select>
+                        <select id="aseguradoraElegida" name="aseguradoraElegida" class="m-3 p-2"> 
+                            @foreach ($aseguradorasDisponibles as $carrera)
+                                <option value="{{ $carrera->CIFasseguradora }}">{{ $carrera->asseguradora->nom }} -- {{ $carrera->asseguradora->preuCursa }}€</option>
+                            @endforeach
+                        </select>
                     </div>
                     <input type="hidden" id="idCarrera" name="idCarrera" value="{{$id}}">
-                    <button type="submit" class="btn btn-primary">Aseguradora elegida</button>
+                    <div class="m-3">
+                        <button type="submit" class="btn btn-primary">Aseguradora elegida</button>
+                    </div>
                 </form>
             </div>
         </div>

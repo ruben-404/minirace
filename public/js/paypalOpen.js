@@ -15,7 +15,7 @@ $(document).ready(function() {
           style:{
             color: 'gold',
             shape: 'pill',
-            label: 'pay',
+            label: 'pay'
           },
           createOrder: function(data, actions) {
             return actions.order.create({

@@ -35,6 +35,10 @@ function setup(){
     
     draggableItems = document.querySelectorAll('tr[draggable="true"]');
     draggableItems.forEach(item => {
+
+        const corredorTipo = item.getAttribute('data-type');
+        item.classList.add(corredorTipo.toLowerCase());
+
         item.addEventListener('dragstart', function(){
             setTimeout(() => item.setAttribute('data-state', 'dragging'), 0);
         });

@@ -5,7 +5,9 @@
     <h2>Tabla de datos</h2>
     <div class="table-responsive">
         <table class="table table-bordered">
-            <h1 class="text-white">Datos para inscribirse a la carrera {{ $id }}</h1>
+            <div class="d-flex justify-content-center">
+                <h1 class="text-white m-4">Datos para inscribirse a la carrera {{ $id }}</h1>
+            </div>
             <tbody>
                 <tr>
                     <td class="text-white">DNI</td>
@@ -13,7 +15,11 @@
                 </tr>
             </tbody>
         </table>
-        <div id="paypal-button-pro-container" data-url="{{ route('get.pro.price') }}"></div>
+        <div class="d-flex justify-content-center m-4">
+            <div class="w-25">
+                <div id="paypal-button-pro-container" data-url="{{ route('get.pro.price') }}"></div>
+            </div>
+        </div>
         <form id="inscripcion-pro-form" method="POST" enctype="multipart/form-data" action="{{ route('gestionar.inscripcion.socio.pro')}}">
             @csrf
             <input type="hidden" id="idCarrera" name="idCarrera" value="{{ $id }}">

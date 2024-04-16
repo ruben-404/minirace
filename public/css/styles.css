@@ -212,3 +212,13 @@ input#imgCarrera {
 .submitButton:hover {
     background-color: #F54958;
 }
+
+tr.pro {
+    background: linear-gradient(to right, #ff8f8b, #fcccd0);
+    border-bottom: solid 1px rgb(163, 163, 163);
+}
+
+tr.open {
+    background: linear-gradient(to right, rgb(150, 246, 150), rgb(219, 249, 219));
+    border-top: solid 1px rgb(163, 163, 163);
+}
