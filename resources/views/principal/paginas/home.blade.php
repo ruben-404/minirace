@@ -22,23 +22,24 @@
             <!-- Slide 1 -->
             <div class="carousel-item active">
                 <img src="storage/homeImages/carousel1.png" class="d-block w-100" alt="First slide">
-                <div class="carousel-caption d-none d-md-block">
+                <div class="carousel-caption d-none d-md-block" aria-label="Este botón lleva a la página donde aparecen todas las carreras disponibles.">
                     <h5 class="TituloCarrusel">COMPETICIÓN <br>DE COCHES RC</h5>
                     <a href="#" class="btn btn-primary botonCarrusel">DESCUBRE MÁS</a>
                 </div>
+
             </div>
             <!-- Slide 2 -->
             <div class="carousel-item">
-                <img src="storage/carrerasImages/cartel_.png" class="d-block w-100" alt="Second slide">
-                <div class="carousel-caption d-none d-md-block">
+                <img src="storage/homeImages/carousel2.png" class="d-block w-100" alt="Second slide">
+                <div class="carousel-caption d-none d-md-block" aria-label="Este botón lleva a la página donde aparecen todas las carreras disponibles.">
                     <h5 class="TituloCarrusel">COMPETICIÓN <br>DE COCHES RC</h5>
                     <a href="#" class="btn btn-primary botonCarrusel" id="botonCarrusel">DESCUBRE MÁS</a>
                 </div>
             </div>
             <!-- Slide 3 -->
             <div class="carousel-item">
-                <img src="storage/homeImages/carousel1.png" class="d-block w-100" alt="Third slide">
-                <div class="carousel-caption d-none d-md-block">
+                <img src="storage/homeImages/carousel3.png" class="d-block w-100" alt="Third slide">
+                <div class="carousel-caption d-none d-md-block" aria-label="Este botón lleva a la página donde aparecen todas las carreras disponibles.">
                     <h5 class="TituloCarrusel">COMPETICIÓN <br>DE COCHES RC</h5>
                     <a href="#" class="btn btn-primary botonCarrusel">DESCUBRE MÁS</a>
                 </div>
@@ -58,7 +59,7 @@
 <div class="container pt-5 contPca">
   <div class="cardsContanier">
     <h1 class="text-center race-title text-white">PRÓXIMAS CARRERAS</h1>
-    <h3 class="text-center race-subtitle text-white">Echa un vistazo a nuestras próximas carreras</h3>
+    <h2 class="text-center race-subtitle text-white">Echa un vistazo a nuestras próximas carreras</h2>
       <div class="row row-cols-1 row-cols-md-4 g-4 overflow-auto contCards">
           @foreach($carrerasDestacadas as $carrera)
           <div class="col">
@@ -66,7 +67,7 @@
                   <img src="{{ asset('storage/carrerasImages/' . $carrera['cartellPromoció']) }}" class="card-img-top" alt="Cartel de la carrera">
                   <div class="card-body">
                       <h5 class="card-title">{{ $carrera['nom'] }}</h5>
-                      <a href="{{ route('infoCarrera', ['id' => $carrera->idCarrera]) }}" class="btn btn-primary">Ver información de la carrera</a>
+                      <a href="{{ route('infoCarrera', ['id' => $carrera->idCarrera]) }}" class="btn btn-primary" aria-label="Este botón lleva a la página informativa de la carrera.">Ver información de la carrera</a>
                   </div>
               </div>
           </div>
@@ -80,52 +81,31 @@
         <h2 id="tituloSponsor">NUESTROS SPONSORS</h2>
         <hr id="barraSponsors"/>
         <div class="demo-row">
-          <div class="container" id="id-sponsors">
-            <div id="sponsor-carousel" class="carousel slide" data-ride="carousel"> 
-              <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <div class="sponsor-feature"><img alt="" src="https://itagroup.hs.llnwd.net/o40/csg/pse-demo/channel-incentive/nucor-logo.svg" class="imgSponsor"/></div>
+            <div class="container" id="id-sponsors">
+                <div id="sponsor-carousel" class="carousel slide" data-ride="carousel"> 
+                    <div class="carousel-inner" role="listbox">
+                        @php
+                          @$highlightedSponsors = App\Models\Sponsor::where('destacat', 1)->get();
+                        @endphp
+                        @foreach($highlightedSponsors->chunk(4) as $chunk)
+                        <div class="item{{ $loop->first ? ' active' : '' }}">
+                            <div class="row">
+                                @foreach($chunk as $sponsor)
+                                <div class="col-sm-3">
+                                    <div class="sponsor-feature" style="width: 100%; height: 120px;"> <!-- Adjust the width and height as needed -->
+                                        <img alt="" src="{{ asset('storage/sponsorsImages/' . $sponsor->logo) }}" class="imgSponsor" style="max-width: 100%; max-height: 100%;"/> <!-- Adjust max-width and max-height as needed -->
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
-                    <div class="col-sm-3">
-                      <div class="sponsor-feature"><img alt="" src="https://itagroup.hs.llnwd.net/o40/csg/pse-demo/channel-incentive/logo-mil.png" class="imgSponsor" /></div>
-                    </div>
-                    <div class="col-sm-3">
-                      <div class="sponsor-feature"><img alt="" src="https://itagroup.hs.llnwd.net/o40/csg/pse-demo/channel-incentive/logo-timberline.jpg" class="imgSponsor" /></div>
-                    </div>
-                    <div class="col-sm-3">
-                      <div class="sponsor-feature"><img alt="" src="https://itagroup.hs.llnwd.net/o40/csg/pse-demo/channel-incentive/logo-ppg.jpg" class="imgSponsor" /></div>
-                    </div>
-                  </div>
                 </div>
-                <div class="item">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <div class="sponsor-feature"><img alt="" src="https://itagroup.hs.llnwd.net/o40/csg/pse-demo/channel-incentive/logos/logo2.jpg" class="imgSponsor" /></div>
-                    </div>
-                    <div class="col-sm-3">
-                      <div class="sponsor-feature"><img alt="" src="https://itagroup.hs.llnwd.net/o40/csg/pse-demo/channel-incentive/logos/logo3.jpg" class="imgSponsor" /></div>
-                    </div>
-                    <div class="col-sm-3">
-                      <div class="sponsor-feature"><img alt="" src="https://itagroup.hs.llnwd.net/o40/csg/pse-demo/channel-incentive/logos/logo4.jpg" class="imgSponsor" /></div>
-                    </div>
-                    <div class="col-sm-3">
-                      <div class="sponsor-feature"><img alt="" src="https://itagroup.hs.llnwd.net/o40/csg/pse-demo/channel-incentive/nucor-logo.svg" class="imgSponsor" /></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <a class="left carousel-control" href="#sponsor-carousel" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-              </a>
-              <a class="right carousel-control" href="#sponsor-carousel" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-              </a>
             </div>
-          </div>
         </div>
     </div>
+</section>
 
 <script>
   $(document).ready(function(){
@@ -135,4 +115,5 @@
 
 </body>
 </html>
+
 @include('principal.componentes.footer')

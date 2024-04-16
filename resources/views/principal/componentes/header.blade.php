@@ -14,20 +14,20 @@
 <body>
     <header class="navbar navbar-dark bg-black py-3">
         <div class="container-fluid d-flex justify-content-between align-items-center">
-    
+            <!-- Wave
             <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
+            -->
             <img src="{{ asset('resources/icons/Logo.png') }}" class="logo img-fluid" alt="Logo Sponsor">
 
             <nav class="navbar navbar-expand headerNav2 d-none d-md-flex"><!-- Oculta en dispositivos pequeños -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="/">Home</a>
+                        <a class="nav-link text-white" aria-label="Este botón lleva a la página principal." href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="/home/carreras">Carreras</a>
+                        <a class="nav-link text-white" aria-label="Este botón lleva a la página donde aparecen todas las carreras." href="/home/carreras">Carreras</a>
                     </li>
                 </ul>
             </nav>
@@ -84,7 +84,6 @@
                     <a class="nav-link" href="/home/carreras">Carreras</a>
                 </li>
                 @auth <!-- Verificar si el usuario está autenticado -->
-                    <li><a class="nav-link" href="#">Mis datos</a></li>
                     <li><a class="nav-link" href="#">Configuración</a></li>
                     <li>
                         <form method="POST" action="{{ route('logout') }}">

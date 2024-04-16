@@ -179,13 +179,10 @@ echo "hola " . ($estaInscrito ? 'Sí' : 'No');
                                                 <td class="text-white">{{ $participante->corredor->nom }}</td>
                                                 <td class="text-white">{{ $participante->temps }}</td>
                                                 @php
-                                                    // Convertir las horas a objetos DateTime
                                                     $horaCarrera = new DateTime($carrera->hora);
                                                     $tiempoParticipante = new DateTime($participante->temps);
 
-                                                    // Calcular la diferencia de tiempo
                                                     $diferencia = $horaCarrera->diff($tiempoParticipante);
-                                                    // Formatear la diferencia de tiempo
                                                     $tiempoLlegada = $diferencia->format('%H:%I:%S');
                                                 @endphp
                                                 <td class="text-white">{{ $tiempoLlegada }}</td>

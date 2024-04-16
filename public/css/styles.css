@@ -204,3 +204,11 @@ input#imgCarrera {
 }
 
   
+.submitButton {
+    border-radius: 5px;
+    background-color: #E14658;
+    border: none;
+}
+.submitButton:hover {
+    background-color: #F54958;
+}

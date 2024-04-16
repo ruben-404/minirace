@@ -1,5 +1,6 @@
 @include('layouts.adminHeader')
-
+<link rel="stylesheet" href="{{ asset('css/register.css') }}">
+<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -12,21 +13,21 @@
                         @method('PUT')
                         <div class="row">
                             <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group col-md-12 mb-2">
                                 <label for="nombre">Nombre</label>
-                                <input id="nombre" type="text" class="form-control" name="nom" value="{{ $sponsor->nom }}" required autofocus>
+                                <input id="nombre" type="text" class="form-control input-line" name="nom" value="{{ $sponsor->nom }}" required autofocus>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group col-md-12 mb-2">
                                 <label for="direccion">Dirección</label>
-                                <input id="direccion" type="text" class="form-control" name="direccion" value="{{ $sponsor->adreça }}" required></input>
+                                <input id="direccion" type="text" class="form-control input-line" name="direccion" value="{{ $sponsor->adreça }}" required></input>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group col-md-12 mb-2">
                                     <label for="logo">Editar logo</label>
-                                    <input id="logo" type="file" class="form-control-file" name="logo" required>
+                                    <input id="logo" type="file" class="form-control-file input-line" name="logo" required>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group col-md-12 mb-2">
                                 <label for="destacado">Destacado</label>
                                 <select id="destacado" class="form-control" name="destacado" required>
                                     <option value="1" {{ $sponsor->destacat ? 'selected' : '' }}>Sí</option>
@@ -35,7 +36,7 @@
                             </div>
 
                             <div class="form-group mb-0">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary submitButton">
                                     Actualizar Sponsor
                                 </button>
                             </div>

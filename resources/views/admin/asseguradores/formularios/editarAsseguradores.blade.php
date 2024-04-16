@@ -1,5 +1,6 @@
 @include('layouts.adminHeader')
-
+<link rel="stylesheet" href="{{ asset('css/register.css') }}">
+<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -19,17 +20,17 @@
                             <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
-                                <input id="nombre" type="text" class="form-control" name="nombre" value="{{ $asseguradora->nom }}" required autofocus>
+                                <input id="nombre" type="text" class="form-control input-line" name="nombre" value="{{ $asseguradora->nom }}" required autofocus>
                             </div>
 
                             <div class="form-group">
                                 <label for="direccion">Dirección</label>
-                                <input id="direccion" type="text" class="form-control" name="direccion" value="{{ $asseguradora->adreça }}" required></input>
+                                <input id="direccion" type="text" class="form-control input-line" name="direccion" value="{{ $asseguradora->adreça }}" required></input>
                             </div>
 
                             <div class="form-group">
                                 <label for="precio">Precio</label>
-                                <input id="precio" type="number" class="form-control" name="precio" value="{{ $asseguradora->preuCursa }}" required>
+                                <input id="precio" type="number" class="form-control input-line" name="precio" value="{{ $asseguradora->preuCursa }}" required>
                             </div>
                             <div class="form-group">
                                     <label for="logo">Editar logo</label>
@@ -44,7 +45,7 @@
                         </div>
 
                         <div class="form-group mb-0">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary submitButton">
                                 Actualizar Aseguradora
                             </button>
                         </div>
