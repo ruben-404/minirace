@@ -2,7 +2,7 @@
 @php
 // Obtener la fecha actual
 $fechaActual = date('Y-m-d');
-echo "hola " . ($estaInscrito ? 'Sí' : 'No');
+echo($sponsors);
 
 @endphp
 <div class="container mt-5">
@@ -193,8 +193,25 @@ echo "hola " . ($estaInscrito ? 'Sí' : 'No');
                                     </table>
                                 </div>
                             </div>
+                          
+                            
                         @endif
                     @endforeach
+                    <div class="container mt-5">
+                        <div class="row text-white contInfo">
+                            <!-- Otras partes del contenido -->
+                    
+                            <!-- Condición para mostrar el botón si hay registros terminados o clasificación de participantes -->
+                            @if(!empty($registrosTerminados) || !empty($clasificacionParticipantes))
+                            <div class="col-md-12">
+                                <a href="{{ route('generar.pdf.clasificacion', ['idCarrera' => $carrera->idCarrera]) }}" class="btn btn-primary">Generar Clasificación en PDF</a>
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    
+
                 @else
                     <div class="row">
                         <div class="col-md-12">
@@ -203,7 +220,7 @@ echo "hola " . ($estaInscrito ? 'Sí' : 'No');
                     </div>
                 @endif
 
-            <a href="{{ route('generar.pdf.clasificacion', ['idCarrera' => $carrera->idCarrera]) }}" class="btn btn-primary">Generar Clasificación en PDF</a>
+
 
             
 
@@ -212,5 +229,24 @@ echo "hola " . ($estaInscrito ? 'Sí' : 'No');
         @endif
 
     </div>
+    @if(!$sponsors->isEmpty())
+        <h2 class="mt-5">Sponsors</h2>
+    @endif
+
+    <div class="container mt-5">
+        <div class="row">
+            @foreach($sponsors as $sponsor)
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <img src="{{ asset('storage/sponsorsImages/' . $sponsor->logo) }}" class="card-img-top" alt="Logo del sponsor">
+                    <div class="card-body">
+                        <h5 class="card-title text-black">{{ $sponsor->nom }}</h5>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
 </div>
+
 @include('principal.componentes.footer')

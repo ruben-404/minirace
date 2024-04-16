@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\InscritoController;
 use App\Models\CurseSponsor;
 use App\Models\Sponsor;
+use Illuminate\Support\Collection;
+
 
 class CarreraController extends Controller
 {
@@ -68,66 +70,6 @@ class CarreraController extends Controller
         return view('admin.carreras.formularios.addCarreras');
     }
 
-    // public function guardar(Request $request)
-    // {
-    //     // Validar los datos del formulario
-    //     $request->validate([
-    //         'nombre' => 'required|string|max:255',
-    //         'descripcion' => 'required|string',
-    //         'desnivell' => 'required|integer',
-    //         'imagen_mapa' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //         'maxim_participants' => 'required|integer',
-    //         'habilitado' => 'required|boolean',
-    //         'km' => 'required|numeric',
-    //         'data' => 'required|date',
-    //         'hora' => 'required|date_format:H:i',
-    //         'punt_sortida' => 'required|string',
-    //         'cartell_promocio' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //         'preu_asseguradora' => 'required|numeric',
-    //         'preu_patrocinio' => 'required|numeric',
-    //         'preu_inscripcio' => 'required|numeric',
-    //     ]);
-
-
-    //     //fotos
-    //     $imagenMapa = $request->file('imagen_mapa');
-    //     $nombreCIF = $request->input('nom');
-    //     $extension = $imagenMapa->getClientOriginalExtension();
-    //     $imgMapa = 'mapa_' . $nombreCIF . '.' . $extension;
-
-
-    //     $imagenCartel = $request->file('cartell_promocio');
-    //     $extension = $imagenCartel->getClientOriginalExtension();
-    //     $imgCartel = 'cartel_' . $nombreCIF . '.' . $extension;
-
-    //     // Guardar la imagen en la carpeta 'public'
-    //     $imagenMapa->move(public_path('storage/carrerasImages'), $imgMapa);
-    //     $imagenCartel->move(public_path('storage/carrerasImages'), $imgCartel);
-
-
-    //     // Crear una nueva instancia de Carrera y asignar los valores
-    //     $carrera = new Carrera();
-    //     $carrera->nom = $request->nombre;
-    //     $carrera->descripció = $request->descripcion;
-    //     $carrera->desnivell = $request->desnivell;
-    //     $carrera->imatgeMapa = $imgMapa;
-    //     $carrera->maximParticipants = $request->maxim_participants;
-    //     $carrera->habilitado = $request->habilitado;
-    //     $carrera->km = $request->km;
-    //     $carrera->data = $request->data;
-    //     $carrera->hora = $request->hora;
-    //     $carrera->puntSortida = $request->punt_sortida;
-    //     $carrera->cartellPromoció = $imgCartel;
-    //     $carrera->preuAsseguradora = $request->preu_asseguradora;
-    //     $carrera->preuPatrocini = $request->preu_patrocinio;
-    //     $carrera->preuInscripció = $request->preu_inscripcio;
-
-    //     // Guardar la carrera en la base de datos
-    //     $carrera->save();
-
-    //     // Redirigir a la página de lista de carreras u otra página según sea necesario
-    //     return redirect('/admin/carreras');
-    // }
     public function guardar(Request $request)
     {
         $this->validarDatos($request);
@@ -324,54 +266,6 @@ class CarreraController extends Controller
         return view('principal.paginas.paginaCarreras', compact('carreras'));
     }
 
-
-    // public function infoCarrera($idCarrera)
-    // {
-    //     $carrera = Carrera::findOrFail($idCarrera);
-    //     $carrera = Carrera::find($idCarrera);
-    //     $fotos = $carrera->fotos;
-
-    //     return view('principal.paginas.infoCarreras', compact('carrera','fotos'));
-
-    // }
-//     public function infoCarrera($idCarrera)
-// {
-//     // Obtener la carrera
-//     $carrera = Carrera::findOrFail($idCarrera);
-    
-//     // Verificar si el usuario está autenticado y obtener su ID
-//     $userId = null;
-//     if (auth()->check()) {
-//         $user = auth()->user();
-//         $userId = $user['DNI'];
-//     }
-
-//     // Verificar si el usuario está inscrito en esta carrera
-//     $estaInscrito = false;
-//     if ($userId) {
-//         $estaInscrito = $carrera->inscritos()->where('DNIcorredor', $userId)->exists();
-//     }
-
-//     // Obtener las fotos de la carrera
-//     $fotos = $carrera->fotos;
-
-//     // Obtener la clasificación de participantes por edad y género
-//     $inscritoController = new InscritoController();
-//     $clasificacionParticipantes = $inscritoController->clasificarParticipantesPorEdadGenero($idCarrera);
-
-//     $llena = ($carrera->maximParticipants == $carrera->inscritos->count());
-
-//     // Obtener todos los registros de inscritos que hayan terminado la carrera
-//     $registrosTerminados = $carrera->inscritos()
-//         ->whereNotNull('temps')
-//         ->with('corredor') // Cargar la relación con el corredor
-//         ->get();
-
-
-//     // Pasar los datos a la vista
-//     return view('principal.paginas.infoCarreras', compact('carrera', 'fotos', 'estaInscrito', 'clasificacionParticipantes', 'registrosTerminados'));
-
-// }
 public function infoCarrera($idCarrera)
 {
     // Obtener la carrera
@@ -406,17 +300,17 @@ public function infoCarrera($idCarrera)
         ->get();
 
     // Obtener los patrocinadores de la carrera
+    // Obtener los patrocinadores de la carrera
     $curseSponsors = CurseSponsor::where('idCarrera', $idCarrera)->get();
-    $sponsors = [];
+    $sponsors = new Collection();
     foreach ($curseSponsors as $curseSponsor) {
         $sponsor = Sponsor::where('CIF', $curseSponsor->cifSponsor)->first();
         if ($sponsor) {
-            $sponsors[] = $sponsor;
+            $sponsors->push($sponsor);
         }
     }
-
     // Pasar los datos a la vista
-    return view('principal.paginas.infoCarreras', compact('carrera', 'fotos', 'estaInscrito', 'clasificacionParticipantes', 'registrosTerminados', 'sponsors'));
+    return view('principal.paginas.infoCarreras', compact('carrera', 'fotos', 'estaInscrito', 'clasificacionParticipantes', 'registrosTerminados', 'sponsors','llena'));
 }
 
 
