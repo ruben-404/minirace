@@ -39,12 +39,13 @@ class CarreraPatrocinadaController extends Controller
     public function mostrarFacturaPatrocinadasPDF(Request $request) {
         $idsCarrera = $request->input('carreras');
         $carreras = Carrera::whereIn('idCarrera', $idsCarrera)->get();
+        $empresa = Empresa::first();
         $cif = $request->input('cif');
         // Ver datos
 
         // echo ($carreras);
         // echo($cif);
 
-        return view('admin.sponsors.facturaSponsorPDF', ['carreras' => $carreras, 'cif' => $cif]);
+        return view('admin.sponsors.facturaSponsorPDF', ['carreras' => $carreras, 'cif' => $cif, 'empresa' => $empresa]);
     }
 }

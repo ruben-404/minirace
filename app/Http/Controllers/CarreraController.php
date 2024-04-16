@@ -25,7 +25,7 @@ class CarreraController extends Controller
         $this->inscritoController = $inscritoController;
     }
     public function showHomePage() {
-        $carrerasDestacadas = Carrera::orderBy('data', 'desc')->take(5)->get();
+        $carrerasDestacadas = Carrera::where('habilitado', 1)->orderBy('data', 'desc')->take(5)->get();
         return view('principal.paginas.home', compact('carrerasDestacadas'));
     }
     
